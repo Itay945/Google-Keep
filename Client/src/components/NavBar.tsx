@@ -57,7 +57,7 @@ function NavBar() {
 
       <div
         ref={sidebarRef}
-        className={`fixed top-0 left- w-64 h-full bg-white text-black flex flex-col p-4 transform ${
+        className={`fixed top-60 left-60 w-64 h-full bg-white text-black flex flex-col p-4 transform ${
           isSidebarOpen ? "translate-x-0" : "-translate-x-full"
         } transition-transform duration-150`}
       >
@@ -65,7 +65,7 @@ function NavBar() {
           className="text-2xl cursor-pointer mb-4 self-end"
           onClick={toggleSidebar}
         >
-          &times;
+          
         </span>
         <Link to="/home" className="mb-2 hover:text-orange-400" >
           Notes
