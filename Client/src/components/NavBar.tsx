@@ -39,9 +39,7 @@ export default function NavBar() {
       <nav className="sticky top-0 z-50 flex items-center bg-white text-white p-4 h-16 border-b border-gray-200 ">
         {/* left side icon and burger */}
         <div className="flex items-center gap-6 justify-start w-40">
-          <span className="cursor-pointer text-2xl text-black" onClick={toggleSidebar}>
-            ☰
-          </span>
+          <span className="cursor-pointer text-2xl text-black" onClick={toggleSidebar}>☰</span>
             <Link to="/">
               <img src={logo} alt="logo" className="w-auto h-9 flex items-center justify-center" />
             </Link>
