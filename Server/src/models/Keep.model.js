@@ -1,6 +1,10 @@
 const e = require('express');
 const mongoose = require('mongoose');
 const keepSchema = mongoose.Schema({
+  pin: {
+    type: Boolean,
+    enum: [true, false],
+  },
   title: {
     type: String,
     maxLength: 1,
