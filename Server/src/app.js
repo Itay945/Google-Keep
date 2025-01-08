@@ -1,16 +1,21 @@
 const express = require('express');
-const cors = require('cors');
-require('dotenv').config();
 const connectDB = require('./config/db');
+const keepsRoutes = require('./routers/keepsRoutes');
+
+require('dotenv').config();
+const cors = require('cors');
 
 const app = express();
+const PORT = process.env.PORT || 3000;
+
 app.use(cors());
 app.use(express.json());
+
+app.use('/keeps', keepsRoutes);
+
 app.get('/', (req, res) => {
   res.json({ message: 'Welcome to my api' });
 });
-
-const PORT = process.env.PORT || 3000;
 
 connectDB()
   .then(() => {
