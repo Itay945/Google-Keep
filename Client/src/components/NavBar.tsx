@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import logo from "../assets/Google_Keep_icon_(2020).svg.png";
 import searchIcon from "../assets/icons8-search-50.png";
 import xIcon from "../assets/x-icon.png";
-function NavBar() {
+export default function NavBar() {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const sidebarRef = useRef(null);
 
@@ -37,7 +37,7 @@ function NavBar() {
     <>
     {/* navbar */}
       <nav className="sticky top-0 z-50 flex justify-between items-center bg-white text-white p-4 h-16 border-b border-gray-200 ">
-        {/* left side icons and burger */}
+        {/* left side icon and burger */}
         <div className="flex items-center gap-6">
           <span className="cursor-pointer text-2xl text-black" onClick={toggleSidebar}>
             ☰
@@ -55,19 +55,13 @@ function NavBar() {
         </div>
         
       </nav>
-
+        {/* side bar */}
       <div
         ref={sidebarRef}
         className={`fixed top-60 left-60 w-64 h-full bg-white text-black flex flex-col p-4 transform ${
           isSidebarOpen ? "translate-x-0" : "-translate-x-full"
-        } transition-transform duration-150`}
-      >
-        <span
-          className="text-2xl cursor-pointer mb-4 self-end"
-          onClick={toggleSidebar}
-        >
-          
-        </span>
+        } transition-transform duration-150`}>
+          {/* side bar links */}
         <Link to="/home" className="mb-2 hover:text-orange-400" >
           Notes
         </Link>
@@ -88,4 +82,3 @@ function NavBar() {
   );
 }
 
-export default NavBar;
