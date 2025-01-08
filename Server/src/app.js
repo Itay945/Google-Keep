@@ -1,6 +1,7 @@
 const express = require('express');
 const connectDB = require('./config/db');
 const keepsRoutes = require('./routers/keepsRoutes');
+const usersRoutes = require('./routers/usersRoutes');
 
 require('dotenv').config();
 const cors = require('cors');
@@ -12,6 +13,7 @@ app.use(cors());
 app.use(express.json());
 
 app.use('/keeps', keepsRoutes);
+app.use('/users', usersRoutes);
 
 app.get('/', (req, res) => {
   res.json({ message: 'Welcome to my api' });
