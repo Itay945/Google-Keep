@@ -34,7 +34,7 @@ function NavBar() {
 
   return (
     <>
-      <nav className="sticky top-0 z-50 flex justify-between items-center bg-white text-white p-4 h-16 ">
+      <nav className="sticky top-0 z-50 flex justify-between items-center bg-white text-white p-4 h-16 border-b">
         <div className="flex items-center gap-6">
           <span className="cursor-pointer text-2xl text-black" onClick={toggleSidebar}>
             ☰
@@ -45,13 +45,16 @@ function NavBar() {
             </Link>
           </div>
         </div>
+        <div className="flex">        
+            <input type="text" placeholder="Search" className="h-24 w-700 border-black z-auto text-black" />
+        </div>
         <div>
         </div>
       </nav>
 
       <div
         ref={sidebarRef}
-        className={`fixed top-0 left-0 w-64 h-full bg-white text-black flex flex-col p-4 transform ${
+        className={`fixed top-0 left- w-64 h-full bg-white text-black flex flex-col p-4 transform ${
           isSidebarOpen ? "translate-x-0" : "-translate-x-full"
         } transition-transform duration-150`}
       >
