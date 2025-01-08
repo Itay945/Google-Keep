@@ -36,6 +36,9 @@ function NavBar() {
     <>
       <nav className="sticky top-0 z-50 flex justify-between items-center bg-gray-800 text-white p-4 h-16">
         <div className="flex items-center gap-6">
+          <span className="cursor-pointer text-2xl text-black" onClick={toggleSidebar}>
+            ☰
+          </span>
           <div className="w-10 h-10 flex items-center justify-center">
             <Link to="/">
               <img src={logo} alt="logo" className="" />
@@ -43,9 +46,6 @@ function NavBar() {
           </div>
         </div>
         <div>
-          <span className="cursor-pointer text-2xl" onClick={toggleSidebar}>
-            ☰
-          </span>
         </div>
       </nav>
 
@@ -61,19 +61,19 @@ function NavBar() {
         >
           &times;
         </span>
-        <Link to="/" className="mb-2 hover:text-orange-400" onClick={closeSidebar}>
+        <Link to="/home" className="mb-2 hover:text-orange-400" >
           Notes
         </Link>
-        <Link to="/searchProfession" className="mb-2 hover:text-orange-400" onClick={closeSidebar}>
+        <Link to="/reminders" className="mb-2 hover:text-orange-400" >
           Reminders
         </Link>
-        <Link to="/categories" className="mb-2 hover:text-orange-400" onClick={closeSidebar}>
+        <Link to="/categories" className="mb-2 hover:text-orange-400" >
           Edit Labels
         </Link>
-        <Link to="/forums" className="mb-2 hover:text-orange-400" onClick={closeSidebar}>
+        <Link to="/forums" className="mb-2 hover:text-orange-400" >
           Archive
         </Link>
-        <Link to="#" className="mb-2 hover:text-orange-400" onClick={closeSidebar}>
+        <Link to="#" className="mb-2 hover:text-orange-400">
           Bin
         </Link>
       </div>
