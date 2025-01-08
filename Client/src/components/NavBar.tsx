@@ -50,7 +50,7 @@ export default function NavBar() {
             {/* searchBar */}
         <div className="flex items-center  h-7 w-700 bg-greySearchBarColor z-auto text-black border-round  py-6 rounded-lg  ">
             <img src={searchIcon} alt="search magnifier" className="h-7 w-7 bg-opacity-40 mr-2"/>        
-        <input type="text" placeholder="Search" className="bg-greySearchBarColor" />
+        <input type="text" placeholder="Search" className="bg-greySearchBarColor border-0 focus:ring-0 " />
         <img src={xIcon} alt="x-icon" className="h-5 w-5 bg-opacity-40 " />
         </div>
         
