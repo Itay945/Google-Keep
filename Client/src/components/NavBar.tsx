@@ -38,7 +38,7 @@ export default function NavBar() {
     {/* navbar */}
       <nav className="sticky top-0 z-50 flex justify-between items-center bg-white text-white p-4 h-16 border-b border-gray-200 ">
         {/* left side icon and burger */}
-        <div className="flex items-center gap-6">
+        <div className="flex items-center gap-6 justify-start">
           <span className="cursor-pointer text-2xl text-black" onClick={toggleSidebar}>
             ☰
           </span>
