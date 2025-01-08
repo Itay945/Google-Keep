@@ -4,6 +4,8 @@ export default {
   theme: {
     colors: {
       'greySearchBarColor': '#F1F3F4',
+      
+      
     },
     extend: {},
   },

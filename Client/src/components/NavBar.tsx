@@ -2,6 +2,7 @@ import { useState, useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
 import logo from "../assets/Google_Keep_icon_(2020).svg.png";
 import searchIcon from "../assets/icons8-search-50.png";
+import xIcon from "../assets/x-icon.png";
 function NavBar() {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const sidebarRef = useRef(null);
@@ -34,7 +35,7 @@ function NavBar() {
 
   return (
     <>
-      <nav className="sticky top-0 z-50 flex justify-between items-center bg-white text-white p-4 h-16 border-b border-color">
+      <nav className="sticky top-0 z-50 flex justify-between items-center bg-white text-white p-4 h-16 border-b border-gray-200 ">
         <div className="flex items-center gap-6">
           <span className="cursor-pointer text-2xl text-black" onClick={toggleSidebar}>
             ☰
@@ -45,9 +46,10 @@ function NavBar() {
         </div>
         <div>
             <div className="flex items-center justify-center">
-        <div className="flex items-center  h-7 w-700 greySearchBarColor border z-auto text-black border-round  py-5 rounded-lg shadow-lg border-opacity-80">
-            <img src={searchIcon} alt="search magnifier" className="h-7 w-7"/>        
-        <input type="text" placeholder="Search" className="" />
+        <div className="flex items-center  h-7 w-700 bg-greySearchBarColor z-auto text-black border-round  py-5 rounded-lg  ">
+            <img src={searchIcon} alt="search magnifier" className="h-7 w-7 bg-opacity-40"/>        
+        <input type="text" placeholder="Search" className="bg-greySearchBarColor" />
+        <img src={xIcon} alt="x-icon" className="h-5 w-5 bg-opacity-40 " />
         </div>
         </div>
         </div>
