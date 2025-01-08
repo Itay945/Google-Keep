@@ -34,7 +34,7 @@ function NavBar() {
 
   return (
     <>
-      <nav className="sticky top-0 z-50 flex justify-between items-center bg-gray-800 text-white p-4 h-16">
+      <nav className="sticky top-0 z-50 flex justify-between items-center bg-white text-white p-4 h-16">
         <div className="flex items-center gap-6">
           <span className="cursor-pointer text-2xl text-black" onClick={toggleSidebar}>
             ☰
@@ -51,9 +51,9 @@ function NavBar() {
 
       <div
         ref={sidebarRef}
-        className={`fixed top-0 left-0 w-64 h-full bg-gray-800 text-white flex flex-col p-4 transform ${
+        className={`fixed top-0 left-0 w-64 h-full bg-white text-black flex flex-col p-4 transform ${
           isSidebarOpen ? "translate-x-0" : "-translate-x-full"
-        } transition-transform duration-300`}
+        } transition-transform duration-150`}
       >
         <span
           className="text-2xl cursor-pointer mb-4 self-end"
@@ -73,7 +73,7 @@ function NavBar() {
         <Link to="/forums" className="mb-2 hover:text-orange-400" >
           Archive
         </Link>
-        <Link to="#" className="mb-2 hover:text-orange-400">
+        <Link to="/bin" className="mb-2 hover:text-orange-400">
           Bin
         </Link>
       </div>
