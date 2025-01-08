@@ -34,6 +34,10 @@ const keepSchema = mongoose.Schema({
       type: Array,
       default: [],
     },
+    author: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'User',
+    },
   },
 });
 
