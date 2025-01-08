@@ -34,12 +34,12 @@ function NavBar() {
 
   return (
     <>
-      <nav className="sticky top-0 z-50 flex justify-between items-center bg-white text-white p-4 h-16">
+      <nav className="sticky top-0 z-50 flex justify-between items-center bg-white text-white p-4 h-16 ">
         <div className="flex items-center gap-6">
           <span className="cursor-pointer text-2xl text-black" onClick={toggleSidebar}>
             ☰
           </span>
-          <div className="w-10 h-10 flex items-center justify-center">
+          <div className="w-7 h-7 flex items-center justify-center">
             <Link to="/">
               <img src={logo} alt="logo" className="" />
             </Link>
