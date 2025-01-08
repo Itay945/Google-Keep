@@ -62,28 +62,19 @@ function NavBar() {
           &times;
         </span>
         <Link to="/" className="mb-2 hover:text-orange-400" onClick={closeSidebar}>
-          בית
+          Notes
         </Link>
         <Link to="/searchProfession" className="mb-2 hover:text-orange-400" onClick={closeSidebar}>
-          חפש מקצוע
+          Reminders
         </Link>
         <Link to="/categories" className="mb-2 hover:text-orange-400" onClick={closeSidebar}>
-          קטגוריות
+          Edit Labels
         </Link>
         <Link to="/forums" className="mb-2 hover:text-orange-400" onClick={closeSidebar}>
-          פורומים
+          Archive
         </Link>
         <Link to="#" className="mb-2 hover:text-orange-400" onClick={closeSidebar}>
-          צ'אטים
-        </Link>
-        <Link to="/userProfile" className="mb-2 hover:text-orange-400" onClick={closeSidebar}>
-          איזור אישי
-        </Link>
-        <Link to="/favorite" className="mb-2 hover:text-orange-400" onClick={closeSidebar}>
-          מועדפים
-        </Link>
-        <Link to="/contactUs" className="mb-2 hover:text-orange-400" onClick={closeSidebar}>
-          צור קשר
+          Bin
         </Link>
       </div>
     </>
