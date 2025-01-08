@@ -2,7 +2,7 @@ import { useState, useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
 import logo from "../assets/Google_Keep_icon_(2020).svg.png";
 import searchIcon from "../assets/icons8-search-50.png";
-import xIcon from "../assets/x-icon.png";
+import xIcon from "../assets/xicon.png";
 export default function NavBar() {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const sidebarRef = useRef(null);
