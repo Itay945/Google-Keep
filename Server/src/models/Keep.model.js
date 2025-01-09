@@ -30,15 +30,20 @@ const keepSchema = new mongoose.Schema({
       'Clay',
       'Chalk',
     ],
-    labels: {
-      type: Array,
-      default: [],
-    },
-    author: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: 'User',
-    },
   },
+  labels: {
+    type: [String],
+    default: [],
+  },
+  author: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'User',
+  },
+  isDeleted: {
+    type: Boolean,
+    default: false,
+  },
+  // add create date
 });
 
 module.exports = mongoose.model('Keep', keepSchema);
