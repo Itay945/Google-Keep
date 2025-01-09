@@ -50,7 +50,7 @@ export default function NavBar() {
         <span className="h-5 w-px bg-gray-300 mx-2"></span> 
             <img src={searchIcon} alt="search magnifier" className="h-7 w-7 bg-opacity-40 mr-2"/>   
             <span className="h-5 w-px bg-gray-300 mx-2"></span>     
-        <input type="text" placeholder="Search" className="bg-greySearchBarColor border-0 focus:ring-0 " />
+        <input type="text" placeholder="Search" className="bg-greySearchBarColor border-0  focus:outline-none" />
         <span className="h-5 w-14 bg-gray-300 mx-2"></span> 
         <img src={xIcon} alt="x-icon" className="h-5 w-5 bg-opacity-40" />
         </div>
