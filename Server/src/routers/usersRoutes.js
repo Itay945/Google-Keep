@@ -5,7 +5,7 @@ const User = require('../models/User.model');
 router.get('/', async (req, res) => {
   try {
     // populate('keeps') is a mongoose method that allows us to populate the userKeeps field with the actual keep objects
-    const user = await User.find().populate('keeps');
+    const user = await User.find().populate('userKeeps');
     res.json(user);
   } catch (error) {
     res.json({ error: error.message });

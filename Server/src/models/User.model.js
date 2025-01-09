@@ -14,13 +14,13 @@ const userSchema = new mongoose.Schema({
   },
 });
 
-// experimental
-userSchema.set('toJSON', { virtuals: true });
-userSchema.set('toObject', { virtuals: true });
+// experimental;
+// userSchema.set('toJSON', { virtuals: true });
+// userSchema.set('toObject', { virtuals: true });
 
-userSchema.virtual('keeps', {
-  ref: 'Keep',
-  localField: '_id',
-  foreignField: 'author',
-});
+// userSchema.virtual('keeps', {
+//   ref: 'Keep',
+//   localField: '_id',
+//   foreignField: 'author',
+// });
 module.exports = mongoose.model('User', userSchema);
