@@ -1,9 +1,9 @@
 const mongoose = require('mongoose');
 const keepSchema = new mongoose.Schema({
-  // pin: {
-  //   type: Boolean,
-  //   enum: [true, false],
-  // },
+  pin: {
+    type: Boolean,
+    enum: [true, false],
+  },
   title: {
     type: String,
     maxLength: 1,
