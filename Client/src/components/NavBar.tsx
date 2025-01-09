@@ -46,24 +46,24 @@ export default function NavBar() {
         </div>
         
             {/* searchBar */}
-        <div className="flex items-center   h-7 w-96 bg-greySearchBarColor z-auto text-black border-round  py-6 rounded-lg  ">
+        <div className="flex items-center flex grow  h-7 w-96 bg-greySearchBarColor z-auto text-black border-round  py-6 rounded-lg  ">
         <span className="h-5 w-px bg-gray-300 mx-2"></span> 
             <img src={searchIcon} alt="search magnifier" className="h-7 w-7 bg-opacity-40 mr-2"/>   
             <span className="h-5 w-px bg-gray-300 mx-2"></span>     
         <input type="text" placeholder="Search" className="bg-greySearchBarColor border-0  focus:outline-none" />
         <span className="h-5 w-14 bg-gray-300 mx-2"></span> 
-        <img src={xIcon} alt="x-icon" className="h-5 w-5 bg-opacity-40" />
+        {/* <img src={xIcon} alt="x-icon" className="h-5 w-5 bg-opacity-40" /> */}
         </div>
         
       </nav>
         {/* side bar */}
       <div
         ref={sidebarRef}
-        className={`fixed top-10 left-60 w-64 h-full bg-white text-black flex flex-col p-4 transform ${
+        className={`flex flex-col flex-grow h-full bg-white text-black flex flex-col p-4 transform ${
           isSidebarOpen ? "translate-x-0" : "-translate-x-full"
         } transition-transform duration-150`}>
           {/* side bar links */}
-        <Link to="/home" className="mb-2 hover:text-orange-400" >
+        <Link to="/" className="mb-2 hover:text-orange-400" >
           Notes
         </Link>
         <Link to="/reminders" className="mb-2 hover:text-orange-400" >
