@@ -59,7 +59,7 @@ export default function NavBar() {
         {/* side bar */}
       <div
         ref={sidebarRef}
-        className={`fixed top-60 left-60 w-64 h-full bg-white text-black flex flex-col p-4 transform ${
+        className={`fixed top-10 left-60 w-64 h-full bg-white text-black flex flex-col p-4 transform ${
           isSidebarOpen ? "translate-x-0" : "-translate-x-full"
         } transition-transform duration-150`}>
           {/* side bar links */}
