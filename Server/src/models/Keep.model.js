@@ -44,6 +44,14 @@ const keepSchema = new mongoose.Schema({
     default: false,
   },
   // add create date
+  createdAt: {
+    type: Date,
+    default: Date.now,
+  },
+  editedAt: {
+    type: Date,
+    default: null,
+  },
 });
 
 module.exports = mongoose.model('Keep', keepSchema);

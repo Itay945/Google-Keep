@@ -12,18 +12,12 @@ router.get('/', async (req, res) => {
   }
 });
 
+//post new keep
 router.post('/', async (req, res) => {
   try {
-    // console.log(!req.body.title.length === 0);
-
-    if (
-      !req.body.title &&
-      !req.body.description
-      // (!req.body.title && !req.body.description)
-    ) {
+    if (!req.body.title && !req.body.description) {
       return res.status(402).json({ error: 'title or description require' });
     }
-    // console.log(req.body);
 
     const keep = new Keep(req.body);
     await keep.save();
@@ -33,6 +27,7 @@ router.post('/', async (req, res) => {
   }
 });
 
+// delete keep by id
 router.patch('/:id/trash', async (req, res) => {
   try {
     console.log(req.params.id);
