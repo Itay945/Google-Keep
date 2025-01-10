@@ -25,11 +25,10 @@ export default function SideBar({ isSidebarOpen, closeSidebar }) {
   return (
     <div
       ref={sidebarRef}
-      className={`flex flex-col flex-grow h-full bg-white text-black p-4 transform ${
+      className={`flex flex-col bg-white text-black p-4 transform ${
         isSidebarOpen ? "translate-x-0" : "-translate-x-full"
       } transition-transform duration-150`}
     >
-      {/* side bar links */}
       <Link to="/" className="mb-2 hover:text-orange-400">
         Notes
       </Link>
