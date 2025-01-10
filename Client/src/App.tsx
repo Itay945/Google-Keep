@@ -1,25 +1,34 @@
-import NavBar from "./components/NavBar";
-import Keep from "./components/Keep";
+import { useState } from "react"; // Import useState
 import { Route, Routes } from "react-router-dom";
-export default  function App() {
+import NavBar from "./components/NavBar";
+import SideBar from "./components/SideBar";
+import Keep from "./components/Keep";
+
+export default function App() {
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+
+  const toggleSidebar = () => {
+    setIsSidebarOpen((prevState) => !prevState);
+  };
+
+  const closeSidebar = () => {
+    setIsSidebarOpen(false);
+  };
+
   return (
     <>
-    <NavBar/>
-    <Routes>
-      <Route
-      path="/"
-      element={<Keep/>}
-      />
-      <Route
-      path="/Notes"/>
-      <Route
-      path="/Reminders"/>
-      <Route
-      path="/Archive"/>
-      <Route
-      path="/Bin"/>
-    </Routes>
+      <NavBar toggleSidebar={toggleSidebar} />
+    <div className="flex h-screen">
+      <div className="flex flex-grow">
+        <SideBar isSidebarOpen={isSidebarOpen} closeSidebar={closeSidebar} />
+        <main className="flex-grow p-4">
+          <Routes>
+            <Route path="/" element={<Keep />} />
+            {/* Add other routes */}
+          </Routes>
+        </main>
+      </div>
+    </div>
     </>
-  )
+  );
 }
-

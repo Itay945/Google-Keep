@@ -16,7 +16,7 @@ export default function Keep() {
       | "Clay"
       | "Chalk";
     labels: string[];
-    author: string; // Simplified for now
+    author: string; // Simplified for now should have id from database
     date: Date;
   };
 
@@ -73,7 +73,7 @@ export default function Keep() {
       {dummyKeeps.map((keep, index) => (
         <div
           key={index}
-          className={`bg-${keep.color.toLowerCase()} border border-gray-300 rounded-lg p-4 w-48`}
+          className={`bg-${keep.color.toLowerCase()} border border-gray-100 rounded-lg p-4 w-48`}
         >
           <h3
             className={`text-lg font-bold ${
