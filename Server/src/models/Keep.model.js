@@ -2,6 +2,7 @@ const mongoose = require('mongoose');
 const keepSchema = new mongoose.Schema({
   pin: {
     type: Boolean,
+    // fix 0 problem maybe?
     enum: [true, false],
   },
   title: {
