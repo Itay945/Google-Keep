@@ -29,19 +29,19 @@ export default function SideBar({ isSidebarOpen, closeSidebar }) {
         isSidebarOpen ? "translate-x-0" : "-translate-x-full"
       } transition-transform duration-150`}
     >
-      <Link to="/" className="mb-2 hover:text-orange-400">
+      <Link to="/" className="mb-2 ">
         Notes
       </Link>
-      <Link to="/reminders" className="mb-2 hover:text-orange-400">
+      <Link to="/reminders" className="mb-2 ">
         Reminders
       </Link>
-      <Link to="/categories" className="mb-2 hover:text-orange-400">
+      <Link to="/categories" className="mb-2 ">
         Edit Labels
       </Link>
-      <Link to="/forums" className="mb-2 hover:text-orange-400">
+      <Link to="/forums" className="mb-2 ">
         Archive
       </Link>
-      <Link to="/bin" className="mb-2 hover:text-orange-400">
+      <Link to="/bin" className="mb-2 ">
         Bin
       </Link>
     </div>
