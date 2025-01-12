@@ -3,7 +3,7 @@ import { Route, Routes } from "react-router-dom";
 import NavBar from "./components/NavBar";
 import SideBar from "./components/SideBar";
 import Keep from "./components/Keep";
-
+import KeepsPage from "./pages/Keeps-page";
 export default function App() {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
@@ -23,7 +23,7 @@ export default function App() {
           <SideBar isSidebarOpen={isSidebarOpen} closeSidebar={closeSidebar} />
           <main className="flex-grow p-4">
             <Routes>
-              <Route path="/" element={<Keep />} />
+              <Route path="/" element={<KeepsPage />} />
               {/* Add other routes */}
             </Routes>
           </main>
