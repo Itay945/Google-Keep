@@ -45,7 +45,7 @@ router.get('/:id', async (req, res) => {
       'userKeeps'
     );
     console.log(userKeepsById.userKeeps);
-    res.json({});
+    res.json(userKeepsById.userKeeps);
   } catch (error) {
     console.log(error.message);
   }
