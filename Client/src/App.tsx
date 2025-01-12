@@ -1,4 +1,4 @@
-import { useState } from "react"; // Import useState
+import { useState } from "react";
 import { Route, Routes } from "react-router-dom";
 import NavBar from "./components/NavBar";
 import SideBar from "./components/SideBar";
@@ -18,17 +18,17 @@ export default function App() {
   return (
     <>
       <NavBar toggleSidebar={toggleSidebar} />
-    <div className="flex h-screen">
-      <div className="flex flex-grow">
-        <SideBar isSidebarOpen={isSidebarOpen} closeSidebar={closeSidebar} />
-        <main className="flex-grow p-4">
-          <Routes>
-            <Route path="/" element={<Keep />} />
-            {/* Add other routes */}
-          </Routes>
-        </main>
+      <div className="flex h-screen">
+        <div className="flex flex-grow">
+          <SideBar isSidebarOpen={isSidebarOpen} closeSidebar={closeSidebar} />
+          <main className="flex-grow p-4">
+            <Routes>
+              <Route path="/" element={<Keep />} />
+              {/* Add other routes */}
+            </Routes>
+          </main>
+        </div>
       </div>
-    </div>
     </>
   );
 }
