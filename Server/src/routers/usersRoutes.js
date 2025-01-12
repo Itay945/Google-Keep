@@ -36,6 +36,16 @@ router.get('/', async (req, res) => {
 //   }
 // });
 
+router.post('/', async (req, res) => {
+  try {
+    const user = new User(req.body);
+    await user.save();
+    res.json({ user });
+  } catch (error) {
+    res.status(400).json({ error: error.message });
+  }
+});
+
 // get user keeps by his id
 router.get('/:id', async (req, res) => {
   try {
@@ -48,16 +58,6 @@ router.get('/:id', async (req, res) => {
     res.json(userKeepsById.userKeeps);
   } catch (error) {
     console.log(error.message);
-  }
-});
-
-router.post('/', async (req, res) => {
-  try {
-    const user = new User(req.body);
-    await user.save();
-    res.json({ user });
-  } catch (error) {
-    res.status(400).json({ error: error.message });
   }
 });
 
