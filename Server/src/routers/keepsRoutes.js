@@ -12,10 +12,11 @@ router.get('/', async (req, res) => {
   }
 });
 
-router.get('/:id', async (req, res) => {
+router.get('/trash', async (req, res) => {
   try {
-    const keep = await Keep.findById(req.params.id);
-    res.json(keep);
+    const trashKeeps = await Keep.find({ isDeleted: true });
+    console.log('Trash keeps:', trashKeeps);
+    res.json(trashKeeps);
   } catch (error) {
     console.log(error.message);
   }
@@ -53,4 +54,13 @@ router.patch('/:id/trash', async (req, res) => {
   }
 });
 // commit
+
+router.get('/:id', async (req, res) => {
+  try {
+    const keep = await Keep.findById(req.params.id);
+    res.json(keep);
+  } catch (error) {
+    console.log(error.message);
+  }
+});
 module.exports = router;
