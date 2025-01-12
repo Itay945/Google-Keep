@@ -5,7 +5,7 @@ import bell from "../assets/notifications_24dp_5F6368_FILL0_wght400_GRAD0_opsz24
 import pen from "../assets/edit_24dp_5F6368_FILL0_wght400_GRAD0_opsz24.svg";
 import archive from "../assets/archive_24dp_5F6368_FILL0_wght400_GRAD0_opsz24.svg";
 import bin from "../assets/delete_forever_24dp_5F6368_FILL0_wght400_GRAD0_opsz24.svg";
-
+import InputForm from "./Input-Form";
 export default function SideBar({ isSidebarOpen, closeSidebar }) {
   const sidebarRef = useRef(null);
 
@@ -31,7 +31,9 @@ export default function SideBar({ isSidebarOpen, closeSidebar }) {
       } transition-transform duration-150`}
     >
       <Link to="/" className="mb-2 ">
-        <img src={bulb} alt="lightbulb" /> Notes
+        <div className="rounded-full p-[12px] hover:bg-[#EBECEC]">
+          <img src={bulb} alt="lightbulb" /> Notes
+        </div>
       </Link>
       <Link to="/reminders" className="mb-2 ">
         <img src={bell} alt="bell" /> Reminders
