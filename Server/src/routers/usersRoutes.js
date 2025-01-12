@@ -1,21 +1,14 @@
 const express = require('express');
 const router = express.Router();
 const User = require('../models/User.model');
+const {
+  getAllUsers,
+  createUser,
+  allKeepsOfOneUserByHisId,
+} = require('../controllers/userController');
 
 // get all users with all their properties
-router.get('/', async (req, res) => {
-  try {
-    // populate('keeps') is a mongoose method that allows us to populate the userKeeps field with the actual keep objects
-    const user = await User.find().select('userKeeps').populate('userKeeps');
-
-    // const user = await User.find().populate('userKeeps');
-    // console.log(user.userKeeps);
-
-    res.json(user);
-  } catch (error) {
-    res.json({ error: error.message });
-  }
-});
+router.get('/', getAllUsers);
 
 //get all keeps of users (need to be in users or to be remove)
 // router.get('/', async (req, res) => {
@@ -36,29 +29,10 @@ router.get('/', async (req, res) => {
 //   }
 // });
 
-router.post('/', async (req, res) => {
-  try {
-    const user = new User(req.body);
-    await user.save();
-    res.json({ user });
-  } catch (error) {
-    res.status(400).json({ error: error.message });
-  }
-});
+// post new user
+router.post('/', createUser);
 
 // get user keeps by his id
-router.get('/:id', async (req, res) => {
-  try {
-    // console.log(req.params.id);
-
-    const userKeepsById = await User.findById(req.params.id).populate(
-      'userKeeps'
-    );
-    console.log(userKeepsById.userKeeps);
-    res.json(userKeepsById.userKeeps);
-  } catch (error) {
-    console.log(error.message);
-  }
-});
+router.get('/:id', allKeepsOfOneUserByHisId);
 
 module.exports = router;
