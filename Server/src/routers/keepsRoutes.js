@@ -12,6 +12,15 @@ router.get('/', async (req, res) => {
   }
 });
 
+router.get('/:id', async (req, res) => {
+  try {
+    const keep = await Keep.findById(req.params.id);
+    res.json(keep);
+  } catch (error) {
+    console.log(error.message);
+  }
+});
+
 //post new keep
 router.post('/', async (req, res) => {
   try {
@@ -39,7 +48,9 @@ router.patch('/:id/trash', async (req, res) => {
       { new: true }
     );
     res.json({ trash });
-  } catch (error) {}
+  } catch (error) {
+    res.status(400).json({ error: error.message });
+  }
 });
 // commit
 module.exports = router;
