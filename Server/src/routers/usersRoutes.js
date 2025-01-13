@@ -3,7 +3,7 @@ const router = express.Router();
 const User = require('../models/User.model');
 const {
   getAllUsers,
-  createUser,
+  register,
   allKeepsOfOneUserByHisId,
 } = require('../controllers/userController');
 
@@ -11,7 +11,7 @@ const {
 router.get('/', getAllUsers);
 
 // post new user
-router.post('/', createUser);
+router.post('/', register);
 
 // get user keeps by his id
 router.get('/:id', allKeepsOfOneUserByHisId);

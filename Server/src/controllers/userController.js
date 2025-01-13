@@ -70,7 +70,7 @@ const _generateToken = (userId) => {
 
 module.exports = {
   getAllUsers,
-  createUser,
+  register,
   allKeepsOfOneUserByHisId,
   _generateToken,
 };
