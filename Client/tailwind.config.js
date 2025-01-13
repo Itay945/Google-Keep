@@ -2,9 +2,10 @@
 export default {
   content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
   theme: {
-    colors: {
-      greySearchBarColor: "#F1F3F4",
-    },
+    // colors: {
+    //   greySearchBarColor: "#F1F3F4",
+    //   white: "#FFFFFF",
+    // },
 
     extend: {},
   },
