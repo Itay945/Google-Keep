@@ -10,6 +10,14 @@ const {
 // get all users with all their properties
 router.get('/', getAllUsers);
 
+// post new user
+router.post('/', createUser);
+
+// get user keeps by his id
+router.get('/:id', allKeepsOfOneUserByHisId);
+
+module.exports = router;
+
 //get all keeps of users (need to be in users or to be remove)
 // router.get('/', async (req, res) => {
 //   try {
@@ -28,11 +36,3 @@ router.get('/', getAllUsers);
 //     res.json({ error: error.message });
 //   }
 // });
-
-// post new user
-router.post('/', createUser);
-
-// get user keeps by his id
-router.get('/:id', allKeepsOfOneUserByHisId);
-
-module.exports = router;
