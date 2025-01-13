@@ -1,4 +1,5 @@
 const User = require('../models/User.model');
+const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const getAllUsers = async (req, res) => {
   try {
@@ -53,6 +54,43 @@ const register = async (req, res) => {
   }
 };
 
+// login user
+const login = async (req, res) => {
+  try {
+    const { email, password } = req.body;
+    if (!email || !password) {
+      return res
+        .status(400)
+        .json({ success: false, message: 'please fill all required filed' });
+    }
+    const user = await User.findOne({ email });
+    if (!user) {
+      return res.status(400).json({
+        success: false,
+        message: 'email or password is incorrect',
+      });
+    }
+    const isRightPassword = await bcrypt.compare(password, user.password);
+    if (!isRightPassword) {
+      return res.status(400).json({
+        success: false,
+        message: 'email or password is incorrect',
+      });
+    }
+    const token = _generateToken(user._id);
+    // console.log('newUser: ', newUser);
+    console.log('token: ', token);
+
+    res.status(201).json({
+      success: true,
+      data: { token, userId: user._id, email },
+    });
+  } catch (error) {
+    console.error(error.message);
+    res.status(500).json({ success: false, message: 'server error' });
+  }
+};
+
 const allKeepsOfOneUserByHisId = async (req, res) => {
   try {
     // console.log(req.params.id);
@@ -75,4 +113,5 @@ module.exports = {
   register,
   allKeepsOfOneUserByHisId,
   _generateToken,
+  login,
 };

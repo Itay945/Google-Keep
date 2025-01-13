@@ -5,6 +5,7 @@ const {
   getAllUsers,
   register,
   allKeepsOfOneUserByHisId,
+  login,
 } = require('../controllers/userController');
 
 // get all users with all their properties
@@ -12,6 +13,9 @@ router.get('/', getAllUsers);
 
 // post new user
 router.post('/', register);
+
+// login user
+router.post('/login', login);
 
 // get user keeps by his id
 router.get('/:id', allKeepsOfOneUserByHisId);
