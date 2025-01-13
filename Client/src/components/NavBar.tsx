@@ -10,51 +10,50 @@ export default function NavBar({ toggleSidebar }) {
   return (
     <>
       {/* burger and logo */}
-      <div className="shadow-md">
-        <nav className="sticky top-0 z-50 flex items-center  text-white p-4 h-16 border-b border-gray-200 bg-white ">
-          <div className="flex items-center gap-6 justify-start w-40 ">
-            <span className="cursor-pointer text-2xl text-black" onClick={toggleSidebar}>
-              <div className="rounded-full p-3 hover:bg-[#EBECEC]">
-                <img src={menu} alt="burger" />
-              </div>
-            </span>
-            <Link to="/">
-              <img src={logo} alt="logo" className="w-auto h-9 flex items-center justify-center" />
-            </Link>
-          </div>
-          {/* searchbar */}
-          <div className="flex items-center flex-shrink h-7 max-w-[747px] z-auto text-black bg-[#F1F3F4] border-round py-6 rounded-lg ">
-            <span className="h-5 w-px bg-[#F1F3F4] mx-2"></span>
 
-            <div className="rounded-full p-2 hover:bg-[#EBECEC]">
-              <img src={searchIcon} alt="search magnifier" />
+      <nav className="top-0 w-full z-50 flex items-center  text-white p-4 h-16 border-b border-gray-200 bg-white shadow-md ">
+        <div className="flex items-center gap-6 justify-start w-40 ">
+          <span className="cursor-pointer text-2xl text-black" onClick={toggleSidebar}>
+            <div className="rounded-full p-3 hover:bg-[#EBECEC]">
+              <img src={menu} alt="burger" />
             </div>
-            <span className="h-5 w-px bg-[#F1F3F4] mx-2"></span>
-            <input type="text" placeholder="Search" className="bg-[#F1F3F4] border-0 focus:outline-none" />
-            <span className="h-5 w-14 bg-[#F1F3F4] mx-2"></span>
+          </span>
+          <Link to="/">
+            <img src={logo} alt="logo" className="w-auto h-9 flex items-center justify-center" />
+          </Link>
+        </div>
+        {/* searchbar */}
+        <div className="flex items-center flex-shrink h-7 max-w-[747px] z-auto text-black bg-[#F1F3F4] border-round py-6 rounded-lg ">
+          <span className="h-5 w-px bg-[#F1F3F4] mx-2"></span>
+
+          <div className="rounded-full p-2 hover:bg-[#EBECEC]">
+            <img src={searchIcon} alt="search magnifier" />
           </div>
-          <span className="flex-grow"></span>
-          {/* icons */}
-          <div className="flex items-center gap-4 ">
-            <div className="rounded-full p-[12px] hover:bg-[#EBECEC]">
-              <img src={refresh} alt="refresh" />
-            </div>
-            <div className="rounded-full p-[12px] hover:bg-[#EBECEC]">
-              <img src={grid} alt="grid" />
-            </div>
-            <div className="rounded-full p-[12px] hover:bg-[#EBECEC]">
-              <img src={options} alt="options" />
-            </div>
-            <div className="rounded-full p-[12px] hover:bg-[#EBECEC]">
-              <img src={apps} alt="apps" />
-            </div>
-            {/* profile circle */}
-            <div className="flex items-center justify-center">
-              <div className="w-7 h-7 rounded-full border-2 border-[orange]"></div>
-            </div>
+          <span className="h-5 w-px bg-[#F1F3F4] mx-2"></span>
+          <input type="text" placeholder="Search" className="bg-[#F1F3F4] border-0 focus:outline-none" />
+          <span className="h-5 w-14 bg-[#F1F3F4] mx-2"></span>
+        </div>
+        <span className="flex-grow"></span>
+        {/* icons */}
+        <div className="flex items-center gap-4 ">
+          <div className="rounded-full p-[12px] hover:bg-[#EBECEC]">
+            <img src={refresh} alt="refresh" />
           </div>
-        </nav>
-      </div>
+          <div className="rounded-full p-[12px] hover:bg-[#EBECEC]">
+            <img src={grid} alt="grid" />
+          </div>
+          <div className="rounded-full p-[12px] hover:bg-[#EBECEC]">
+            <img src={options} alt="options" />
+          </div>
+          <div className="rounded-full p-[12px] hover:bg-[#EBECEC]">
+            <img src={apps} alt="apps" />
+          </div>
+          {/* profile circle */}
+          <div className="flex items-center justify-center">
+            <div className="w-7 h-7 rounded-full border-2 border-[orange]"></div>
+          </div>
+        </div>
+      </nav>
     </>
   );
 }
