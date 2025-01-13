@@ -10,8 +10,9 @@ export default function NavBar({ toggleSidebar }) {
   return (
     <>
       {/* burger and logo */}
-      <nav className="sticky top-0 z-50 flex items-center bg-white text-white p-4 h-16 border-b border-gray-200">
-        <div className="flex items-center gap-6 justify-start w-40">
+
+      <nav className="top-0 w-full z-50 flex items-center  text-white p-4 h-16 border-b border-gray-200 bg-white shadow-md ">
+        <div className="flex items-center gap-6 justify-start w-40 ">
           <span className="cursor-pointer text-2xl text-black" onClick={toggleSidebar}>
             <div className="rounded-full p-3 hover:bg-[#EBECEC]">
               <img src={menu} alt="burger" />
@@ -22,15 +23,15 @@ export default function NavBar({ toggleSidebar }) {
           </Link>
         </div>
         {/* searchbar */}
-        <div className="flex items-center flex-shrink h-7 max-w-[747px] bg-greySearchBarColor z-auto text-black border-round py-6 rounded-lg">
-          <span className="h-5 w-px bg-gray-300 mx-2"></span>
+        <div className="flex items-center flex-shrink h-7 max-w-[747px] z-auto text-black bg-[#F1F3F4] border-round py-6 rounded-lg ">
+          <span className="h-5 w-px bg-[#F1F3F4] mx-2"></span>
 
           <div className="rounded-full p-2 hover:bg-[#EBECEC]">
             <img src={searchIcon} alt="search magnifier" />
           </div>
-          <span className="h-5 w-px bg-gray-300 mx-2"></span>
-          <input type="text" placeholder="Search" className="bg-greySearchBarColor border-0 focus:outline-none" />
-          <span className="h-5 w-14 bg-gray-300 mx-2"></span>
+          <span className="h-5 w-px bg-[#F1F3F4] mx-2"></span>
+          <input type="text" placeholder="Search" className="bg-[#F1F3F4] border-0 focus:outline-none" />
+          <span className="h-5 w-14 bg-[#F1F3F4] mx-2"></span>
         </div>
         <span className="flex-grow"></span>
         {/* icons */}
