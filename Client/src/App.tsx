@@ -2,7 +2,6 @@ import { useState } from "react";
 import { Route, Routes } from "react-router-dom";
 import NavBar from "./components/NavBar";
 import SideBar from "./components/SideBar";
-import Keep from "./components/Keep";
 import KeepsPage from "./pages/Keeps-page";
 export default function App() {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
