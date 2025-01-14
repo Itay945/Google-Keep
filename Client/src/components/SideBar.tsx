@@ -4,7 +4,7 @@ import bulb from "../assets/lightbulb_2_24dp_5F6368_FILL0_wght400_GRAD0_opsz24.s
 import bell from "../assets/notifications_24dp_5F6368_FILL0_wght400_GRAD0_opsz24.svg";
 import pen from "../assets/edit_24dp_5F6368_FILL0_wght400_GRAD0_opsz24.svg";
 import archive from "../assets/archive_24dp_5F6368_FILL0_wght400_GRAD0_opsz24.svg";
-import bin from "../assets/delete_forever_24dp_5F6368_FILL0_wght400_GRAD0_opsz24.svg";
+import bin from "../assets/delete_24dp_5F6368_FILL0_wght400_GRAD0_opsz24.svg";
 
 export default function SideBar({ isSidebarOpen, closeSidebar }) {
   const sidebarRef = useRef(null);
@@ -24,7 +24,10 @@ export default function SideBar({ isSidebarOpen, closeSidebar }) {
   }, [isSidebarOpen, closeSidebar]);
 
   return (
-    <div ref={sidebarRef} className={`flex-shrink-0 bg-white text-black h-full p-4 transition-width duration-150 ${isSidebarOpen ? "w-64" : "w-20"}`}>
+    <div
+      ref={sidebarRef}
+      className={`flex justify-between bg-white text-black h-full p-4 transition-width duration-150 ${isSidebarOpen ? "w-64" : "w-20"}`}
+    >
       {/* Sidebar Links */}
       <nav className="flex flex-col">
         <Link to="/" className="mb-2 flex items-center p-2 hover:bg-[#EBECEC] rounded-full transition-colors">
@@ -35,7 +38,7 @@ export default function SideBar({ isSidebarOpen, closeSidebar }) {
           <img src={bell} alt="bell" className="w-6 h-6" />
           <span className={`ml-3 ${isSidebarOpen ? "opacity-100" : "opacity-0 invisible"} transition-opacity duration-150`}>Reminders</span>
         </Link>
-        <Link to="/categories" className="mb-2 flex items-center p-2 hover:bg-[#EBECEC] rounded-full transition-colors">
+        <Link to="/categories" className="mb-2 flex items-center p-2 hover:bg-[#EBECEC] rounded-full transition-colors w-48">
           <img src={pen} alt="pen" className="w-6 h-6" />
           <span className={`ml-3 ${isSidebarOpen ? "opacity-100" : "opacity-0 invisible"} transition-opacity duration-150`}>Edit Labels</span>
         </Link>
