@@ -47,6 +47,7 @@ const editKeep = async (req, res) => {
           title: title,
           color: color,
           editedAt: editedAt,
+          labels: labels,
         },
         // instead set i can use the next line:
         // { new: true, fields: { createdAt: 0 } } // Exclude createdAt from being updated
