@@ -26,6 +26,7 @@ const addNewKeep = async (req, res) => {
     }
 
     const keep = new Keep(req.body);
+    // keep.author = req.user.userId;
     await keep.save();
     res.json({ keep });
   } catch (error) {

@@ -5,6 +5,7 @@ const usersRoutes = require('./routers/usersRoutes');
 
 require('dotenv').config();
 const cors = require('cors');
+const authToken = require('./middlewares/auth.middleware');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -12,7 +13,7 @@ const PORT = process.env.PORT || 3000;
 app.use(cors());
 app.use(express.json());
 
-app.use('/keeps', keepsRoutes);
+app.use('/keeps', authToken, keepsRoutes);
 app.use('/users', usersRoutes);
 
 app.get('/', (req, res) => {
