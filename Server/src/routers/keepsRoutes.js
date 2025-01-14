@@ -6,6 +6,7 @@ const {
   getAllKeeps,
   getAllKeepsInTrash,
   addNewKeep,
+  editKeep,
   moveKeepsToTrash,
   getKeepById,
 } = require('../controllers/keepsController');
@@ -24,4 +25,29 @@ router.patch('/:id/trash', moveKeepsToTrash);
 
 // get keep by his id
 router.get('/:id', getKeepById);
+
+// update keep description by his id
+router.put('/:id', editKeep);
+
+// update title of keep by his id
+
+// router.put('/:id', async (req, res) => {
+//   try {
+//     const id = req.params.id;
+
+//     const { title } = req.body;
+//     console.log();
+
+//     const keepToUpdated = await Keep.findByIdAndUpdate(
+//       id,
+//       { title: title },
+//       { new: true }
+//     );
+//     console.log(keepToUpdated);
+//     res.json(keepToUpdated);
+//   } catch (error) {
+//     res.json({ error: error.message });
+//   }
+// });
+
 module.exports = router;

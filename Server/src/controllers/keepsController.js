@@ -33,6 +33,33 @@ const addNewKeep = async (req, res) => {
   }
 };
 
+const editKeep = async (req, res) => {
+  try {
+    const id = req.params.id;
+
+    const { description, title, color, labels } = req.body;
+    const editedAt = new Date();
+    const keepToUpdated = await Keep.findByIdAndUpdate(
+      id,
+      {
+        $set: {
+          description: description,
+          title: title,
+          color: color,
+          editedAt: editedAt,
+        },
+        // instead set i can use the next line:
+        // { new: true, fields: { createdAt: 0 } } // Exclude createdAt from being updated
+      },
+      { new: true }
+    );
+    console.log(keepToUpdated);
+    res.json(keepToUpdated);
+  } catch (error) {
+    res.json({ error: error.message });
+  }
+};
+
 const moveKeepsToTrash = async (req, res) => {
   try {
     console.log(req.params.id);
@@ -62,6 +89,7 @@ module.exports = {
   getAllKeeps,
   getAllKeepsInTrash,
   addNewKeep,
+  editKeep,
   moveKeepsToTrash,
   getKeepById,
 };
