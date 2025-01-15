@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import SingleKeep from "../components/SingleKeep";
+import SingleKeep from "./SingleKeep";
 
 export default function Keep() {
   type Keep = {
