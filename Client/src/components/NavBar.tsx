@@ -6,6 +6,7 @@ import refresh from "../assets/refresh_24dp_5F6368_FILL0_wght400_GRAD0_opsz24.sv
 import grid from "../assets/grid_view_24dp_5F6368_FILL0_wght400_GRAD0_opsz24.svg";
 import options from "../assets/settings_24dp_5F6368_FILL0_wght400_GRAD0_opsz24.svg";
 import apps from "../assets/apps_24dp_5F6368_FILL0_wght400_GRAD0_opsz24.svg";
+import DropDownOptionsIcon from "./icon-components/OptionsIcon";
 export default function NavBar({ toggleSidebar }) {
   return (
     <>
@@ -43,7 +44,7 @@ export default function NavBar({ toggleSidebar }) {
             <img src={grid} alt="grid" />
           </div>
           <div className="rounded-full p-[12px] hover:bg-[#EBECEC]">
-            <img src={options} alt="options" />
+            <DropDownOptionsIcon iconSrc={options} />
           </div>
           <div className="flex gap-1 ml-4">
             <div className="rounded-full p-[12px] hover:bg-[#EBECEC]">
