@@ -7,12 +7,12 @@ const keepSchema = new mongoose.Schema({
   },
   title: {
     type: String,
-    maxLength: 1,
+    minLength: 1,
     maxLength: 999,
   },
   description: {
     type: String,
-    maxLength: 1,
+    minLength: 1,
     maxLength: 19999,
   },
   color: {
@@ -39,6 +39,7 @@ const keepSchema = new mongoose.Schema({
   author: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'User',
+    required: true,
   },
   isDeleted: {
     type: Boolean,

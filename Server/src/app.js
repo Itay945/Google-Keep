@@ -13,7 +13,9 @@ const PORT = process.env.PORT || 3000;
 app.use(cors());
 app.use(express.json());
 
-app.use('/keeps', authToken, keepsRoutes);
+app.use('/keeps', keepsRoutes);
+// app.use('/keeps', authToken, keepsRoutes);
+// app.use('/keeps', keepsRoutes);
 app.use('/users', usersRoutes);
 
 app.get('/', (req, res) => {

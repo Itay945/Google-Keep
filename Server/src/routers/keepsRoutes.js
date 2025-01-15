@@ -10,6 +10,7 @@ const {
   moveKeepsToTrash,
   getKeepById,
 } = require('../controllers/keepsController');
+const authToken = require('../middlewares/auth.middleware');
 
 router.get('/', getAllKeeps);
 
@@ -17,7 +18,7 @@ router.get('/', getAllKeeps);
 router.get('/trash', getAllKeepsInTrash);
 
 //post new keep
-router.post('/', addNewKeep);
+router.post('/', authToken, addNewKeep);
 
 // delete keep by id
 router.patch('/:id/trash', moveKeepsToTrash);

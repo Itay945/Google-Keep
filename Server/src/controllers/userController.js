@@ -1,6 +1,7 @@
 const User = require('../models/User.model');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
+
 const getAllUsers = async (req, res) => {
   try {
     // populate('keeps') is a mongoose method that allows us to populate the userKeeps field with the actual keep objects
@@ -25,7 +26,7 @@ const getAllUsers = async (req, res) => {
 
 const register = async (req, res) => {
   try {
-    const { name, lastName, email, password } = req.body;
+    const { name, lastName, email, password, userKeeps } = req.body;
     if (!email || !password) {
       return res
         .status(400)
@@ -38,7 +39,7 @@ const register = async (req, res) => {
         message: 'this email existing already try another email',
       });
     }
-    const newUser = new User({ name, lastName, email, password });
+    const newUser = new User({ name, lastName, email, password, userKeeps });
     await newUser.save();
     const token = _generateToken(newUser._id);
     console.log('newUser: ', newUser);
@@ -64,6 +65,8 @@ const login = async (req, res) => {
         .json({ success: false, message: 'please fill all required filed' });
     }
     const user = await User.findOne({ email });
+    console.log('user:', user);
+
     if (!user) {
       return res.status(400).json({
         success: false,

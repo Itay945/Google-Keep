@@ -21,11 +21,13 @@ const getAllKeepsInTrash = async (req, res) => {
 
 const addNewKeep = async (req, res) => {
   try {
+    console.log(req.user);
+
     if (!req.body.title && !req.body.description) {
       return res.status(402).json({ error: 'title or description require' });
     }
 
-    const keep = new Keep(req.body);
+    const keep = new Keep({ ...req.body, author: req.user.userId });
     // keep.author = req.user.userId;
     await keep.save();
     res.json({ keep });
@@ -38,7 +40,8 @@ const editKeep = async (req, res) => {
   try {
     const id = req.params.id;
 
-    const { description, title, color, labels } = req.body;
+    const { description, title, color, labels, pin } = req.body;
+    // add isDeleted
     const editedAt = new Date();
     const keepToUpdated = await Keep.findByIdAndUpdate(
       id,
@@ -49,6 +52,7 @@ const editKeep = async (req, res) => {
           color: color,
           editedAt: editedAt,
           labels: labels,
+          pin: pin,
         },
         // instead set i can use the next line:
         // { new: true, fields: { createdAt: 0 } } // Exclude createdAt from being updated

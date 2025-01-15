@@ -7,6 +7,7 @@ const {
   allKeepsOfOneUserByHisId,
   login,
 } = require('../controllers/userController');
+const authToken = require('../middlewares/auth.middleware');
 
 // get all users with all their properties
 router.get('/', getAllUsers);
