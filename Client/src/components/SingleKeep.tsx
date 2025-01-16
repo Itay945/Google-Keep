@@ -7,17 +7,17 @@ import threeDots from "./../assets/more_vert_24dp_5F6368_FILL0_wght400_GRAD0_ops
 import pin from "./../assets/keep_24dp_5F6368_FILL0_wght400_GRAD0_opsz24.svg";
 import DropDownOptionsIcon from "./icon-components/OptionsIcon";
 const colorMap = {
-  Coral: "#ff7f50",
-  Peach: "#ffe5b4",
-  Sand: "#f5deb3",
-  Mint: "#98ff98",
-  Sage: "#b2bb9e",
-  Fog: "#d3d3e7",
-  Storm: "#4a5568",
-  Dusk: "#9b59b6",
-  Blossom: "#f8c0d8",
-  Clay: "#d8b5a5",
-  Chalk: "#f2f2f2",
+  Coral: "#77172E",
+  Peach: "#692B17",
+  Sand: "#7C4A03",
+  Mint: "#264D3B",
+  Sage: "#0C625D",
+  Fog: "#256377",
+  Storm: "#284255",
+  Dusk: "#472E5B",
+  Blossom: "#6C394F",
+  Clay: "#4B443A",
+  Chalk: "#232427",
 };
 type KeepProps = {
   keep: {
@@ -35,19 +35,19 @@ export default function SingleKeep({ keep }: KeepProps) {
   return (
     <div className={`border border-gray-100 rounded-lg p-4 group`} style={{ backgroundColor: cardColor }}>
       <div className="flex justify-between">
-        <h3 className={`text-lg font-bold ${keep.pin ? "text-yellow-500" : "text-black"}`}>{keep.title}</h3>
+        <h3 className={`text-lg font-bold ${keep.pin ? "text-yellow-500" : ""}`}>{keep.title}</h3>
         <img
           src={pin}
           alt="pin"
           className="opacity-0  transition-all duration-300 group-hover:opacity-100 group-hover:translate-y-0 rounded-full p-[10px] hover:bg-[#EBECEC]"
         />
       </div>
-      <p className="text-sm text-gray-700">{keep.description}</p>
-      <p className="text-xs text-gray-600">
+      <p className="text-sm">{keep.description}</p>
+      <p className="text-xs">
         <strong>Labels:</strong> {keep.labels.join(", ")}
       </p>
-      <p className="text-xs text-gray-500">
-        <small>{new Date(keep.date).toLocaleDateString()}</small>
+      <p className="text-xs">
+        <small>{new Date(keep.createdAt).toLocaleDateString()}</small>
       </p>
       <div className="flex gap-4 group">
         <img
