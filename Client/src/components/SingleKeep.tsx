@@ -22,7 +22,11 @@ export default function SingleKeep({ keep }: KeepProps) {
     <div className={`bg-${keep.color.toLowerCase()} border border-gray-100 rounded-lg p-4 group`}>
       <div className="flex justify-between">
         <h3 className={`text-lg font-bold ${keep.pin ? "text-yellow-500" : "text-black"}`}>{keep.title}</h3>
-        <img src={pin} alt="pin" className="opacity-0  transition-all duration-300 group-hover:opacity-100 group-hover:translate-y-0" />
+        <img
+          src={pin}
+          alt="pin"
+          className="opacity-0  transition-all duration-300 group-hover:opacity-100 group-hover:translate-y-0 rounded-full p-[10px] hover:bg-[#EBECEC]"
+        />
       </div>
       <p className="text-sm text-gray-700">{keep.description}</p>
       <p className="text-xs text-gray-600">
@@ -32,16 +36,36 @@ export default function SingleKeep({ keep }: KeepProps) {
         <small>{new Date(keep.date).toLocaleDateString()}</small>
       </p>
       <div className="flex gap-4 group">
-        <img src={plusBell} alt="Remind Me" className="opacity-0  transition-all duration-300 group-hover:opacity-100 group-hover:translate-y-0" />
+        <img
+          src={plusBell}
+          alt="Remind Me"
+          className="opacity-0  transition-all duration-300 group-hover:opacity-100 group-hover:translate-y-0 rounded-full p-[12px] hover:bg-[#EBECEC] scale-[0.8]"
+        />
         <img
           src={collaborator}
           alt="collaborator"
-          className="opacity-0  transition-all duration-300 group-hover:opacity-100 group-hover:translate-y-0"
+          className="opacity-0  transition-all duration-300 group-hover:opacity-100 group-hover:translate-y-0 rounded-full p-[12px] scale-[0.8] hover:bg-[#EBECEC]"
         />
-        <img src={colors} alt="color palette" className="opacity-0  transition-all duration-300 group-hover:opacity-100 group-hover:translate-y-0" />
-        <img src={brush} alt="brush" className="opacity-0  transition-all duration-300 group-hover:opacity-100 group-hover:translate-y-0" />
-        <img src={archive} alt="archive" className="opacity-0  transition-all duration-300 group-hover:opacity-100 group-hover:translate-y-0" />
-        <img src={threeDots} alt="more" className="opacity-0  transition-all duration-300 group-hover:opacity-100 group-hover:translate-y-0" />
+        <img
+          src={colors}
+          alt="color palette"
+          className="opacity-0  transition-all duration-300 group-hover:opacity-100 group-hover:translate-y-0 rounded-full p-[12px] scale-[0.8] hover:bg-[#EBECEC]"
+        />
+        <img
+          src={brush}
+          alt="brush"
+          className="opacity-0  transition-all duration-300 group-hover:opacity-100 group-hover:translate-y-0 rounded-full p-[12px] scale-[0.8] hover:bg-[#EBECEC]"
+        />
+        <img
+          src={archive}
+          alt="archive"
+          className="opacity-0  transition-all duration-300 group-hover:opacity-100 group-hover:translate-y-0 rounded-full p-[12px] scale-[0.8] hover:bg-[#EBECEC]"
+        />
+        <img
+          src={threeDots}
+          alt="more"
+          className="opacity-0  transition-all duration-300 group-hover:opacity-100 group-hover:translate-y-0 rounded-full p-[12px] scale-[0.8] hover:bg-[#EBECEC]"
+        />
       </div>
     </div>
   );
