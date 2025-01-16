@@ -24,7 +24,7 @@ export default function DropDownOptionsIcon({ iconSrc }) {
 
   return (
     <div className="relative" ref={dropdownRef}>
-      <div className="hover:bg-[#EBECEC]" onClick={toggleDropdown}>
+      <div className="cursor-pointer" onClick={toggleDropdown}>
         <img src={iconSrc} alt="options" />
       </div>
       {isDropdownOpen && (
