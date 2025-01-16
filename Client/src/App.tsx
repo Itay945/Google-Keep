@@ -1,8 +1,10 @@
-import { useState } from "react";
-import { Route, Routes } from "react-router-dom";
-import NavBar from "./components/NavBar";
-import SideBar from "./components/SideBar";
-import KeepsPage from "./pages/Keeps-page";
+import { useState } from 'react';
+import { Route, Routes } from 'react-router-dom';
+import NavBar from './components/NavBar';
+import SideBar from './components/SideBar';
+import KeepsPage from './pages/Keeps-page';
+import RegisterPage from './pages/RegisterPage';
+import LoginPage from './pages/LoginPage';
 export default function App() {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
@@ -23,7 +25,8 @@ export default function App() {
           <main className="flex-grow p-4">
             <Routes>
               <Route path="/" element={<KeepsPage />} />
-              {/* Add other routes */}
+              <Route path="/register" element={<RegisterPage />} />
+              <Route path="/login" element={<LoginPage />} />
             </Routes>
           </main>
         </div>
