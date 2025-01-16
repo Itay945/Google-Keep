@@ -8,6 +8,7 @@ function LoginPage() {
       email: data.email,
       password: data.password,
     });
+    console.log('res: ', res.data);
   }
 
   return (
