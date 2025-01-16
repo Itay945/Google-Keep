@@ -13,6 +13,7 @@ function LoginPage() {
 
   return (
     <>
+      <h1>Login Page</h1>
       <form action={handleSubmite}>
         <div className="flex flex-col items-center gap-4">
           <input

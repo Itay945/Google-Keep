@@ -40,7 +40,7 @@ const editKeep = async (req, res) => {
   try {
     const id = req.params.id;
 
-    const { description, title, color, labels, pin } = req.body;
+    const { description, title, color, labels, pin, isDeleted } = req.body;
     // add isDeleted
     const editedAt = new Date();
     const keepToUpdated = await Keep.findByIdAndUpdate(
@@ -53,6 +53,7 @@ const editKeep = async (req, res) => {
           editedAt: editedAt,
           labels: labels,
           pin: pin,
+          isDeleted: isDeleted,
         },
         // instead set i can use the next line:
         // { new: true, fields: { createdAt: 0 } } // Exclude createdAt from being updated
