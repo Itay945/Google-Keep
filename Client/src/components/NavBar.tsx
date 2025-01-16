@@ -24,8 +24,8 @@ export default function NavBar({ toggleSidebar }) {
           </Link>
         </div>
         {/* searchbar */}
-        <div className="flex items-center flex-grow h-7 max-w-[747px] z-auto text-black bg-[#F1F3F4] border-round py-6 rounded-lg ">
-          <span className="h-5 w-px bg-[#F1F3F4] mx-2"></span>
+        <div className="flex items-center flex-grow h-7 max-w-[747px] z-auto bg-[#F1F3F4] border-round py-6 rounded-lg ">
+          <span className="h-5 w-px bg-secondary-light mx-2"></span>
 
           <div className="rounded-full p-2 hover:bg-[#EBECEC]">
             <img src={searchIcon} alt="search magnifier" />

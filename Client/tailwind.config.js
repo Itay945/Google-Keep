@@ -5,12 +5,12 @@ export default {
     extend: {
       colors: {
         primary: {
-          light: "#f3f4f6", // Light mode primary background
+          light: "#FFFFFF", // Light mode primary background
           dark: "#202124", // Dark mode primary background
         },
         secondary: {
-          light: "#e5e7eb", // Light mode secondary elements
-          dark: "#374151", // Dark mode secondary elements
+          light: "#F1F3F4", // Light mode secondary elements
+          dark: "#525355", // Dark mode secondary elements
         },
         accent: {
           light: "#3b82f6", // Accent color for light mode
