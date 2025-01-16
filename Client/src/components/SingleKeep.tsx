@@ -5,6 +5,19 @@ import brush from "./../assets/brush_24dp_5F6368_FILL0_wght400_GRAD0_opsz24.svg"
 import archive from "./../assets/archive_24dp_5F6368_FILL0_wght400_GRAD0_opsz24.svg";
 import threeDots from "./../assets/more_vert_24dp_5F6368_FILL0_wght400_GRAD0_opsz24.svg";
 import pin from "./../assets/keep_24dp_5F6368_FILL0_wght400_GRAD0_opsz24.svg";
+const colorMap = {
+  Coral: "#ff7f50",
+  Peach: "#ffe5b4",
+  Sand: "#f5deb3",
+  Mint: "#98ff98",
+  Sage: "#b2bb9e",
+  Fog: "#d3d3e7",
+  Storm: "#4a5568",
+  Dusk: "#9b59b6",
+  Blossom: "#f8c0d8",
+  Clay: "#d8b5a5",
+  Chalk: "#f2f2f2",
+};
 type KeepProps = {
   keep: {
     pin: boolean;
@@ -16,10 +29,10 @@ type KeepProps = {
     date: Date;
   };
 };
-
 export default function SingleKeep({ keep }: KeepProps) {
+  const cardColor = colorMap[keep.color] || "#ffffff";
   return (
-    <div className={`bg-${keep.color.toLowerCase()} border border-gray-100 rounded-lg p-4 group`}>
+    <div className={`border border-gray-100 rounded-lg p-4 group`} style={{ backgroundColor: cardColor }}>
       <div className="flex justify-between">
         <h3 className={`text-lg font-bold ${keep.pin ? "text-yellow-500" : "text-black"}`}>{keep.title}</h3>
         <img
