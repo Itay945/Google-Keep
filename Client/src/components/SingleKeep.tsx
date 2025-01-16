@@ -5,6 +5,7 @@ import brush from "./../assets/brush_24dp_5F6368_FILL0_wght400_GRAD0_opsz24.svg"
 import archive from "./../assets/archive_24dp_5F6368_FILL0_wght400_GRAD0_opsz24.svg";
 import threeDots from "./../assets/more_vert_24dp_5F6368_FILL0_wght400_GRAD0_opsz24.svg";
 import pin from "./../assets/keep_24dp_5F6368_FILL0_wght400_GRAD0_opsz24.svg";
+import DropDownOptionsIcon from "./icon-components/OptionsIcon";
 const colorMap = {
   Coral: "#ff7f50",
   Peach: "#ffe5b4",
@@ -74,11 +75,9 @@ export default function SingleKeep({ keep }: KeepProps) {
           alt="archive"
           className="opacity-0  transition-all duration-300 group-hover:opacity-100 group-hover:translate-y-0 rounded-full p-[12px] scale-[0.8] hover:bg-[#EBECEC]"
         />
-        <img
-          src={threeDots}
-          alt="more"
-          className="opacity-0  transition-all duration-300 group-hover:opacity-100 group-hover:translate-y-0 rounded-full p-[12px] scale-[0.8] hover:bg-[#EBECEC]"
-        />
+        <div className="opacity-0  transition-all duration-300 group-hover:opacity-100 group-hover:translate-y-0 rounded-full p-[12px] scale-[0.8] hover:bg-[#EBECEC]">
+          <DropDownOptionsIcon iconSrc={threeDots} />
+        </div>
       </div>
     </div>
   );
