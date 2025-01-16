@@ -2,11 +2,11 @@
 @tailwind components;
 @tailwind utilities;
 
-@layer utilities {
-  .hover-circle {
-    @apply flex items-center rounded-full w-8 h-8;
-  }
-  .hover-circle:hover {
-    background-color: #ebecec;
-  }
+/* Apply global dark mode styles */
+html {
+  @apply bg-primary-light text-text-light;
+}
+
+html.dark {
+  @apply bg-primary-dark text-text-dark;
 }
