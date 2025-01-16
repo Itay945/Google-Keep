@@ -24,10 +24,7 @@ export default function SideBar({ isSidebarOpen, closeSidebar }) {
   }, [isSidebarOpen, closeSidebar]);
 
   return (
-    <div
-      ref={sidebarRef}
-      className={`flex justify-between bg-white text-black h-full p-4 transition-width duration-150 ${isSidebarOpen ? "w-64" : "w-20"}`}
-    >
+    <div ref={sidebarRef} className={`flex justify-between h-full p-4 transition-width duration-150 ${isSidebarOpen ? "w-64" : "w-20"}`}>
       {/* Sidebar Links */}
       <nav className="flex flex-col">
         <Link to="/" className="mb-2 flex items-center p-2 hover:bg-[#EBECEC] rounded-full">

@@ -12,7 +12,7 @@ export default function NavBar({ toggleSidebar }) {
     <>
       {/* burger and logo */}
 
-      <nav className="top-0 w-full z-50 flex items-center  text-white p-4 h-16 border-b border-gray-200 bg-white ">
+      <nav className="top-0 w-full z-50 flex items-center  text-white p-4 h-16 border-b border-gray-200">
         <div className="flex items-center gap-6 justify-start w-40 ">
           <span className="cursor-pointer text-2xl text-black" onClick={toggleSidebar}>
             <div className="rounded-full p-3 hover:bg-[#EBECEC]">

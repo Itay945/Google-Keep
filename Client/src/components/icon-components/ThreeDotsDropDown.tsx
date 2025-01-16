@@ -1,9 +1,9 @@
 import { useState, useEffect, useRef } from "react";
-import useDarkMode from "./dropdown-components/DarkMode";
-export default function DropDownOptionsIcon({ iconSrc }) {
+
+export default function DropDownThreeDots({ iconSrc }) {
   const [isDropdownOpen, setDropdownOpen] = useState(false);
   const dropdownRef = useRef(null);
-  const { isDarkMode, toggleDarkMode } = useDarkMode();
+
   const toggleDropdown = () => {
     setDropdownOpen(!isDropdownOpen);
   };
@@ -30,14 +30,13 @@ export default function DropDownOptionsIcon({ iconSrc }) {
       {isDropdownOpen && (
         <div className="absolute right-0 mt-2 w-48 bg-white border rounded-lg shadow-lg text-black">
           <ul className="py-2">
-            <li className="px-4 py-2 hover:bg-gray-100 cursor-pointer">Settings</li>
-            <li className="px-4 py-2 hover:bg-gray-100 cursor-pointer" onClick={toggleDarkMode}>
-              {isDarkMode ? "Disable dark theme" : "Enable dark theme"}
-            </li>
-            <li className="px-4 py-2 hover:bg-gray-100 cursor-pointer">Send feedback</li>
-            <li className="px-4 py-2 hover:bg-gray-100 cursor-pointer">Help</li>
-            <li className="px-4 py-2 hover:bg-gray-100 cursor-pointer">App downloads</li>
-            <li className="px-4 py-2 hover:bg-gray-100 cursor-pointer">Keyboard shortcuts</li>
+            <li className="px-4 py-2 hover:bg-gray-100 cursor-pointer">Delete note</li>
+            <li className="px-4 py-2 hover:bg-gray-100 cursor-pointer">Change labels</li>
+            <li className="px-4 py-2 hover:bg-gray-100 cursor-pointer">Add drawing</li>
+            <li className="px-4 py-2 hover:bg-gray-100 cursor-pointer">Make a copy</li>
+            <li className="px-4 py-2 hover:bg-gray-100 cursor-pointer">Show tick boxes</li>
+            <li className="px-4 py-2 hover:bg-gray-100 cursor-pointer">Copy to Google Docs</li>
+            <li className="px-4 py-2 hover:bg-gray-100 cursor-pointer">Version history</li>
           </ul>
         </div>
       )}
