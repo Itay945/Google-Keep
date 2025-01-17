@@ -1,13 +1,26 @@
-import { useState, useEffect } from "react";
-import axios from "axios";
-import SingleKeep from "./SingleKeep";
+import { useState, useEffect } from 'react';
+import axios from 'axios';
+import SingleKeep from './SingleKeep';
+import { useAuth } from '../hooks/useAuth';
 
 export default function Keep() {
+  const { token } = useAuth();
   type Keep = {
     pin: boolean;
     title: string;
     description: string;
-    color: "Coral" | "Peach" | "Sand" | "Mint" | "Sage" | "Fog" | "Storm" | "Dusk" | "Blossom" | "Clay" | "Chalk";
+    color:
+      | 'Coral'
+      | 'Peach'
+      | 'Sand'
+      | 'Mint'
+      | 'Sage'
+      | 'Fog'
+      | 'Storm'
+      | 'Dusk'
+      | 'Blossom'
+      | 'Clay'
+      | 'Chalk';
     labels: string[];
     author: string;
     date: Date;
@@ -19,10 +32,14 @@ export default function Keep() {
   useEffect(() => {
     const fetchKeeps = async () => {
       try {
-        const response = await axios.get("http://localhost:3000/keeps");
+        const response = await axios.get('http://localhost:3000/keeps', {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
         setKeeps(response.data);
       } catch (err) {
-        setError("Failed to fetch keeps.");
+        setError('Failed to fetch keeps.');
         console.error(err);
       }
     };

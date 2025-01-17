@@ -1,9 +1,12 @@
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import { useAuth } from '../hooks/useAuth';
+
 // import { useState } from 'react';
 
 function LoginPage() {
   const navigate = useNavigate();
+  const { login } = useAuth();
   // const [token, setToken] = useState('');
 
   async function handleSubmite(formData) {
@@ -16,9 +19,11 @@ function LoginPage() {
       });
 
       const newToken = res.data.data.token;
-      // setToken(newToken);
-      // console.log('newToken', newToken);
-      localStorage.setItem('token', JSON.stringify(newToken));
+      login(newToken);
+      // localStorage.setItem('token', JSON.stringify(newToken));
+      // const token = JSON.parse(localStorage.getItem('token'));
+      // console.log('token: ', token);
+
       navigate('/');
     } catch (error) {
       console.error('error: ', error);
