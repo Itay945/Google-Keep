@@ -1,18 +1,28 @@
 import axios from 'axios';
-import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+// import { useState } from 'react';
 
 function LoginPage() {
-  const [token, setToken] = useState('');
+  const navigate = useNavigate();
+  // const [token, setToken] = useState('');
 
   async function handleSubmite(formData) {
-    const data = Object.fromEntries(formData);
-    console.log('data: ', data);
-    const res = await axios.post('http://localhost:3000/users/login', {
-      email: data.email,
-      password: data.password,
-    });
-    setToken(res.data.data.token);
-    console.log('res: ', res.data.data.token);
+    try {
+      const data = Object.fromEntries(formData);
+      console.log('data: ', data);
+      const res = await axios.post('http://localhost:3000/users/login', {
+        email: data.email,
+        password: data.password,
+      });
+
+      const newToken = res.data.data.token;
+      // setToken(newToken);
+      // console.log('newToken', newToken);
+      localStorage.setItem('token', JSON.stringify(newToken));
+      navigate('/');
+    } catch (error) {
+      console.error('error: ', error);
+    }
   }
 
   return (
