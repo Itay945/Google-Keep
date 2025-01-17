@@ -1,6 +1,9 @@
 import axios from 'axios';
+import { useState } from 'react';
 
 function LoginPage() {
+  const [token, setToken] = useState('');
+
   async function handleSubmite(formData) {
     const data = Object.fromEntries(formData);
     console.log('data: ', data);
@@ -8,7 +11,8 @@ function LoginPage() {
       email: data.email,
       password: data.password,
     });
-    console.log('res: ', res.data);
+    setToken(res.data.data.token);
+    console.log('res: ', res.data.data.token);
   }
 
   return (
@@ -20,12 +24,14 @@ function LoginPage() {
             placeholder="email"
             type="text"
             name="email"
+            value="yoav1@gmail23.com"
             className="border border-gray-600 text-xl"
           />
           <input
             placeholder="password"
             type="text"
             name="password"
+            value="yoav1234567"
             className="border border-gray-600 text-xl"
           />
         </div>
