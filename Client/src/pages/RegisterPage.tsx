@@ -1,16 +1,23 @@
 import axios from 'axios';
-
+import { useNavigate } from 'react-router-dom';
 function RegisterPage() {
+  const navigate = useNavigate();
   async function handleSubmite(formData) {
-    const data = Object.fromEntries(formData);
-    console.log('data: ', data);
-    const res = await axios.post('http://localhost:3000/users', {
-      name: data.name,
-      lastName: data.lastname,
-      email: data.email,
-      password: data.password,
-    });
-    console.log('res: ', res.data);
+    try {
+      const data = Object.fromEntries(formData);
+      console.log('data: ', data);
+      const res = await axios.post('http://localhost:3000/users', {
+        name: data.name,
+        lastName: data.lastname,
+        email: data.email,
+        password: data.password,
+      });
+      const newToken = res.data.data.token;
+      localStorage.setItem('token', JSON.stringify(newToken));
+      navigate('/');
+    } catch (error) {
+      console.error('error: ', error);
+    }
   }
   return (
     <>
