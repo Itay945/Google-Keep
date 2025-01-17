@@ -18,7 +18,7 @@ router.get('/', getAllKeeps);
 router.get('/trash', getAllKeepsInTrash);
 
 //post new keep
-router.post('/', authToken, addNewKeep);
+router.post('/', addNewKeep);
 
 // delete keep by id
 router.patch('/:id/trash', moveKeepsToTrash);
