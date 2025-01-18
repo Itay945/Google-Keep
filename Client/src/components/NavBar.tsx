@@ -14,9 +14,9 @@ export default function NavBar({ toggleSidebar }) {
 
       <nav className="top-0 w-full z-50 flex items-center  text-white p-4 h-16 border-b border-gray-200">
         <div className="flex items-center gap-6 justify-start w-40 ">
-          <span className="cursor-pointer text-2xl text-black" onClick={toggleSidebar}>
+          <span className="text-2xl text-black" >
             <div className="rounded-full p-3 hover:bg-[#EBECEC]">
-              <img src={menu} alt="burger" />
+              <img src={menu} alt="burger" className="cursor-pointer" onClick={toggleSidebar}/>
             </div>
           </span>
           <Link to="/">
