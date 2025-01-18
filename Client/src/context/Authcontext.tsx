@@ -1,8 +1,10 @@
 import { createContext, useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 export const AuthContext = createContext(null);
 
 export const AuthProvider = ({ children }) => {
+  const navigate = useNavigate();
   const [token, setToken] = useState(() => {
     const storedToken = localStorage.getItem('token');
     // more logic
@@ -15,8 +17,11 @@ export const AuthProvider = ({ children }) => {
     const storedToken = localStorage.getItem('token');
     if (storedToken) {
       setToken(storedToken);
+    } else {
+      navigate('/login');
     }
-  }, []);
+    // type script ask me to add navigate to the dependency array
+  }, [navigate]);
 
   const login = (newToken) => {
     localStorage.setItem('token', newToken);
