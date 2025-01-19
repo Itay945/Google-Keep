@@ -1,3 +1,4 @@
+// Icons
 import plusBell from "./../assets/add_alert_24dp_5F6368_FILL0_wght400_GRAD0_opsz24.svg";
 import collaborator from "./../assets/person_add_24dp_5F6368_FILL0_wght400_GRAD0_opsz24.svg";
 import colors from "./../assets/palette_24dp_5F6368_FILL0_wght400_GRAD0_opsz24.svg";
@@ -5,7 +6,12 @@ import brush from "./../assets/brush_24dp_5F6368_FILL0_wght400_GRAD0_opsz24.svg"
 import archive from "./../assets/archive_24dp_5F6368_FILL0_wght400_GRAD0_opsz24.svg";
 import threeDots from "./../assets/more_vert_24dp_5F6368_FILL0_wght400_GRAD0_opsz24.svg";
 import pin from "./../assets/keep_24dp_5F6368_FILL0_wght400_GRAD0_opsz24.svg";
+// Components
 import DropDownOptionsIcon from "./icon-components/OptionsIcon";
+import ColorPicker from "./Single-Keep-icons/ColorPicker";
+// Hooks
+import { useState } from "react";
+
 const colorMap = {
   Coral: "#FAAFA8",
   Peach: "#F39F76",
@@ -31,6 +37,7 @@ type KeepProps = {
   };
 };
 export default function SingleKeep({ keep }: KeepProps) {
+  const [isColorPickerOpen, setColorPickerOpen] = useState(false);
   const cardColor = colorMap[keep.color] || "#ffffff";
   return (
     <div className={`border border-gray-100 rounded-lg p-4 group`} style={{ backgroundColor: cardColor }}>
@@ -64,7 +71,9 @@ export default function SingleKeep({ keep }: KeepProps) {
           src={colors}
           alt="color palette"
           className="opacity-0  transition-all duration-300 group-hover:opacity-100 group-hover:translate-y-0 rounded-full p-[12px] scale-[0.8] hover:bg-[#EBECEC]"
+          onClick={() => setColorPickerOpen((prev) => !prev)}
         />
+        {isColorPickerOpen && <ColorPicker colors={colorMap} />}
         <img
           src={brush}
           alt="brush"
