@@ -1,4 +1,5 @@
-import axios from 'axios';
+// import axios from 'axios';
+import api from '../helpers/axiosApiToken';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../hooks/useAuth';
 
@@ -13,7 +14,7 @@ function LoginPage() {
     try {
       const data = Object.fromEntries(formData);
       console.log('data: ', data);
-      const res = await axios.post('http://localhost:3000/users/login', {
+      const res = await api.post('/users/login', {
         email: data.email,
         password: data.password,
       });
