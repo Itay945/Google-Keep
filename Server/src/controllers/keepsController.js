@@ -21,7 +21,7 @@ const getAllKeepsInTrash = async (req, res) => {
 
 const addNewKeep = async (req, res) => {
   try {
-    console.log(req.user);
+    // console.log(, req.user);
 
     if (!req.body.title && !req.body.description) {
       return res.status(402).json({ error: 'title or description require' });
