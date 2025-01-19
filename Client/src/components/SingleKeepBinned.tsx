@@ -31,7 +31,7 @@ type KeepProps = {
 
 export default function SingleKeep({ keep }: KeepProps) {
   return (
-    <div className="border border-gray-100 rounded-lg p-4 group" style={{ backgroundColor: colorMap || "#ffffff" }}>
+    <div className="border border-gray-100 rounded-lg p-4 group" style={{ backgroundColor: colorMap[keep.color] || "#ffffff" }}>
       <div className="flex justify-between">
         <h3 className={`text-lg font-bold ${keep.pin ? "text-yellow-500" : ""}`}>{keep.title}</h3>
       </div>
