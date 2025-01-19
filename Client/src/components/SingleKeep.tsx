@@ -6,8 +6,10 @@ import brush from './../assets/brush_24dp_5F6368_FILL0_wght400_GRAD0_opsz24.svg'
 import archive from './../assets/archive_24dp_5F6368_FILL0_wght400_GRAD0_opsz24.svg';
 import threeDots from './../assets/more_vert_24dp_5F6368_FILL0_wght400_GRAD0_opsz24.svg';
 import pin from './../assets/keep_24dp_5F6368_FILL0_wght400_GRAD0_opsz24.svg';
+// Components
 import DropDownOptionsIcon from './icon-components/OptionsIcon';
 import ColorPicker from './Single-Keep-icons/ColorPicker';
+// Hooks
 import { useState } from 'react';
 
 const colorMap = {
@@ -23,8 +25,10 @@ const colorMap = {
   Clay: '#E9E3D4',
   Chalk: '#EFEFF1',
 };
+
 type KeepProps = {
   keep: {
+    id: string; // Unique ID for the keep to update in the database
     pin: boolean;
     title: string;
     description: string;
@@ -45,6 +49,7 @@ type KeepProps = {
     date: Date;
   };
 };
+
 export default function SingleKeep({ keep }: KeepProps) {
   const [isColorPickerOpen, setColorPickerOpen] = useState(false);
   const cardColor = colorMap[keep.color] || '#ffffff';
@@ -62,7 +67,7 @@ export default function SingleKeep({ keep }: KeepProps) {
         <img
           src={pin}
           alt="pin"
-          className="opacity-0  transition-all duration-300 group-hover:opacity-100 group-hover:translate-y-0 rounded-full p-[10px] hover:bg-[#EBECEC]"
+          className="opacity-0 transition-all duration-300 group-hover:opacity-100 group-hover:translate-y-0 rounded-full p-[10px] hover:bg-[#EBECEC]"
         />
       </div>
       <p className="text-sm">{keep.description}</p>
@@ -70,37 +75,45 @@ export default function SingleKeep({ keep }: KeepProps) {
         <strong>Labels:</strong> {keep.labels.join(', ')}
       </p>
       <p className="text-xs">
-        <small>{new Date(keep.createdAt).toLocaleDateString()}</small>
+        <small>{new Date(keep.date).toLocaleDateString()}</small>
       </p>
       <div className="flex gap-4 group">
         <img
           src={plusBell}
           alt="Remind Me"
-          className="opacity-0  transition-all duration-300 group-hover:opacity-100 group-hover:translate-y-0 rounded-full p-[12px] hover:bg-[#EBECEC] scale-[0.8]"
+          className="opacity-0 transition-all duration-300 group-hover:opacity-100 group-hover:translate-y-0 rounded-full p-[12px] hover:bg-[#EBECEC] scale-[0.8]"
         />
         <img
           src={collaborator}
           alt="collaborator"
-          className="opacity-0  transition-all duration-300 group-hover:opacity-100 group-hover:translate-y-0 rounded-full p-[12px] scale-[0.8] hover:bg-[#EBECEC]"
+          className="opacity-0 transition-all duration-300 group-hover:opacity-100 group-hover:translate-y-0 rounded-full p-[12px] scale-[0.8] hover:bg-[#EBECEC]"
         />
         <img
           src={colors}
           alt="color palette"
-          className="opacity-0  transition-all duration-300 group-hover:opacity-100 group-hover:translate-y-0 rounded-full p-[12px] scale-[0.8] hover:bg-[#EBECEC]"
+          className="opacity-0 transition-all duration-300 group-hover:opacity-100 group-hover:translate-y-0 rounded-full p-[12px] scale-[0.8] hover:bg-[#EBECEC]"
           onClick={() => setColorPickerOpen((prev) => !prev)}
         />
-        {isColorPickerOpen && <ColorPicker colors={colorMap} />}
+        {isColorPickerOpen && (
+          <ColorPicker
+            keepId={keep._id}
+            initialColor={currentColor}
+            colors={colorMap}
+            onColorChange={handleColorChange}
+            onClose={() => setColorPickerOpen(false)}
+          />
+        )}
         <img
           src={brush}
           alt="brush"
-          className="opacity-0  transition-all duration-300 group-hover:opacity-100 group-hover:translate-y-0 rounded-full p-[12px] scale-[0.8] hover:bg-[#EBECEC]"
+          className="opacity-0 transition-all duration-300 group-hover:opacity-100 group-hover:translate-y-0 rounded-full p-[12px] scale-[0.8] hover:bg-[#EBECEC]"
         />
         <img
           src={archive}
           alt="archive"
-          className="opacity-0  transition-all duration-300 group-hover:opacity-100 group-hover:translate-y-0 rounded-full p-[12px] scale-[0.8] hover:bg-[#EBECEC]"
+          className="opacity-0 transition-all duration-300 group-hover:opacity-100 group-hover:translate-y-0 rounded-full p-[12px] scale-[0.8] hover:bg-[#EBECEC]"
         />
-        <div className="opacity-0 transition-all duration-300 group-hover:opacity-100 group-hover:translate-y-0 rounded-full p-[12px] scale-[0.8] hover:bg-[#EBECEC]">
+        <div className="opacity-0  transition-all duration-300 group-hover:opacity-100 group-hover:translate-y-0 rounded-full p-[12px] scale-[0.8] hover:bg-[#EBECEC]">
           <DropDownOptionsIcon iconSrc={threeDots} />
         </div>
       </div>

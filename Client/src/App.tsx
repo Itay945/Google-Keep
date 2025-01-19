@@ -5,6 +5,7 @@ import SideBar from "./components/SideBar";
 import KeepsPage from "./pages/Keeps-page";
 import RegisterPage from "./pages/RegisterPage";
 import LoginPage from "./pages/LoginPage";
+import BinnedKeepsPage from "./pages/BinnedKeepsPage";
 
 export default function App() {
   const location = useLocation();
@@ -27,6 +28,7 @@ export default function App() {
         <main className="flex-grow p-4">
           <Routes>
             <Route path="/" element={<KeepsPage />} />
+            <Route path="/bin" element={<BinnedKeepsPage />} />
             <Route path="/register" element={<RegisterPage />} />
             <Route path="/login" element={<LoginPage />} />
           </Routes>
