@@ -25,7 +25,7 @@ export default function DropDownThreeDots({ iconSrc }) {
   return (
     <div className="relative" ref={dropdownRef}>
       <div onClick={toggleDropdown}>
-        <img src={iconSrc} alt="options" />
+        <img className="cursor-pointer" src={iconSrc} alt="options" />
       </div>
       {isDropdownOpen && (
         <div className="absolute right-0 mt-2 w-48 bg-white border rounded-lg shadow-lg text-black">
