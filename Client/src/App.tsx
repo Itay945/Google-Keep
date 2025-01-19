@@ -28,7 +28,7 @@ export default function App() {
         <main className="flex-grow p-4">
           <Routes>
             <Route path="/" element={<KeepsPage />} />
-            <Route path="/bin" element={<BinnedKeepsPage />} />
+            {/* <Route path="/bin" element={<BinnedKeepsPage />} /> */}
             <Route path="/register" element={<RegisterPage />} />
             <Route path="/login" element={<LoginPage />} />
           </Routes>
