@@ -7,17 +7,17 @@ import threeDots from "./../assets/more_vert_24dp_5F6368_FILL0_wght400_GRAD0_ops
 import pin from "./../assets/keep_24dp_5F6368_FILL0_wght400_GRAD0_opsz24.svg";
 import DropDownOptionsIcon from "./icon-components/OptionsIcon";
 const colorMap = {
-  Coral: "#77172E",
-  Peach: "#692B17",
-  Sand: "#7C4A03",
-  Mint: "#264D3B",
-  Sage: "#0C625D",
-  Fog: "#256377",
-  Storm: "#284255",
-  Dusk: "#472E5B",
-  Blossom: "#6C394F",
-  Clay: "#4B443A",
-  Chalk: "#232427",
+  Coral: "#FAAFA8",
+  Peach: "#F39F76",
+  Sand: "#FFF8B8",
+  Mint: "#E2F6D3",
+  Sage: "#B4DDD3",
+  Fog: "#D4E4ED",
+  Storm: "#AECCDC",
+  Dusk: "#D3BFDB",
+  Blossom: "#F6E2DD",
+  Clay: "#E9E3D4",
+  Chalk: "#EFEFF1",
 };
 type KeepProps = {
   keep: {
