@@ -1,10 +1,11 @@
 import { useState, useEffect } from 'react';
-import axios from 'axios';
+// import axios from 'axios';
+import api from '../helpers/axiosApiToken';
 import SingleKeep from './SingleKeep';
-import { useAuth } from '../hooks/useAuth';
+// import { useAuth } from '../hooks/useAuth';
 
 export default function Keep() {
-  const { token } = useAuth();
+  // const { token } = useAuth();
   type Keep = {
     pin: boolean;
     title: string;
@@ -32,11 +33,7 @@ export default function Keep() {
   useEffect(() => {
     const fetchKeeps = async () => {
       try {
-        const response = await axios.get('http://localhost:3000/keeps', {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        });
+        const response = await api.get('/keeps');
         setKeeps(response.data);
       } catch (err) {
         setError('Failed to fetch keeps.');
