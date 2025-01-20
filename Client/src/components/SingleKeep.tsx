@@ -40,11 +40,11 @@ const darkModeColorMap = {
 
 type KeepProps = {
   keep: {
-    id: string; // Unique ID for the keep to update in the database
+    id: string; 
     pin: boolean;
     title: string;
     description: string;
-    color: keyof typeof colorMap; // Type narrowed to valid color keys
+    color: keyof typeof colorMap; 
     labels: string[];
     author: string;
     date: Date;
