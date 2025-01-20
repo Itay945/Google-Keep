@@ -14,9 +14,9 @@ export default function NavBar({ toggleSidebar }) {
 
       <nav className="top-0 w-full z-50 flex items-center  text-white p-4 h-16 border-b border-gray-200">
         <div className="flex items-center gap-6 justify-start w-40 ">
-          <span className="text-2xl text-black" >
+          <span className="text-2xl text-black">
             <div className="rounded-full p-3 hover:bg-[#EBECEC]">
-              <img src={menu} alt="burger" className="cursor-pointer" onClick={toggleSidebar}/>
+              <img src={menu} alt="burger" className="cursor-pointer" onClick={toggleSidebar} />
             </div>
           </span>
           <Link to="/">
@@ -24,15 +24,15 @@ export default function NavBar({ toggleSidebar }) {
           </Link>
         </div>
         {/* searchbar */}
-        <div className="flex items-center flex-grow h-7 max-w-[747px] z-auto bg-[#F1F3F4] border-round py-6 rounded-lg ">
-          <span className="h-5 w-px bg-secondary-light mx-2"></span>
+        <div className="flex items-center flex-grow h-7 max-w-[747px] z-auto bg-secondary-light dark:bg-search-dark border-round py-6 rounded-lg ">
+          <span className="h-5 w-px bg-secondary-light dark:bg-search-dark mx-2"></span>
 
           <div className="rounded-full p-2 hover:bg-[#EBECEC]">
             <img src={searchIcon} alt="search magnifier" />
           </div>
-          <span className="h-5 w-px bg-[#F1F3F4] mx-2"></span>
-          <input type="text" placeholder="Search" className="bg-[#F1F3F4] border-0 focus:outline-none" />
-          <span className="h-5 w-14 bg-[#F1F3F4] mx-2"></span>
+          <span className="h-5 w-px bg-[#F1F3F4] dark:bg-search-dark mx-2"></span>
+          <input type="text" placeholder="Search" className="bg-[#F1F3F4] dark:bg-search-dark border-0 focus:outline-none" />
+          <span className="h-5 w-14 bg-[#F1F3F4] dark:bg-search-dark mx-2"></span>
         </div>
         <span className="flex-grow"></span>
         {/* icons */}

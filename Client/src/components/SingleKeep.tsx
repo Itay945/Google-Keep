@@ -23,6 +23,19 @@ const colorMap = {
   Clay: "#E9E3D4",
   Chalk: "#EFEFF1",
 };
+const darkModeColorMap = {
+  Coral: "#77172E",
+  Peach: "#692B17",
+  Sand: "##7C4A03",
+  Mint: "#264D3B",
+  Sage: "#0C625D",
+  Fog: "#256377",
+  Storm: "#284255",
+  Dusk: "#472E5B",
+  Blossom: "#6C394F",
+  Clay: "#4B443A",
+  Chalk: "#232427",
+};
 
 type KeepProps = {
   keep: {
