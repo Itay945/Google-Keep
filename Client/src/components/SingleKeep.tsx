@@ -8,6 +8,7 @@ import threeDots from './../assets/more_vert_24dp_5F6368_FILL0_wght400_GRAD0_ops
 import pin from './../assets/keep_24dp_5F6368_FILL0_wght400_GRAD0_opsz24.svg';
 import ColorPicker from './Single-Keep-icons/ColorPicker';
 import DropDownThreeDots from './icon-components/ThreeDotsDropDown';
+import circularV from "../assets/check_circle_24dp_000000_FILL1_wght400_GRAD0_opsz24.svg";
 import { useState } from 'react';
 
 const colorMap = {
@@ -58,10 +59,12 @@ export default function SingleKeep({ keep }: KeepProps) {
     setCurrentColor(newColor); // Update locally
   };
   return (
+    <>
     <div
       className=" rounded-lg p-4 group hover:shadow-[0_0_4px_rgb(0,0,0,0.3)] "
       style={{ backgroundColor: colorMap[currentColor] || '#ffffff' }}
     >
+    
       <div className="flex justify-between">
         <h3
           className={`text-lg font-bold ${keep.pin ? 'text-yellow-500' : ''}`}
@@ -122,5 +125,6 @@ export default function SingleKeep({ keep }: KeepProps) {
         </div>
       </div>
     </div>
+    </>
   );
 }
