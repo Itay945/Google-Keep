@@ -16,7 +16,7 @@ app.use(express.json());
 // app.use('/keeps', keepsRoutes);
 app.use('/api/keeps', authToken, keepsRoutes);
 // app.use('/keeps', keepsRoutes);
-app.use('/api/users', authToken, usersRoutes);
+app.use('/api/users', usersRoutes);
 
 app.get('/', (req, res) => {
   res.json({ message: 'Welcome to my api' });
