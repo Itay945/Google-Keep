@@ -6,6 +6,9 @@ import { useAuth } from '../hooks/useAuth';
 
 export default function Keep() {
   const { loggedInUser } = useAuth();
+
+  // console.log('loggedInUser1: ', loggedInUser._id);
+
   type Keep = {
     pin: boolean;
     title: string;
@@ -33,8 +36,13 @@ export default function Keep() {
   useEffect(() => {
     const fetchKeeps = async () => {
       try {
-        const response = await api.get(`/keeps`);
-        // const response = await api.get(`/users/${loggedInUser}`);
+        // const response = await api.get(`/keeps`);
+        if (!loggedInUser) {
+          return;
+        }
+        const response = await api.get(`/users/${loggedInUser._id}`);
+        console.log('response: ', response.data);
+
         setKeeps(response.data);
       } catch (err) {
         setError('Failed to fetch keeps.');

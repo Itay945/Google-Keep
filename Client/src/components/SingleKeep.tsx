@@ -1,27 +1,27 @@
 // SingleKeep.tsx
-import plusBell from "./../assets/add_alert_24dp_5F6368_FILL0_wght400_GRAD0_opsz24.svg";
-import collaborator from "./../assets/person_add_24dp_5F6368_FILL0_wght400_GRAD0_opsz24.svg";
-import colors from "./../assets/palette_24dp_5F6368_FILL0_wght400_GRAD0_opsz24.svg";
-import brush from "./../assets/brush_24dp_5F6368_FILL0_wght400_GRAD0_opsz24.svg";
-import archive from "./../assets/archive_24dp_5F6368_FILL0_wght400_GRAD0_opsz24.svg";
-import threeDots from "./../assets/more_vert_24dp_5F6368_FILL0_wght400_GRAD0_opsz24.svg";
-import pin from "./../assets/keep_24dp_5F6368_FILL0_wght400_GRAD0_opsz24.svg";
-import ColorPicker from "./Single-Keep-icons/ColorPicker";
-import DropDownThreeDots from "./icon-components/ThreeDotsDropDown";
-import { useState } from "react";
+import plusBell from './../assets/add_alert_24dp_5F6368_FILL0_wght400_GRAD0_opsz24.svg';
+import collaborator from './../assets/person_add_24dp_5F6368_FILL0_wght400_GRAD0_opsz24.svg';
+import colors from './../assets/palette_24dp_5F6368_FILL0_wght400_GRAD0_opsz24.svg';
+import brush from './../assets/brush_24dp_5F6368_FILL0_wght400_GRAD0_opsz24.svg';
+import archive from './../assets/archive_24dp_5F6368_FILL0_wght400_GRAD0_opsz24.svg';
+import threeDots from './../assets/more_vert_24dp_5F6368_FILL0_wght400_GRAD0_opsz24.svg';
+import pin from './../assets/keep_24dp_5F6368_FILL0_wght400_GRAD0_opsz24.svg';
+import ColorPicker from './Single-Keep-icons/ColorPicker';
+import DropDownThreeDots from './icon-components/ThreeDotsDropDown';
+import { useState } from 'react';
 
 const colorMap = {
-  Coral: "#FAAFA8",
-  Peach: "#F39F76",
-  Sand: "#FFF8B8",
-  Mint: "#E2F6D3",
-  Sage: "#B4DDD3",
-  Fog: "#D4E4ED",
-  Storm: "#AECCDC",
-  Dusk: "#D3BFDB",
-  Blossom: "#F6E2DD",
-  Clay: "#E9E3D4",
-  Chalk: "#EFEFF1",
+  Coral: '#FAAFA8',
+  Peach: '#F39F76',
+  Sand: '#FFF8B8',
+  Mint: '#E2F6D3',
+  Sage: '#B4DDD3',
+  Fog: '#D4E4ED',
+  Storm: '#AECCDC',
+  Dusk: '#D3BFDB',
+  Blossom: '#F6E2DD',
+  Clay: '#E9E3D4',
+  Chalk: '#EFEFF1',
 };
 
 type KeepProps = {
@@ -45,9 +45,16 @@ export default function SingleKeep({ keep }: KeepProps) {
     setCurrentColor(newColor); // Update locally
   };
   return (
-    <div className="border border-gray-100 rounded-lg p-4 group" style={{ backgroundColor: colorMap[currentColor] || "#ffffff" }}>
+    <div
+      className="border border-gray-100 rounded-lg p-4 group"
+      style={{ backgroundColor: colorMap[currentColor] || '#ffffff' }}
+    >
       <div className="flex justify-between">
-        <h3 className={`text-lg font-bold ${keep.pin ? "text-yellow-500" : ""}`}>{keep.title}</h3>
+        <h3
+          className={`text-lg font-bold ${keep.pin ? 'text-yellow-500' : ''}`}
+        >
+          {keep.title}
+        </h3>
         <img
           src={pin}
           alt="pin"
@@ -56,7 +63,7 @@ export default function SingleKeep({ keep }: KeepProps) {
       </div>
       <p className="text-sm">{keep.description}</p>
       <p className="text-xs">
-        <strong>Labels:</strong> {keep.labels.join(", ")}
+        <strong>Labels:</strong> {keep.labels.join(', ')}
       </p>
       <p className="text-xs">
         <small>{new Date(keep.date).toLocaleDateString()}</small>

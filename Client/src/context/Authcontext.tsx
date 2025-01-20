@@ -7,7 +7,7 @@ export const AuthContext = createContext(null);
 export const AuthProvider = ({ children }) => {
   const navigate = useNavigate();
   const [loggedInUser, setLoggedInUser] = useState();
-  const [token, setToken] = useState(localStorage.getItem('token'));
+  const [token, setToken] = useState(() => localStorage.getItem('token'));
   // const [token, setToken] = useState(null);
 
   useEffect(() => {
@@ -19,7 +19,7 @@ export const AuthProvider = ({ children }) => {
       navigate('/login');
     }
     // type script ask me to add navigate to the dependency array
-  }, [navigate, token]);
+  }, [token, navigate]);
 
   async function fetchUser() {
     const res = await api.get('/users/getUser');

@@ -14,7 +14,9 @@ router.get('/', getAllUsers);
 
 router.get('/getUser', authToken, async (req, res) => {
   try {
-    user = await User.findById(req.user.userId);
+    user = await User.findById(req.user.userId)
+      .select('userKeeps')
+      .populate('userKeeps');
     res.json({ user: user });
   } catch (error) {}
 });
