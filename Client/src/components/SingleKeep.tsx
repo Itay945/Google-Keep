@@ -79,7 +79,7 @@ export default function SingleKeep({ keep }: KeepProps) {
         <strong>Labels:</strong> {keep.labels.join(', ')}
       </p>
       <p className="text-xs">
-        <small>{new Date(keep.date).toLocaleDateString()}</small>
+        <small>{new Date(keep.createdAt).toLocaleDateString()}</small>
       </p>
       <div className="flex gap-4 group">
         <img
