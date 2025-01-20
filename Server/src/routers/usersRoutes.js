@@ -12,6 +12,13 @@ const authToken = require('../middlewares/auth.middleware');
 // get all users with all their properties
 router.get('/', getAllUsers);
 
+router.get('/getUser', authToken, async (req, res) => {
+  try {
+    user = await User.findById(req.user.userId);
+    res.json({ user: user });
+  } catch (error) {}
+});
+
 // post new user
 router.post('/', register);
 

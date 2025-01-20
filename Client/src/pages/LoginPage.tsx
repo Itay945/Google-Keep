@@ -20,12 +20,8 @@ function LoginPage() {
       });
 
       const newToken = res.data.data.token;
-      console.log('userId: ', res.data.data.userId);
 
       login(newToken);
-      // localStorage.setItem('token', JSON.stringify(newToken));
-      // const token = JSON.parse(localStorage.getItem('token'));
-      // console.log('token: ', token);
 
       navigate('/');
     } catch (error) {
