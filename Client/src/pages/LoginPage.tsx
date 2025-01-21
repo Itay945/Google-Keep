@@ -11,7 +11,7 @@ function LoginPage() {
   const { login } = useAuth();
   // const [token, setToken] = useState('');
 
-  async function handlesubmit(formData) {
+  async function handleSubmite(formData) {
     try {
       const data = Object.fromEntries(formData);
       console.log('data: ', data);
@@ -44,20 +44,20 @@ function LoginPage() {
           </div>
           <h1 className="text-[#E3E3E3] text-[32px]">Sign in</h1>
           <h2 className="text-[#E3E3E3]">Use your Google Account</h2>
-          <form action={handlesubmit}>
+          <form action={handleSubmite}>
             <div className="flex flex-col items-center gap-4">
               <input
                 placeholder="Email or phone"
                 type="text"
                 name="email"
-                value="yoav1@gmail23.com"
+                // value="yoav1@gmail23.com"
                 className="border border-gray-600 text-xl bg-transparent text-[#A1C7C5]"
               />
               <input
                 placeholder="password"
                 type="text"
                 name="password"
-                value="yoav1234567"
+                // value="yoav1234567"
                 className="border border-gray-600 text-xl bg-transparent text-[#A1C7C5]"
               />
             </div>
