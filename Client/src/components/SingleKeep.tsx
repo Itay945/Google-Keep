@@ -9,6 +9,8 @@ import pin from "./../assets/keep_24dp_5F6368_FILL0_wght400_GRAD0_opsz24.svg";
 import ColorPicker from "./Single-Keep-icons/ColorPicker";
 import DropDownThreeDots from "./Single-Keep-icons/ThreeDotsDropDown";
 import circularV from "../assets/check_circle_24dp_000000_FILL1_wght400_GRAD0_opsz24.svg";
+import pinFull from "../assets/keep_24dp_9AA0A6_FILL1_wght400_GRAD0_opsz24.svg";
+import { handlePinToggle } from "../helpers/HandlePinToggle";
 import { useState } from "react";
 import { Keep, KeepColor } from "./KeepMain";
 
@@ -44,8 +46,13 @@ type KeepProps = {
 };
 
 export default function SingleKeep({ keep }: KeepProps) {
+  const [isPinned, setIsPinned] = useState(keep.pin);
   const [isColorPickerOpen, setColorPickerOpen] = useState(false);
   const [currentColor, setCurrentColor] = useState(keep.color);
+
+  const handlePinClick = async () => {
+    await handlePinToggle(keep._id, isPinned, setIsPinned); // Pass the state updater
+  };
 
   const handleColorChange = (newColor: KeepColor) => {
     setCurrentColor(newColor); // Update locally
@@ -54,10 +61,11 @@ export default function SingleKeep({ keep }: KeepProps) {
     <>
       <div className=" rounded-lg p-4 group hover:shadow-[0_0_4px_rgb(0,0,0,0.3)] " style={{ backgroundColor: colorMap[currentColor] || "#ffffff" }}>
         <div className="flex justify-between">
-          <h3 className={`text-lg font-bold ${keep.pin ? "text-yellow-500" : ""}`}>{keep.title}</h3>
+          <h3 className={`text-lg font-bold`}>{keep.title}</h3>
           <img
-            src={pin}
+            src={isPinned ? pinFull : pin}
             alt="pin"
+            onClick={handlePinClick}
             className="opacity-0 transition-all duration-300 group-hover:opacity-100 group-hover:translate-y-0 rounded-full p-[10px] hover:bg-[#EBECEC]"
           />
         </div>
