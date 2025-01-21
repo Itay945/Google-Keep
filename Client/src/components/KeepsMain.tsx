@@ -1,8 +1,8 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect } from 'react';
 // import axios from 'axios';
-import api from "../helpers/axiosApiToken";
-import SingleKeep from "./SingleKeep";
-import { useAuth } from "../hooks/useAuth";
+import api from '../helpers/axiosApiToken';
+import SingleKeep from './SingleKeep';
+import { useAuth } from '../hooks/useAuth';
 
 export type Keep = {
   _id: string;
@@ -11,22 +11,37 @@ export type Keep = {
   color: KeepColor;
   labels: string[];
   isDeleted: false;
-  editedAt: date;
+  editedAt: Date;
   createdAt: Date;
   author: string;
   pin: boolean;
 };
-export type KeepColor = "Coral" | "Peach" | "Sand" | "Mint" | "Sage" | "Fog" | "Storm" | "Dusk" | "Blossom" | "Clay" | "Chalk";
+export type KeepColor =
+  | 'Coral'
+  | 'Peach'
+  | 'Sand'
+  | 'Mint'
+  | 'Sage'
+  | 'Fog'
+  | 'Storm'
+  | 'Dusk'
+  | 'Blossom'
+  | 'Clay'
+  | 'Chalk';
 
 export default function KeepsMain() {
   const { loggedInUser } = useAuth();
-  console.log("loggedInUser from useHuth: ", loggedInUser);
+  console.log('loggedInUser from useHuth: ', loggedInUser);
 
   const [keeps, setKeeps] = useState<Keep[]>([]);
   const [error, setError] = useState<string | null>(null);
 
   const handleKeepUpdate = (keepId: string, updates: Partial<Keep>) => {
-    setKeeps((prevKeeps) => prevKeeps.map((keep) => (keep._id === keepId ? { ...keep, ...updates } : keep)));
+    setKeeps((prevKeeps) =>
+      prevKeeps.map((keep) =>
+        keep._id === keepId ? { ...keep, ...updates } : keep
+      )
+    );
   };
   useEffect(() => {
     const fetchKeeps = async () => {
@@ -35,11 +50,11 @@ export default function KeepsMain() {
           return;
         }
         const response = await api.get(`/users/${loggedInUser.userId}`);
-        console.log("response: ", response.data);
+        console.log('response: ', response.data);
 
         setKeeps(response.data);
       } catch (err) {
-        setError("Failed to fetch keeps.");
+        setError('Failed to fetch keeps.');
         console.error(err);
       }
     };
@@ -61,7 +76,11 @@ export default function KeepsMain() {
           <div className="">
             <h2>Pinned</h2>
             {pinnedKeeps.map((keep) => (
-              <SingleKeep key={keep._id} keep={keep} onKeepUpdate={handleKeepUpdate} />
+              <SingleKeep
+                key={keep._id}
+                keep={keep}
+                onKeepUpdate={handleKeepUpdate}
+              />
             ))}
           </div>
         )}
@@ -69,7 +88,11 @@ export default function KeepsMain() {
           <div>
             {pinnedKeeps.length > 0 && <h2>Others</h2>}
             {otherKeeps.map((keep) => (
-              <SingleKeep key={keep._id} keep={keep} onKeepUpdate={handleKeepUpdate} />
+              <SingleKeep
+                key={keep._id}
+                keep={keep}
+                onKeepUpdate={handleKeepUpdate}
+              />
             ))}
           </div>
         )}

@@ -31,6 +31,7 @@ const keepSchema = new mongoose.Schema({
       'Dusk,Blossom',
       'Clay',
       'Chalk',
+      '#FFFFFF',
     ],
   },
   labels: {
