@@ -9,8 +9,9 @@ import pin from './../assets/keep_24dp_5F6368_FILL0_wght400_GRAD0_opsz24.svg';
 import ColorPicker from './Single-Keep-icons/ColorPicker';
 import DropDownThreeDots from './icon-components/ThreeDotsDropDown';
 import { useState } from 'react';
+import { Keep, KeepColor } from './KeepMain';
 
-const colorMap = {
+const colorMap: Record<KeepColor, string> = {
   Coral: '#FAAFA8',
   Peach: '#F39F76',
   Sand: '#FFF8B8',
@@ -25,23 +26,14 @@ const colorMap = {
 };
 
 type KeepProps = {
-  keep: {
-    id: string; // Unique ID for the keep to update in the database
-    pin: boolean;
-    title: string;
-    description: string;
-    color: keyof typeof colorMap; // Type narrowed to valid color keys
-    labels: string[];
-    author: string;
-    date: Date;
-  };
+  keep: Keep;
 };
 
 export default function SingleKeep({ keep }: KeepProps) {
   const [isColorPickerOpen, setColorPickerOpen] = useState(false);
   const [currentColor, setCurrentColor] = useState(keep.color);
 
-  const handleColorChange = (newColor: string) => {
+  const handleColorChange = (newColor: KeepColor) => {
     setCurrentColor(newColor); // Update locally
   };
   return (

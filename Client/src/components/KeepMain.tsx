@@ -4,31 +4,35 @@ import api from '../helpers/axiosApiToken';
 import SingleKeep from './SingleKeep';
 import { useAuth } from '../hooks/useAuth';
 
+export type Keep = {
+  _id: string;
+  pin: boolean;
+  title: string;
+  description: string;
+  color: KeepColor;
+
+  labels: string[];
+  author: string;
+  date: Date;
+};
+export type KeepColor =
+  | 'Coral'
+  | 'Peach'
+  | 'Sand'
+  | 'Mint'
+  | 'Sage'
+  | 'Fog'
+  | 'Storm'
+  | 'Dusk'
+  | 'Blossom'
+  | 'Clay'
+  | 'Chalk';
+
 export default function Keep() {
   const { loggedInUser } = useAuth();
+  console.log('loggedInUser from useHuth: ', loggedInUser);
 
   // console.log('loggedInUser1: ', loggedInUser._id);
-
-  type Keep = {
-    pin: boolean;
-    title: string;
-    description: string;
-    color:
-      | 'Coral'
-      | 'Peach'
-      | 'Sand'
-      | 'Mint'
-      | 'Sage'
-      | 'Fog'
-      | 'Storm'
-      | 'Dusk'
-      | 'Blossom'
-      | 'Clay'
-      | 'Chalk';
-    labels: string[];
-    author: string;
-    date: Date;
-  };
 
   const [keeps, setKeeps] = useState<Keep[]>([]);
   const [error, setError] = useState<string | null>(null);
@@ -51,7 +55,7 @@ export default function Keep() {
     };
 
     fetchKeeps();
-  }, []);
+  }, [loggedInUser]);
 
   if (error) {
     return <div className="text-red-500">{error}</div>;

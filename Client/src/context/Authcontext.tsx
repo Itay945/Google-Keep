@@ -1,33 +1,53 @@
 import { createContext, useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import api from '../helpers/axiosApiToken';
+type AuthContextType = {
+  token: string | null;
+  login: (token: string) => void;
+  logout: () => void;
+  loggedInUser: LoggedInUser | null;
+};
+type LoggedInUser = {
+  name: string;
+  lastName: string;
+  userKeeps: string[];
+  _id: string;
+  email: string;
+};
+type AuthProviderProps = {
+  children: React.ReactNode;
+};
 
-export const AuthContext = createContext(null);
+export const AuthContext = createContext<AuthContextType | null>(null);
 
-export const AuthProvider = ({ children }) => {
+export const AuthProvider = ({ children }: AuthProviderProps) => {
   const navigate = useNavigate();
-  const [loggedInUser, setLoggedInUser] = useState();
+  const [loggedInUser, setLoggedInUser] = useState<LoggedInUser | null>(null);
   const [token, setToken] = useState(() => localStorage.getItem('token'));
   // const [token, setToken] = useState(null);
 
   useEffect(() => {
-    // Check if token exists in localStorage when component mounts
     if (token) {
       setToken(token);
+      localStorage.setItem('token', token);
       fetchUser();
     } else {
+      setLoggedInUser(null);
       navigate('/login');
     }
-    // type script ask me to add navigate to the dependency array
   }, [token, navigate]);
 
   async function fetchUser() {
-    const res = await api.get('/users/getUser');
-    console.log('res: ', res.data.user);
-    setLoggedInUser(res.data.user);
+    try {
+      const res = await api.get('/users/getUser');
+      console.log('res user: ', res.data.user);
+      setLoggedInUser(res.data.user);
+    } catch (error) {
+      console.log('error: ', error);
+    }
   }
 
-  const login = (newToken) => {
+  const login = (newToken: string) => {
     localStorage.setItem('token', newToken);
     setToken(newToken);
   };
