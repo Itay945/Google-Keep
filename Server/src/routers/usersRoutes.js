@@ -12,12 +12,23 @@ const authToken = require('../middlewares/auth.middleware');
 // get all users with all their properties
 router.get('/', getAllUsers);
 
+// router.get('/getUser', authToken, async (req, res) => {
+//   try {
+//     user = await User.findById(req.user.userId)
+//       .select('userKeeps')
+//       .populate('userKeeps');
+//     res.json({ user: user });
+//   } catch (error) {}
+// });
 router.get('/getUser', authToken, async (req, res) => {
   try {
-    user = await User.findById(req.user.userId)
-      .select('userKeeps')
-      .populate('userKeeps');
-    res.json({ user: user });
+    user = await User.findById(req.user.userId).select('name');
+    res.json({
+      userName: user.name,
+      userLastName: user.lastName,
+      userEmail: user.email,
+      userId: user._id,
+    });
   } catch (error) {}
 });
 

@@ -11,7 +11,7 @@ type LoggedInUser = {
   name: string;
   lastName: string;
   userKeeps: string[];
-  _id: string;
+  userId: string;
   email: string;
 };
 type AuthProviderProps = {
@@ -40,8 +40,8 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
   async function fetchUser() {
     try {
       const res = await api.get('/users/getUser');
-      console.log('res user: ', res.data.user);
-      setLoggedInUser(res.data.user);
+      console.log('res user: ', res.data);
+      setLoggedInUser(res.data);
     } catch (error) {
       console.log('error: ', error);
     }

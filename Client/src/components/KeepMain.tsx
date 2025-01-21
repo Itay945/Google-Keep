@@ -44,7 +44,7 @@ export default function Keep() {
         if (!loggedInUser) {
           return;
         }
-        const response = await api.get(`/users/${loggedInUser._id}`);
+        const response = await api.get(`/users/${loggedInUser.userId}`);
         console.log('response: ', response.data);
 
         setKeeps(response.data);
