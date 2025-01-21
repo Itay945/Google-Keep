@@ -32,7 +32,6 @@ export default function KeepsPage() {
   }, [loggedInUser]);
 
   const handleKeepUpdate = (keepId: string, updates: Partial<Keep>) => {
-    debugger;
     setKeeps((prevKeeps) =>
       prevKeeps.map((keep) =>
         keep._id === keepId ? { ...keep, ...updates } : keep
