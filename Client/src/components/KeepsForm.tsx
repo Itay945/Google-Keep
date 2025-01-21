@@ -14,9 +14,9 @@ function KeepsForm() {
         // description: data.description,
         title: data.title,
         description: data.description,
-        // color: 'Coral',
-        // labels: ['work1', 'fun', 'food'],
-        // isDeleted: false,
+        color: 'Coral',
+        labels: ['work1', 'fun', 'food'],
+        isDeleted: false,
       });
       console.log('keepFormData', res.data);
 
