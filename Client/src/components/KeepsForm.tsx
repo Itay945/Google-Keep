@@ -1,35 +1,31 @@
 // import axios from 'axios';
 import api from '../helpers/axiosApiToken';
+import { Keep } from './KeepsMain';
 // import { useNavigate } from "react-router-dom";
 // import { useAuth } from "../hooks/useAuth";
 // import google from "../assets/google.png";
-
-function KeepsForm() {
-  async function handlesubmit(formData) {
+interface KeepsFormProps {
+  onKeepsAdded: (newKeep: Keep) => void;
+}
+function KeepsForm({ onKeepsAdded }: KeepsFormProps) {
+  async function handlesubmit(formData: FormData) {
     try {
       const data = Object.fromEntries(formData);
       console.log('data: ', data);
       const res = await api.post('/users/addKeepToUser', {
-        // title: data.title,
-        // description: data.description,
         title: data.title,
         description: data.description,
         // color: 'Coral',
-        // labels: ['work1', 'fun', 'food'],
+        // labels: ['work1', 'fun', 'food']
         // isDeleted: false,
       });
       console.log('keepFormData', res.data);
-
-      //   const newToken = res.data.data.token;
-      //   console.log('userId: ', res.data.data.userId);
-
-      //   login(newToken);
-
-      //   navigate('/');
+      onKeepsAdded(res.data);
     } catch (error) {
       console.error('error: ', error);
     }
   }
+
   return (
     <form
       action={handlesubmit}

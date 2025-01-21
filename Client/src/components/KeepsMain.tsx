@@ -1,8 +1,4 @@
-import { useState, useEffect } from 'react';
-// import axios from 'axios';
-import api from '../helpers/axiosApiToken';
 import SingleKeep from './SingleKeep';
-import { useAuth } from '../hooks/useAuth';
 
 export type Keep = {
   _id: string;
@@ -28,46 +24,22 @@ export type KeepColor =
   | 'Blossom'
   | 'Clay'
   | 'Chalk';
-
-export default function KeepsMain() {
-  const { loggedInUser } = useAuth();
-  console.log('loggedInUser from useHuth: ', loggedInUser);
-
-  const [keeps, setKeeps] = useState<Keep[]>([]);
-  const [error, setError] = useState<string | null>(null);
-
-  const handleKeepUpdate = (keepId: string, updates: Partial<Keep>) => {
-    setKeeps((prevKeeps) =>
-      prevKeeps.map((keep) =>
-        keep._id === keepId ? { ...keep, ...updates } : keep
-      )
-    );
-  };
-  useEffect(() => {
-    const fetchKeeps = async () => {
-      try {
-        if (!loggedInUser) {
-          return;
-        }
-        const response = await api.get(`/users/${loggedInUser.userId}`);
-        console.log('response: ', response.data);
-
-        setKeeps(response.data);
-      } catch (err) {
-        setError('Failed to fetch keeps.');
-        console.error(err);
-      }
-    };
-
-    fetchKeeps();
-  }, [loggedInUser]);
-
+interface KeepsMainProps {
+  keeps: Keep[];
+  error: string | null;
+  onKeepUpdate: (keepId: string, updates: Partial<Keep>) => void;
+}
+export default function KeepsMain({
+  error,
+  keeps,
+  onKeepUpdate,
+}: KeepsMainProps) {
   if (error) {
     return <div className="text-red-500">{error}</div>;
   }
-  const filteredKeeps = keeps.filter((keep) => !keep.isDeleted);
-  const pinnedKeeps = filteredKeeps.filter((keep) => keep.pin);
-  const otherKeeps = filteredKeeps.filter((keep) => !keep.pin);
+
+  const pinnedKeeps = keeps.filter((keep) => keep.pin);
+  const otherKeeps = keeps.filter((keep) => !keep.pin);
 
   return (
     <>
@@ -79,7 +51,7 @@ export default function KeepsMain() {
               <SingleKeep
                 key={keep._id}
                 keep={keep}
-                onKeepUpdate={handleKeepUpdate}
+                onKeepUpdate={onKeepUpdate}
               />
             ))}
           </div>
@@ -91,7 +63,7 @@ export default function KeepsMain() {
               <SingleKeep
                 key={keep._id}
                 keep={keep}
-                onKeepUpdate={handleKeepUpdate}
+                onKeepUpdate={onKeepUpdate}
               />
             ))}
           </div>
