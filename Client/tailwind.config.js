@@ -1,5 +1,6 @@
 /** @type {import('tailwindcss').Config} */
 export default {
+  darkMode: "class",
   content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
   theme: {
     extend: {
@@ -19,6 +20,10 @@ export default {
         text: {
           light: "#111827", // Text color in light mode
           dark: "#f9fafb", // Text color in dark mode
+        },
+        search: {
+          light: "#F1F3F4", //searchbar
+          dark: "#525355", //searchbar
         },
       },
     },

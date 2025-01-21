@@ -10,7 +10,7 @@ export type Keep = {
   title: string;
   description: string;
   color: KeepColor;
-
+  createdAt: Date;
   labels: string[];
   author: string;
   date: Date;
