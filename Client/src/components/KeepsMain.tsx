@@ -25,10 +25,9 @@ export default function KeepsMain() {
   const [keeps, setKeeps] = useState<Keep[]>([]);
   const [error, setError] = useState<string | null>(null);
 
-  const handleKeepPinUpdate = (keepId: string, newPinState: boolean) => {
-    setKeeps((prevKeeps) => prevKeeps.map((keep) => (keep._id === keepId ? { ...keep, pin: newPinState } : keep)));
+  const handleKeepUpdate = (keepId: string, updates: Partial<Keep>) => {
+    setKeeps((prevKeeps) => prevKeeps.map((keep) => (keep._id === keepId ? { ...keep, ...updates } : keep)));
   };
-
   useEffect(() => {
     const fetchKeeps = async () => {
       try {
@@ -62,7 +61,7 @@ export default function KeepsMain() {
           <div className="">
             <h2>Pinned</h2>
             {pinnedKeeps.map((keep) => (
-              <SingleKeep key={keep._id} keep={keep} onPinUpdate={handleKeepPinUpdate} />
+              <SingleKeep key={keep._id} keep={keep} onKeepUpdate={handleKeepUpdate} />
             ))}
           </div>
         )}
@@ -70,7 +69,7 @@ export default function KeepsMain() {
           <div>
             {pinnedKeeps.length > 0 && <h2>Others</h2>}
             {otherKeeps.map((keep) => (
-              <SingleKeep key={keep._id} keep={keep} onPinUpdate={handleKeepPinUpdate} />
+              <SingleKeep key={keep._id} keep={keep} onKeepUpdate={handleKeepUpdate} />
             ))}
           </div>
         )}
