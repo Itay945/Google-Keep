@@ -9,8 +9,10 @@ import pin from "./../assets/keep_24dp_5F6368_FILL0_wght400_GRAD0_opsz24.svg";
 import ColorPicker from "./Single-Keep-icons/ColorPicker";
 import DropDownThreeDots from "./Single-Keep-icons/ThreeDotsDropDown";
 import circularV from "../assets/check_circle_24dp_000000_FILL1_wght400_GRAD0_opsz24.svg";
+import pinFull from "../assets/keep_24dp_9AA0A6_FILL1_wght400_GRAD0_opsz24.svg";
+import { handlePinToggle } from "../helpers/HandlePinToggle";
 import { useState } from "react";
-import { Keep, KeepColor } from "./KeepMain";
+import { Keep, KeepColor } from "./KeepsMain";
 
 const colorMap: Record<KeepColor, string> = {
   Coral: "#FAAFA8",
@@ -41,23 +43,45 @@ const darkModeColorMap: Record<KeepColor, string> = {
 
 type KeepProps = {
   keep: Keep;
+  onKeepUpdate: (keepId: string, updates: Partial<Keep>) => void;
 };
 
-export default function SingleKeep({ keep }: KeepProps) {
-  const [isColorPickerOpen, setColorPickerOpen] = useState(false);
-  const [currentColor, setCurrentColor] = useState(keep.color);
+export default function SingleKeep({ keep, onKeepUpdate }: KeepProps) {
+  const [keepState, setKeepState] = useState({
+    isPinned: keep.pin,
+    currentColor: keep.color,
+    isColorPickerOpen: false,
+  });
+
+  const handlePinClick = async () => {
+    await handlePinToggle(keep._id, keepState.isPinned, (newPinState: boolean) => {
+      setKeepState((prev) => ({
+        ...prev,
+        isPinned: newPinState,
+      }));
+      onKeepUpdate(keep._id, { pin: newPinState });
+    });
+  };
 
   const handleColorChange = (newColor: KeepColor) => {
-    setCurrentColor(newColor); // Update locally
+    setKeepState((prev) => ({
+      ...prev,
+      currentColor: newColor,
+    }));
+    onKeepUpdate(keep._id, { color: newColor });
   };
   return (
     <>
-      <div className=" rounded-lg p-4 group hover:shadow-[0_0_4px_rgb(0,0,0,0.3)] " style={{ backgroundColor: colorMap[currentColor] || "#ffffff" }}>
+      <div
+        className=" rounded-lg p-4 group hover:shadow-[0_0_4px_rgb(0,0,0,0.3)] "
+        style={{ backgroundColor: colorMap[keepState.currentColor] || "#ffffff" }}
+      >
         <div className="flex justify-between">
-          <h3 className={`text-lg font-bold ${keep.pin ? "text-yellow-500" : ""}`}>{keep.title}</h3>
+          <h3 className={`text-lg font-bold`}>{keep.title}</h3>
           <img
-            src={pin}
+            src={keepState.isPinned ? pinFull : pin}
             alt="pin"
+            onClick={handlePinClick}
             className="opacity-0 transition-all duration-300 group-hover:opacity-100 group-hover:translate-y-0 rounded-full p-[10px] hover:bg-[#EBECEC]"
           />
         </div>
@@ -83,15 +107,15 @@ export default function SingleKeep({ keep }: KeepProps) {
             src={colors}
             alt="color palette"
             className="opacity-0 transition-all duration-300 group-hover:opacity-100 group-hover:translate-y-0 rounded-full p-[12px] scale-[0.8] hover:bg-[#EBECEC]"
-            onClick={() => setColorPickerOpen((prev) => !prev)}
+            onClick={() => setKeepState((prev) => ({ ...prev, isColorPickerOpen: !prev.isColorPickerOpen }))}
           />
-          {isColorPickerOpen && (
+          {keepState.isColorPickerOpen && (
             <ColorPicker
               keepId={keep._id}
-              initialColor={currentColor}
+              initialColor={keepState.currentColor}
               colors={colorMap}
               onColorChange={handleColorChange}
-              onClose={() => setColorPickerOpen(false)}
+              onClose={() => setKeepState((prev) => ({ ...prev, isColorPickerOpen: false }))}
             />
           )}
           <img
@@ -105,7 +129,7 @@ export default function SingleKeep({ keep }: KeepProps) {
             className="opacity-0 transition-all duration-300 group-hover:opacity-100 group-hover:translate-y-0 rounded-full p-[12px] scale-[0.8] hover:bg-[#EBECEC]"
           />
           <div className="opacity-0 transition-all duration-300 group-hover:opacity-100 group-hover:translate-y-0 rounded-full p-[12px] scale-[0.8] hover:bg-[#EBECEC]">
-            <DropDownThreeDots iconSrc={threeDots} />
+            <DropDownThreeDots iconSrc={threeDots} _id={keep._id} />
           </div>
         </div>
       </div>

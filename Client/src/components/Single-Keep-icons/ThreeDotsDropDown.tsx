@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef } from "react";
+import api from "../../helpers/axiosApiToken";
 
-export default function DropDownThreeDots({ iconSrc }) {
+export default function DropDownThreeDots({ iconSrc, _id }) {
   const [isDropdownOpen, setDropdownOpen] = useState(false);
   const dropdownRef = useRef(null);
 
@@ -8,6 +9,22 @@ export default function DropDownThreeDots({ iconSrc }) {
     setDropdownOpen(!isDropdownOpen);
   };
 
+  const handleDelete = async (id) => {
+    try {
+      const response = await api.put(`/keeps/${id}`, {
+        isDeleted: true,
+      });
+
+      if (response.status !== 200) {
+        throw new Error("Failed to update pin state");
+      }
+
+      console.log("Pin state updated successfully!");
+      setDropdownOpen(false); // Close the dropdown after the request
+    } catch (error) {
+      console.error("Error updating note state:", error);
+    }
+  };
   // Close dropdown if clicked outside
   useEffect(() => {
     const handleClickOutside = (event) => {
@@ -30,7 +47,9 @@ export default function DropDownThreeDots({ iconSrc }) {
       {isDropdownOpen && (
         <div className="absolute right-0 mt-2 w-48 bg-white border rounded-lg shadow-lg text-black">
           <ul className="py-2">
-            <li className="px-4 py-2 hover:bg-gray-100 cursor-pointer">Delete note</li>
+            <li className="px-4 py-2 hover:bg-gray-100 cursor-pointer" onClick={() => handleDelete(_id)}>
+              Delete note
+            </li>
             <li className="px-4 py-2 hover:bg-gray-100 cursor-pointer">Change labels</li>
             <li className="px-4 py-2 hover:bg-gray-100 cursor-pointer">Add drawing</li>
             <li className="px-4 py-2 hover:bg-gray-100 cursor-pointer">Make a copy</li>
