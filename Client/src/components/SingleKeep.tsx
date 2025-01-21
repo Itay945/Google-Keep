@@ -43,15 +43,19 @@ const darkModeColorMap: Record<KeepColor, string> = {
 
 type KeepProps = {
   keep: Keep;
+  onPinUpdate: (keepId: string, newPinState: boolean) => void;
 };
 
-export default function SingleKeep({ keep }: KeepProps) {
+export default function SingleKeep({ keep, onPinUpdate }: KeepProps) {
   const [isPinned, setIsPinned] = useState(keep.pin);
   const [isColorPickerOpen, setColorPickerOpen] = useState(false);
   const [currentColor, setCurrentColor] = useState(keep.color);
 
   const handlePinClick = async () => {
-    await handlePinToggle(keep._id, isPinned, setIsPinned); // Pass the state updater
+    await handlePinToggle(keep._id, isPinned, (newPinState: boolean) => {
+      setIsPinned(newPinState);
+      onPinUpdate(keep._id, newPinState);
+    });
   };
 
   const handleColorChange = (newColor: KeepColor) => {

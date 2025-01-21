@@ -25,6 +25,10 @@ export default function KeepsMain() {
   const [keeps, setKeeps] = useState<Keep[]>([]);
   const [error, setError] = useState<string | null>(null);
 
+  const handleKeepPinUpdate = (keepId: string, newPinState: boolean) => {
+    setKeeps((prevKeeps) => prevKeeps.map((keep) => (keep._id === keepId ? { ...keep, pin: newPinState } : keep)));
+  };
+
   useEffect(() => {
     const fetchKeeps = async () => {
       try {
@@ -53,12 +57,12 @@ export default function KeepsMain() {
 
   return (
     <>
-      <div className="flex flex-wrap gap-4 p-4">
+      <div className="flex gap-4 p-4">
         {pinnedKeeps.length > 0 && (
-          <div>
+          <div className="">
             <h2>Pinned</h2>
             {pinnedKeeps.map((keep) => (
-              <SingleKeep key={keep._id} keep={keep} />
+              <SingleKeep key={keep._id} keep={keep} onPinUpdate={handleKeepPinUpdate} />
             ))}
           </div>
         )}
@@ -66,7 +70,7 @@ export default function KeepsMain() {
           <div>
             {pinnedKeeps.length > 0 && <h2>Others</h2>}
             {otherKeeps.map((keep) => (
-              <SingleKeep key={keep._id} keep={keep} />
+              <SingleKeep key={keep._id} keep={keep} onPinUpdate={handleKeepPinUpdate} />
             ))}
           </div>
         )}
