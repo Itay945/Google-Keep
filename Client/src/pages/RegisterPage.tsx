@@ -1,19 +1,27 @@
-import axios from 'axios';
+import { useAuth } from '../hooks/useAuth';
 import { useNavigate } from 'react-router-dom';
+import api from '../helpers/axiosApiToken';
 function RegisterPage() {
+  const { logout, login } = useAuth();
   const navigate = useNavigate();
   async function handleSubmite(formData) {
     try {
+      logout();
       const data = Object.fromEntries(formData);
       console.log('data: ', data);
-      const res = await axios.post('http://localhost:3000/users', {
+      const res = await api.post('/users', {
         name: data.name,
         lastName: data.lastname,
         email: data.email,
         password: data.password,
       });
+      console.log('data from register:', res.data.data);
+
       const newToken = res.data.data.token;
+      console.log('newToken: ', newToken);
+
       localStorage.setItem('token', JSON.stringify(newToken));
+      login(newToken);
       navigate('/');
     } catch (error) {
       console.error('error: ', error);

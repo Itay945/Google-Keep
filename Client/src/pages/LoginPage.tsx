@@ -1,8 +1,8 @@
 // import axios from 'axios';
-import api from "../helpers/axiosApiToken";
-import { useNavigate } from "react-router-dom";
-import { useAuth } from "../hooks/useAuth";
-import google from "../assets/google.png";
+import api from '../helpers/axiosApiToken';
+import { useNavigate } from 'react-router-dom';
+import { useAuth } from '../hooks/useAuth';
+import google from '../assets/google.png';
 
 // import { useState } from 'react';
 
@@ -11,23 +11,23 @@ function LoginPage() {
   const { login } = useAuth();
   // const [token, setToken] = useState('');
 
-  async function handleSubmite(formData) {
+  async function handlesubmit(formData) {
     try {
       const data = Object.fromEntries(formData);
-      console.log("data: ", data);
-      const res = await api.post("/users/login", {
+      console.log('data: ', data);
+      const res = await api.post('/users/login', {
         email: data.email,
         password: data.password,
       });
 
       const newToken = res.data.data.token;
-      console.log("userId: ", res.data.data.userId);
+      console.log('userId: ', res.data.data.userId);
 
       login(newToken);
 
-      navigate("/");
+      navigate('/');
     } catch (error) {
-      console.error("error: ", error);
+      console.error('error: ', error);
     }
   }
 
@@ -36,11 +36,15 @@ function LoginPage() {
       <div className="bg-[#1E1F20] h-screen flex items-center justify-center">
         <div className="bg-[#0E0E0E] p-6 rounded-lg  shadow-lg max-w-sm w-full">
           <div className="flex justify-start w-[100%]">
-            <img src={google} alt="google" className=" w-[40px] h-[40px] justify-start" />
+            <img
+              src={google}
+              alt="google"
+              className=" w-[40px] h-[40px] justify-start"
+            />
           </div>
           <h1 className="text-[#E3E3E3] text-[32px]">Sign in</h1>
           <h2 className="text-[#E3E3E3]">Use your Google Account</h2>
-          <form action={handleSubmite}>
+          <form action={handlesubmit}>
             <div className="flex flex-col items-center gap-4">
               <input
                 placeholder="Email or phone"
@@ -57,7 +61,10 @@ function LoginPage() {
                 className="border border-gray-600 text-xl bg-transparent text-[#A1C7C5]"
               />
             </div>
-            <button type="submit" className="flex justify-start rounded-full max-w-24 p-2 border-solid border-2  border-red-700 bg-[#A8C7FA]">
+            <button
+              type="submit"
+              className="flex justify-start rounded-full max-w-24 p-2 border-solid border-2  border-red-700 bg-[#A8C7FA]"
+            >
               submit
             </button>
           </form>

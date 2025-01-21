@@ -3,7 +3,8 @@ const keepSchema = new mongoose.Schema({
   pin: {
     type: Boolean,
     // fix 0 problem maybe?
-    enum: [true, false],
+    // enum: [true, false],
+    default: false,
   },
   title: {
     type: String,
@@ -17,7 +18,7 @@ const keepSchema = new mongoose.Schema({
   },
   color: {
     type: String,
-    required: true,
+    // required: true,
     default: '#FFFFFF',
     enum: [
       'Coral',
@@ -39,7 +40,7 @@ const keepSchema = new mongoose.Schema({
   author: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'User',
-    required: true,
+    // required: true,
   },
   isDeleted: {
     type: Boolean,

@@ -36,6 +36,23 @@ const addNewKeep = async (req, res) => {
   }
 };
 
+// const addNewKeep = async (req, res) => {
+//   try {
+//     // console.log(, req.user);
+
+//     if (!req.body.title && !req.body.description) {
+//       return res.status(402).json({ error: 'title or description require' });
+//     }
+
+//     const keep = new Keep({ ...req.body, author: req.user.userId });
+//     // keep.author = req.user.userId;
+//     await keep.save();
+//     res.json({ keep });
+//   } catch (error) {
+//     res.status(400).json({ error: error.message });
+//   }
+// };
+
 const editKeep = async (req, res) => {
   try {
     const id = req.params.id;

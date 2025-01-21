@@ -1,8 +1,8 @@
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef, useEffect } from 'react';
 
 export default function NoteForm({ addNote }) {
-  const [title, setTitle] = useState("");
-  const [content, setContent] = useState("");
+  const [title, setTitle] = useState('');
+  const [content, setContent] = useState('');
   const [isFormVisible, setFormVisible] = useState(false); // State to control form visibility
   const formRef = useRef(null); // Reference to the form element
 
@@ -10,8 +10,8 @@ export default function NoteForm({ addNote }) {
     e.preventDefault();
     if (title.trim() || content.trim()) {
       addNote({ title, content });
-      setTitle("");
-      setContent("");
+      setTitle('');
+      setContent('');
       setFormVisible(false); // Close form after submit
     }
   };
@@ -32,9 +32,9 @@ export default function NoteForm({ addNote }) {
       }
     };
 
-    document.addEventListener("mousedown", handleClickOutside);
+    document.addEventListener('mousedown', handleClickOutside);
     return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
+      document.removeEventListener('mousedown', handleClickOutside);
     };
   }, []);
 
@@ -72,7 +72,7 @@ export default function NoteForm({ addNote }) {
             rows="3"
           />
           <button
-            type="button"
+            type="submit"
             onClick={handleCloseForm} // Close form on button click
             className="bg-blue-500 text-white py-2 px-4 rounded-lg hover:bg-blue-600 transition duration-200"
           >
