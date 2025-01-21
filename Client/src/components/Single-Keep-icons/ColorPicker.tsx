@@ -1,6 +1,6 @@
-import { useState, useEffect, useRef } from 'react';
-import api from '../../helpers/axiosApiToken';
-import { KeepColor } from '../KeepMain';
+import { useState, useEffect, useRef } from "react";
+import api from "../../helpers/axiosApiToken";
+import { KeepColor } from "../KeepsMain";
 
 type ColorPickerProps = {
   keepId: string;
@@ -10,13 +10,7 @@ type ColorPickerProps = {
   onClose: () => void;
 };
 
-export default function ColorPicker({
-  keepId,
-  initialColor,
-  colors,
-  onColorChange,
-  onClose,
-}: ColorPickerProps) {
+export default function ColorPicker({ keepId, initialColor, colors, onColorChange, onClose }: ColorPickerProps) {
   const [selectedColor, setSelectedColor] = useState(initialColor);
   const colorPickerRef = useRef<HTMLDivElement>(null);
 
@@ -26,11 +20,11 @@ export default function ColorPicker({
       const response = await api.put(`/keeps/${keepId}`, { color: color });
 
       if (response.status !== 200) {
-        throw new Error('Failed to update color');
+        throw new Error("Failed to update color");
       }
-      console.log('Color updated successfully!');
+      console.log("Color updated successfully!");
     } catch (error) {
-      console.error('Error updating color:', error);
+      console.error("Error updating color:", error);
     }
   };
 
@@ -43,29 +37,21 @@ export default function ColorPicker({
   // Close dropdown when clicking outside
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
-      if (
-        colorPickerRef.current &&
-        !colorPickerRef.current.contains(event.target as Node)
-      ) {
+      if (colorPickerRef.current && !colorPickerRef.current.contains(event.target as Node)) {
         onClose();
       }
     };
 
-    document.addEventListener('mousedown', handleClickOutside);
-    return () => document.removeEventListener('mousedown', handleClickOutside);
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
   }, [onClose]);
 
   return (
-    <div
-      ref={colorPickerRef}
-      className="absolute z-50 bg-white p-2 border rounded shadow-lg flex gap-2 flex-wrap"
-    >
+    <div ref={colorPickerRef} className="absolute z-50 bg-white p-2 border rounded shadow-lg flex gap-2 flex-wrap">
       {Object.entries(colors).map(([name, color]) => (
         <button
           key={name}
-          className={`w-6 h-6 rounded-full ${
-            selectedColor === name ? 'border-2 border-black' : ''
-          }`}
+          className={`w-6 h-6 rounded-full ${selectedColor === name ? "border-2 border-black" : ""}`}
           style={{ backgroundColor: color }}
           title={name}
           onClick={() => handleColorSelect(name as KeepColor)}

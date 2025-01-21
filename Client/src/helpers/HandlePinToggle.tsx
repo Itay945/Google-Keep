@@ -17,6 +17,7 @@ export const handlePinToggle = async (id: string, currentPinState: boolean, upda
     console.log("Pin state updated successfully!", newPinState);
 
     updateLocalState(newPinState);
+    return response.data;
   } catch (error) {
     console.error("Error updating pin state:", error);
   }

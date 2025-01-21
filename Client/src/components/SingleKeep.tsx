@@ -12,7 +12,7 @@ import circularV from "../assets/check_circle_24dp_000000_FILL1_wght400_GRAD0_op
 import pinFull from "../assets/keep_24dp_9AA0A6_FILL1_wght400_GRAD0_opsz24.svg";
 import { handlePinToggle } from "../helpers/HandlePinToggle";
 import { useState } from "react";
-import { Keep, KeepColor } from "./KeepMain";
+import { Keep, KeepColor } from "./KeepsMain";
 
 const colorMap: Record<KeepColor, string> = {
   Coral: "#FAAFA8",
