@@ -129,7 +129,7 @@ export default function SingleKeep({ keep, onKeepUpdate }: KeepProps) {
             className="opacity-0 transition-all duration-300 group-hover:opacity-100 group-hover:translate-y-0 rounded-full p-[12px] scale-[0.8] hover:bg-[#EBECEC]"
           />
           <div className="opacity-0 transition-all duration-300 group-hover:opacity-100 group-hover:translate-y-0 rounded-full p-[12px] scale-[0.8] hover:bg-[#EBECEC]">
-            <DropDownThreeDots iconSrc={threeDots} />
+            <DropDownThreeDots iconSrc={threeDots} _id={keep._id} />
           </div>
         </div>
       </div>
