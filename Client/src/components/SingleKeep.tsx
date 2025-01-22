@@ -1,44 +1,44 @@
 // SingleKeep.tsx
-import plusBell from './../assets/add_alert_24dp_5F6368_FILL0_wght400_GRAD0_opsz24.svg';
-import collaborator from './../assets/person_add_24dp_5F6368_FILL0_wght400_GRAD0_opsz24.svg';
-import colors from './../assets/palette_24dp_5F6368_FILL0_wght400_GRAD0_opsz24.svg';
-import brush from './../assets/brush_24dp_5F6368_FILL0_wght400_GRAD0_opsz24.svg';
-import archive from './../assets/archive_24dp_5F6368_FILL0_wght400_GRAD0_opsz24.svg';
-import threeDots from './../assets/more_vert_24dp_5F6368_FILL0_wght400_GRAD0_opsz24.svg';
-import pin from './../assets/keep_24dp_5F6368_FILL0_wght400_GRAD0_opsz24.svg';
-import ColorPicker from './Single-Keep-icons/ColorPicker';
-import DropDownThreeDots from './Single-Keep-icons/ThreeDotsDropDown';
-import circularV from '../assets/check_circle_24dp_000000_FILL1_wght400_GRAD0_opsz24.svg';
-import pinFull from '../assets/keep_24dp_9AA0A6_FILL1_wght400_GRAD0_opsz24.svg';
-import { handlePinToggle } from '../helpers/HandlePinToggle';
-import { useState } from 'react';
-import { Keep, KeepColor } from './KeepsMain';
+import plusBell from "./../assets/add_alert_24dp_5F6368_FILL0_wght400_GRAD0_opsz24.svg";
+import collaborator from "./../assets/person_add_24dp_5F6368_FILL0_wght400_GRAD0_opsz24.svg";
+import colors from "./../assets/palette_24dp_5F6368_FILL0_wght400_GRAD0_opsz24.svg";
+import brush from "./../assets/brush_24dp_5F6368_FILL0_wght400_GRAD0_opsz24.svg";
+import archive from "./../assets/archive_24dp_5F6368_FILL0_wght400_GRAD0_opsz24.svg";
+import threeDots from "./../assets/more_vert_24dp_5F6368_FILL0_wght400_GRAD0_opsz24.svg";
+import pin from "./../assets/keep_24dp_5F6368_FILL0_wght400_GRAD0_opsz24.svg";
+import ColorPicker from "./Single-Keep-icons/ColorPicker";
+import DropDownThreeDots from "./Single-Keep-icons/ThreeDotsDropDown";
+import circularV from "../assets/check_circle_24dp_000000_FILL1_wght400_GRAD0_opsz24.svg";
+import pinFull from "../assets/keep_24dp_9AA0A6_FILL1_wght400_GRAD0_opsz24.svg";
+import { handlePinToggle } from "../helpers/HandlePinToggle";
+import { useState } from "react";
+import { Keep, KeepColor } from "./KeepsMain";
 
 const colorMap: Record<KeepColor, string> = {
-  Coral: '#FAAFA8',
-  Peach: '#F39F76',
-  Sand: '#FFF8B8',
-  Mint: '#E2F6D3',
-  Sage: '#B4DDD3',
-  Fog: '#D4E4ED',
-  Storm: '#AECCDC',
-  Dusk: '#D3BFDB',
-  Blossom: '#F6E2DD',
-  Clay: '#E9E3D4',
-  Chalk: '#EFEFF1',
+  Coral: "#FAAFA8",
+  Peach: "#F39F76",
+  Sand: "#FFF8B8",
+  Mint: "#E2F6D3",
+  Sage: "#B4DDD3",
+  Fog: "#D4E4ED",
+  Storm: "#AECCDC",
+  Dusk: "#D3BFDB",
+  Blossom: "#F6E2DD",
+  Clay: "#E9E3D4",
+  Chalk: "#EFEFF1",
 };
 const darkModeColorMap: Record<KeepColor, string> = {
-  Coral: '#77172E',
-  Peach: '#692B17',
-  Sand: '##7C4A03',
-  Mint: '#264D3B',
-  Sage: '#0C625D',
-  Fog: '#256377',
-  Storm: '#284255',
-  Dusk: '#472E5B',
-  Blossom: '#6C394F',
-  Clay: '#4B443A',
-  Chalk: '#232427',
+  Coral: "#77172E",
+  Peach: "#692B17",
+  Sand: "##7C4A03",
+  Mint: "#264D3B",
+  Sage: "#0C625D",
+  Fog: "#256377",
+  Storm: "#284255",
+  Dusk: "#472E5B",
+  Blossom: "#6C394F",
+  Clay: "#4B443A",
+  Chalk: "#232427",
 };
 
 type KeepProps = {
@@ -55,17 +55,13 @@ export default function SingleKeep({ keep, onKeepUpdate }: KeepProps) {
   });
 
   const handlePinClick = async () => {
-    await handlePinToggle(
-      keep._id,
-      keepState.isPinned,
-      (newPinState: boolean) => {
-        setKeepState((prev) => ({
-          ...prev,
-          isPinned: newPinState,
-        }));
-        onKeepUpdate(keep._id, { pin: newPinState });
-      }
-    );
+    await handlePinToggle(keep._id, keepState.isPinned, (newPinState: boolean) => {
+      setKeepState((prev) => ({
+        ...prev,
+        isPinned: newPinState,
+      }));
+      onKeepUpdate(keep._id, { pin: newPinState });
+    });
   };
 
   const handleColorChange = (newColor: KeepColor) => {
@@ -81,7 +77,7 @@ export default function SingleKeep({ keep, onKeepUpdate }: KeepProps) {
       <div
         className=" rounded-lg p-4 group hover:shadow-[0_0_4px_rgb(0,0,0,0.3)] "
         style={{
-          backgroundColor: colorMap[keepState.currentColor] || '#ffffff',
+          backgroundColor: colorMap[keepState.currentColor] || "#ffffff",
         }}
       >
         <div className="flex justify-between">
@@ -95,7 +91,7 @@ export default function SingleKeep({ keep, onKeepUpdate }: KeepProps) {
         </div>
         <p className="text-sm">{keep.description}</p>
         <p className="text-xs">
-          <strong>Labels:</strong> {keep.labels?.join(', ')}
+          <strong>Labels:</strong> {keep.labels?.join(", ")}
         </p>
         <p className="text-xs">
           <small>{new Date(keep.createdAt).toLocaleDateString()}</small>
@@ -128,9 +124,7 @@ export default function SingleKeep({ keep, onKeepUpdate }: KeepProps) {
               initialColor={keepState.currentColor}
               colors={colorMap}
               onColorChange={handleColorChange}
-              onClose={() =>
-                setKeepState((prev) => ({ ...prev, isColorPickerOpen: false }))
-              }
+              onClose={() => setKeepState((prev) => ({ ...prev, isColorPickerOpen: false }))}
             />
           )}
           <img
@@ -144,7 +138,7 @@ export default function SingleKeep({ keep, onKeepUpdate }: KeepProps) {
             className="opacity-0 transition-all duration-300 group-hover:opacity-100 group-hover:translate-y-0 rounded-full p-[12px] scale-[0.8] hover:bg-[#EBECEC]"
           />
           <div className="opacity-0 transition-all duration-300 group-hover:opacity-100 group-hover:translate-y-0 rounded-full p-[12px] scale-[0.8] hover:bg-[#EBECEC]">
-            <DropDownThreeDots iconSrc={threeDots} _id={keep._id} />
+            <DropDownThreeDots iconSrc={threeDots} _id={keep._id} onKeepUpdate={onKeepUpdate} />
           </div>
         </div>
       </div>

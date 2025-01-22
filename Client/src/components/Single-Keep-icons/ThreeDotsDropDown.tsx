@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from "react";
 import api from "../../helpers/axiosApiToken";
 
-export default function DropDownThreeDots({ iconSrc, _id }) {
+export default function DropDownThreeDots({ iconSrc, _id, onKeepUpdate }) {
   const [isDropdownOpen, setDropdownOpen] = useState(false);
   const dropdownRef = useRef(null);
 
@@ -20,6 +20,7 @@ export default function DropDownThreeDots({ iconSrc, _id }) {
       }
 
       console.log("Pin state updated successfully!");
+      onKeepUpdate(id, { isDeleted: true });
       setDropdownOpen(false); // Close the dropdown after the request
     } catch (error) {
       console.error("Error updating note state:", error);
