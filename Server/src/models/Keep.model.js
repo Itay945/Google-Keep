@@ -19,7 +19,7 @@ const keepSchema = new mongoose.Schema({
   color: {
     type: String,
     // required: true,
-    default: '#FFFFFF',
+    default: 'Transparent',
     enum: [
       'Coral',
       'Peach',
@@ -31,7 +31,7 @@ const keepSchema = new mongoose.Schema({
       'Dusk,Blossom',
       'Clay',
       'Chalk',
-      '#FFFFFF',
+      'Transparent',
     ],
   },
   labels: {
