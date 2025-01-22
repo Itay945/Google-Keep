@@ -75,9 +75,9 @@ export default function SingleKeep({ keep, onKeepUpdate }: KeepProps) {
   return (
     <>
       <div
-        className=" rounded-lg p-4 group hover:shadow-[0_0_4px_rgb(0,0,0,0.3)] "
+        className="  rounded-lg p-4 group hover:shadow-[0_0_4px_rgb(0,0,0,0.3)] "
         style={{
-          backgroundColor: colorMap[keepState.currentColor] || "#ffffff",
+          backgroundColor: colorMap[keepState.currentColor] || "transparent",
         }}
       >
         <div className="flex justify-between">
