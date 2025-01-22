@@ -28,7 +28,7 @@ const addKeepToUser = async (req, res) => {
     const keep = new Keep({
       title,
       description,
-      color: req.body.color || '#FFFFFF',
+      color: req.body.color,
       pin: req.body.pin || false,
       author: req.user.userId,
     });
