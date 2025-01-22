@@ -20,7 +20,7 @@ function KeepsForm({ onKeepsAdded }: KeepsFormProps) {
         // isDeleted: false,
       });
       console.log('keepFormData', res.data);
-      onKeepsAdded(res.data);
+      onKeepsAdded(res.data.keep);
     } catch (error) {
       console.error('error: ', error);
     }

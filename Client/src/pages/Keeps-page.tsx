@@ -41,6 +41,7 @@ export default function KeepsPage() {
   };
   const handleKeepAdded = (newKeep: Keep) => {
     setKeeps((prevKeeps) => [newKeep, ...prevKeeps]);
+    // handleKeepUpdate(newKeep._id, { ...newKeep });
   };
 
   return (
