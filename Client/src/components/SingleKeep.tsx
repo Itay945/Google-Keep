@@ -74,11 +74,14 @@ export default function SingleKeep({ keep, onKeepUpdate }: KeepProps) {
 
   return (
     <>
+      {/* transparent coloring and grey border supposed to be on a none colored keep card, work in progress */}
       <div
-        className="  rounded-lg p-4 group hover:shadow-[0_0_4px_rgb(0,0,0,0.3)] "
         style={{
           backgroundColor: colorMap[keepState.currentColor] || "transparent",
         }}
+        className={`rounded-lg p-4 group hover:shadow-[0_0_4px_rgb(0,0,0,0.3)] ${
+          !keepState.currentColor || colorMap[keepState.currentColor] === "bg-transparent" ? "border border-gray-300" : ""
+        }`}
       >
         <div className="flex justify-between">
           <h3 className={`text-lg font-bold`}>{keep.title}</h3>
