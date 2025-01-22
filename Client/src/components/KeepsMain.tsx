@@ -29,23 +29,29 @@ export default function KeepsMain({ error, keeps, onKeepUpdate }: KeepsMainProps
 
   return (
     <>
-      <div className="flex gap-4 p-4">
-        {pinnedKeeps.length > 0 && (
-          <div className="">
-            <h2>Pinned</h2>
-            {pinnedKeeps.map((keep) => (
-              <SingleKeep key={keep._id} keep={keep} onKeepUpdate={onKeepUpdate} />
-            ))}
-          </div>
-        )}
-        {otherKeeps.length > 0 && (
-          <div>
-            {pinnedKeeps.length > 0 && <h2>Others</h2>}
-            {otherKeeps.map((keep) => (
-              <SingleKeep key={keep._id} keep={keep} onKeepUpdate={onKeepUpdate} />
-            ))}
-          </div>
-        )}
+      <div>
+        <div className="flex flex-wrap gap-4 p-4">
+          {pinnedKeeps.length > 0 && (
+            <div className="">
+              <h2>Pinned</h2>
+              <div className="flex flex-wrap gap-4 p-4">
+                {pinnedKeeps.map((keep) => (
+                  <SingleKeep key={keep._id} keep={keep} onKeepUpdate={onKeepUpdate} />
+                ))}
+              </div>
+            </div>
+          )}
+          {otherKeeps.length > 0 && (
+            <div>
+              {pinnedKeeps.length > 0 && <h2>Others</h2>}
+              <div className="flex flex-wrap gap-4 p-4">
+                {otherKeeps.map((keep) => (
+                  <SingleKeep key={keep._id} keep={keep} onKeepUpdate={onKeepUpdate} />
+                ))}
+              </div>
+            </div>
+          )}
+        </div>
       </div>
     </>
   );
