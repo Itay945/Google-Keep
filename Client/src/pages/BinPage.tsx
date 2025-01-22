@@ -1,13 +1,13 @@
-import SingleKeepBinned from "../components/SingleKeepBinned";
+import SingleKeepBinned from '../components/SingleKeepBinned';
 
-export default function BinnedKeepsPage() {
+export default function BinPage() {
   return (
     <>
       <div className="flex justify-center">
         Notes in the Recycle Bin are deleted after 7 days.
         <button>Empty bin</button>
       </div>
-      <SingleKeepBinned />
+      {/* <SingleKeepBinned /> */}
     </>
   );
 }

@@ -14,15 +14,35 @@ const getAllUsers = async (req, res) => {
   }
 };
 
-// const createUser = async (req, res) => {
-//   try {
-//     const user = new User(req.body);
-//     await user.save();
-//     res.json({ user });
-//   } catch (error) {
-//     res.status(400).json({ error: error.message });
-//   }
-// };
+const addKeepToUser = async (req, res) => {
+  try {
+    const { title, description } = req.body;
+
+    if (!title && !description) {
+      return res
+        .status(400)
+        .json({ error: 'Title or description is required' });
+    }
+
+    const keep = new Keep({
+      title,
+      description,
+      color: req.body.color || '#FFFFFF',
+      pin: req.body.pin || false,
+      author: req.user.userId,
+    });
+
+    await keep.save();
+
+    const user = await User.findById(req.user.userId);
+    user.userKeeps.push(keep._id);
+    await user.save();
+
+    res.status(201).json({ user, keep });
+  } catch (error) {
+    res.status(400).json({ error: error.message });
+  }
+};
 
 const register = async (req, res) => {
   try {
@@ -94,6 +114,25 @@ const login = async (req, res) => {
   }
 };
 
+const getUserTrashedKeeps = async (req, res) => {
+  try {
+    const userId = req.user.userId;
+    const user = await User.findById(userId).populate({
+      path: 'userKeeps',
+      match: { isDeleted: true },
+    });
+
+    if (!user) {
+      return res.status(404).json({ message: 'User not found' });
+    }
+
+    res.json(user.userKeeps);
+  } catch (error) {
+    console.error('Error fetching trashed keeps:', error);
+    res.status(500).json({ error: error.message });
+  }
+};
+
 const allKeepsOfOneUserByHisId = async (req, res) => {
   try {
     // console.log(req.params.id);
@@ -117,5 +156,7 @@ module.exports = {
   allKeepsOfOneUserByHisId,
   _generateToken,
   login,
+  addKeepToUser,
+  getUserTrashedKeeps,
 };
 //
