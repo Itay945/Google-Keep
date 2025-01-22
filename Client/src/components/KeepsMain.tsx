@@ -1,4 +1,4 @@
-import SingleKeep from './SingleKeep';
+import SingleKeep from "./SingleKeep";
 
 export type Keep = {
   _id: string;
@@ -12,34 +12,20 @@ export type Keep = {
   author: string;
   pin: boolean;
 };
-export type KeepColor =
-  | 'Coral'
-  | 'Peach'
-  | 'Sand'
-  | 'Mint'
-  | 'Sage'
-  | 'Fog'
-  | 'Storm'
-  | 'Dusk'
-  | 'Blossom'
-  | 'Clay'
-  | 'Chalk';
+export type KeepColor = "Coral" | "Peach" | "Sand" | "Mint" | "Sage" | "Fog" | "Storm" | "Dusk" | "Blossom" | "Clay" | "Chalk";
 interface KeepsMainProps {
   keeps: Keep[];
   error: string | null;
   onKeepUpdate: (keepId: string, updates: Partial<Keep>) => void;
 }
-export default function KeepsMain({
-  error,
-  keeps,
-  onKeepUpdate,
-}: KeepsMainProps) {
+export default function KeepsMain({ error, keeps, onKeepUpdate }: KeepsMainProps) {
   if (error) {
     return <div className="text-red-500">{error}</div>;
   }
 
-  const pinnedKeeps = keeps.filter((keep) => keep.pin);
-  const otherKeeps = keeps.filter((keep) => !keep.pin);
+  const filteredKeeps = keeps.filter((keep) => !keep.isDeleted);
+  const pinnedKeeps = filteredKeeps.filter((keep) => keep.pin);
+  const otherKeeps = filteredKeeps.filter((keep) => !keep.pin);
 
   return (
     <>
@@ -48,11 +34,7 @@ export default function KeepsMain({
           <div className="">
             <h2>Pinned</h2>
             {pinnedKeeps.map((keep) => (
-              <SingleKeep
-                key={keep._id}
-                keep={keep}
-                onKeepUpdate={onKeepUpdate}
-              />
+              <SingleKeep key={keep._id} keep={keep} onKeepUpdate={onKeepUpdate} />
             ))}
           </div>
         )}
@@ -60,11 +42,7 @@ export default function KeepsMain({
           <div>
             {pinnedKeeps.length > 0 && <h2>Others</h2>}
             {otherKeeps.map((keep) => (
-              <SingleKeep
-                key={keep._id}
-                keep={keep}
-                onKeepUpdate={onKeepUpdate}
-              />
+              <SingleKeep key={keep._id} keep={keep} onKeepUpdate={onKeepUpdate} />
             ))}
           </div>
         )}
