@@ -12,7 +12,7 @@ export type Keep = {
   author: string;
   pin: boolean;
 };
-export type KeepColor = "Coral" | "Peach" | "Sand" | "Mint" | "Sage" | "Fog" | "Storm" | "Dusk" | "Blossom" | "Clay" | "Chalk";
+export type KeepColor = "Transparent" | "Coral" | "Peach" | "Sand" | "Mint" | "Sage" | "Fog" | "Storm" | "Dusk" | "Blossom" | "Clay" | "Chalk";
 interface KeepsMainProps {
   keeps: Keep[];
   error: string | null;

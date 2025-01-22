@@ -15,6 +15,7 @@ import { useState } from "react";
 import { Keep, KeepColor } from "./KeepsMain";
 
 const colorMap: Record<KeepColor, string> = {
+  Transparent: "transparent",
   Coral: "#FAAFA8",
   Peach: "#F39F76",
   Sand: "#FFF8B8",
@@ -28,6 +29,7 @@ const colorMap: Record<KeepColor, string> = {
   Chalk: "#EFEFF1",
 };
 const darkModeColorMap: Record<KeepColor, string> = {
+  Transparent: "transparent",
   Coral: "#77172E",
   Peach: "#692B17",
   Sand: "##7C4A03",
