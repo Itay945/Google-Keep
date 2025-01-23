@@ -51,7 +51,7 @@ export default function DropDownThreeDots({ iconSrc, _id, onKeepUpdate }) {
             <li className="px-4 py-2 hover:bg-gray-100 cursor-pointer" onClick={() => handleDelete(_id)}>
               Delete note
             </li>
-            <li className="px-4 py-2 hover:bg-gray-100 cursor-pointer">Change labels</li>
+            <li className="px-4 py-2 hover:bg-gray-100 cursor-pointer">Add labels</li>
             <li className="px-4 py-2 hover:bg-gray-100 cursor-pointer">Add drawing</li>
             <li className="px-4 py-2 hover:bg-gray-100 cursor-pointer">Make a copy</li>
             <li className="px-4 py-2 hover:bg-gray-100 cursor-pointer">Show tick boxes</li>
