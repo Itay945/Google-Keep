@@ -76,7 +76,6 @@ export default function SingleKeep({ keep, onKeepUpdate }: KeepProps) {
 
   return (
     <>
-      {/* transparent coloring and grey border supposed to be on a none colored keep card, work in progress */}
       <div
         style={{
           backgroundColor: colorMap[keepState.currentColor] || "transparent",
