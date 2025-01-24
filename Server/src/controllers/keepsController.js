@@ -1,111 +1,143 @@
 const Keep = require('../models/Keep.model');
+const User = require('../models/User.model');
+
+// Error handler helper
+const handleError = (res, error, statusCode = 500) => {
+  console.error('Error:', error);
+  const message = error.message || 'An unexpected error occurred';
+  res.status(statusCode).json({ success: false, message });
+};
+
+// Response helper
+const sendResponse = (res, data, statusCode = 200) => {
+  res.status(statusCode).json({
+    success: true,
+    data,
+  });
+};
 
 const getAllKeeps = async (req, res) => {
   try {
-    const keeps = await Keep.find();
-    res.json(keeps);
+    const keeps = await Keep.find({ isDeleted: false });
+    sendResponse(res, { keeps });
   } catch (error) {
-    res.json({ error: error.message });
+    handleError(res, error);
   }
 };
 
 const getAllKeepsInTrash = async (req, res) => {
   try {
-    const trashKeeps = await Keep.find({ isDeleted: true });
-    console.log('Trash keeps:', trashKeeps);
-    res.json(trashKeeps);
+    const keeps = await Keep.find({
+      isDeleted: true,
+      author: req.user.userId,
+    });
+    sendResponse(res, { keeps });
   } catch (error) {
-    console.log(error.message);
+    handleError(res, error);
   }
 };
 
 const addNewKeep = async (req, res) => {
   try {
-    // console.log(, req.user);
+    const { title, description } = req.body;
 
-    if (!req.body.title && !req.body.description) {
-      return res.status(402).json({ error: 'title or description require' });
+    // Validation
+    if (!title && !description) {
+      return handleError(
+        res,
+        new Error('Title or description is required'),
+        400
+      );
     }
 
     const keep = new Keep({ ...req.body, author: req.user.userId });
     // keep.author = req.user.userId;
     await keep.save();
-    res.json({ keep });
+
+    // Add to user's keeps
+    await User.findByIdAndUpdate(req.user.userId, {
+      $push: { userKeeps: keep._id },
+    });
+
+    sendResponse(res, { keep }, 201);
   } catch (error) {
-    res.status(400).json({ error: error.message });
+    handleError(res, error);
   }
 };
 
-// const addNewKeep = async (req, res) => {
-//   try {
-//     // console.log(, req.user);
-
-//     if (!req.body.title && !req.body.description) {
-//       return res.status(402).json({ error: 'title or description require' });
-//     }
-
-//     const keep = new Keep({ ...req.body, author: req.user.userId });
-//     // keep.author = req.user.userId;
-//     await keep.save();
-//     res.json({ keep });
-//   } catch (error) {
-//     res.status(400).json({ error: error.message });
-//   }
-// };
-
 const editKeep = async (req, res) => {
   try {
-    const id = req.params.id;
+    const { id } = req.params;
 
-    const { description, title, color, labels, pin, isDeleted } = req.body;
-    // add isDeleted
-    const editedAt = new Date();
-    const keepToUpdated = await Keep.findByIdAndUpdate(
-      id,
+    // description, title, color, labels, pin, isDeleted
+    const updates = {
+      ...req.body,
+      editedAt: new Date(),
+    };
+    const keep = await Keep.findOneAndUpdate(
       {
-        $set: {
-          description: description,
-          title: title,
-          color: color,
-          editedAt: editedAt,
-          labels: labels,
-          pin: pin,
-          isDeleted: isDeleted,
-        },
-        // instead set i can use the next line:
-        // { new: true, fields: { createdAt: 0 } } // Exclude createdAt from being updated
+        _id: id,
+        author: req.user.userId, // Ensure user owns the keep
       },
+      { $set: updates },
       { new: true }
     );
-    console.log(keepToUpdated);
-    res.json(keepToUpdated);
+
+    if (!keep) {
+      return handleError(res, new Error('Keep not found or unauthorized'), 404);
+    }
+
+    sendResponse(res, { keep });
   } catch (error) {
-    res.json({ error: error.message });
+    handleError(res, error);
   }
 };
 
 const moveKeepsToTrash = async (req, res) => {
   try {
-    console.log(req.params.id);
-    const trash = await Keep.findByIdAndUpdate(
-      req.params.id,
+    const keep = await Keep.findOneAndUpdate(
       {
-        isDeleted: true,
+        _id: req.params.id,
+        author: req.user.userId, // Ensure user owns the keep
       },
+      { isDeleted: true },
       { new: true }
     );
-    res.json({ trash });
+
+    if (!keep) {
+      return handleError(res, new Error('Keep not found or unauthorized'), 404);
+    }
+
+    sendResponse(res, { keep });
   } catch (error) {
-    res.status(400).json({ error: error.message });
+    handleError(res, error);
   }
 };
 
 const getKeepById = async (req, res) => {
   try {
     const keep = await Keep.findById(req.params.id);
-    res.json(keep);
+
+    if (!keep) {
+      return handleError(res, new Error('Keep not found'), 404);
+    }
+
+    sendResponse(res, { keep });
   } catch (error) {
-    console.log(error.message);
+    handleError(res, error);
+  }
+};
+
+const getUserKeeps = async (req, res) => {
+  try {
+    const keeps = await Keep.find({
+      author: req.params.userId,
+      isDeleted: false,
+    });
+
+    sendResponse(res, { keeps });
+  } catch (error) {
+    handleError(res, error);
   }
 };
 
@@ -116,4 +148,5 @@ module.exports = {
   editKeep,
   moveKeepsToTrash,
   getKeepById,
+  getUserKeeps,
 };

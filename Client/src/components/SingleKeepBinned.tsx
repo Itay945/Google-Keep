@@ -1,19 +1,19 @@
 // SingleKeep.tsx
-import deleteForever from "../assets/delete_forever_24dp_5F6368_FILL0_wght400_GRAD0_opsz24.svg";
-import restore from "../assets/restore_from_trash_24dp_5F6368_FILL0_wght400_GRAD0_opsz24.svg";
+import deleteForever from '../assets/delete_forever_24dp_5F6368_FILL0_wght400_GRAD0_opsz24.svg';
+import restore from '../assets/restore_from_trash_24dp_5F6368_FILL0_wght400_GRAD0_opsz24.svg';
 
 const colorMap = {
-  Coral: "#FAAFA8",
-  Peach: "#F39F76",
-  Sand: "#FFF8B8",
-  Mint: "#E2F6D3",
-  Sage: "#B4DDD3",
-  Fog: "#D4E4ED",
-  Storm: "#AECCDC",
-  Dusk: "#D3BFDB",
-  Blossom: "#F6E2DD",
-  Clay: "#E9E3D4",
-  Chalk: "#EFEFF1",
+  Coral: '#FAAFA8',
+  Peach: '#F39F76',
+  Sand: '#FFF8B8',
+  Mint: '#E2F6D3',
+  Sage: '#B4DDD3',
+  Fog: '#D4E4ED',
+  Storm: '#AECCDC',
+  Dusk: '#D3BFDB',
+  Blossom: '#F6E2DD',
+  Clay: '#E9E3D4',
+  Chalk: '#EFEFF1',
 };
 
 type KeepProps = {
@@ -31,13 +31,20 @@ type KeepProps = {
 
 export default function SingleKeep({ keep }: KeepProps) {
   return (
-    <div className="border border-gray-100 rounded-lg p-4 group" style={{ backgroundColor: colorMap[keep.color] || "#ffffff" }}>
+    <div
+      className="border border-gray-100 rounded-lg p-4 group"
+      style={{ backgroundColor: colorMap[keep.color] || '#ffffff' }}
+    >
       <div className="flex justify-between">
-        <h3 className={`text-lg font-bold ${keep.pin ? "text-yellow-500" : ""}`}>{keep.title}</h3>
+        <h3
+          className={`text-lg font-bold ${keep.pin ? 'text-yellow-500' : ''}`}
+        >
+          {keep.title}
+        </h3>
       </div>
       <p className="text-sm">{keep.description}</p>
       <p className="text-xs">
-        <strong>Labels:</strong> {keep.labels.join(", ")}
+        <strong>Labels:</strong> {keep.labels.join(', ')}
       </p>
       <p className="text-xs">
         <small>{new Date(keep.date).toLocaleDateString()}</small>

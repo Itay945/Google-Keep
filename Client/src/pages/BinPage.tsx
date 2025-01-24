@@ -7,7 +7,7 @@ export default function BinPage() {
   useEffect(() => {
     const fetchKeeps = async () => {
       try {
-        const response = await api.get('/users/trash');
+        const response = await api.get('/keeps/trash');
         console.log('response: ', response.data);
         setkeepsBined(response.data);
       } catch (err) {

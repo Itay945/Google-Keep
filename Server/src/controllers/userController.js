@@ -3,15 +3,30 @@ const Keep = require('../models/Keep.model');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 
+// Error handler helper
+const handleError = (res, error, statusCode = 500) => {
+  console.error('Error:', error);
+  const message = error.message || 'An unexpected error occurred';
+  res.status(statusCode).json({ success: false, message });
+};
+
+// Response helper
+const sendResponse = (res, data, statusCode = 200) => {
+  res.status(statusCode).json({
+    success: true,
+    data,
+  });
+};
+
 const getAllUsers = async (req, res) => {
   try {
-    // populate('keeps') is a mongoose method that allows us to populate the userKeeps field with the actual keep objects
-    const user = await User.find().select('userKeeps').populate('userKeeps');
-    // const user = await User.find().populate('userKeeps');
-    // console.log(user.userKeeps);
-    res.json(user);
+    const users = await User.find()
+      .select('name email userKeeps')
+      .populate('userKeeps');
+
+    sendResponse(res, { users });
   } catch (error) {
-    res.json({ error: error.message });
+    handleError(res, error);
   }
 };
 
@@ -47,32 +62,48 @@ const addKeepToUser = async (req, res) => {
 
 const register = async (req, res) => {
   try {
-    const { name, lastName, email, password, userKeeps } = req.body;
+    const { name, lastName, email, password } = req.body;
+
+    // Validation
     if (!email || !password) {
-      return res
-        .status(400)
-        .json({ success: false, message: 'please fill all required filed' });
+      return handleError(
+        res,
+        new Error('Please fill all required fields'),
+        400
+      );
     }
+
+    // Check existing user
     const existingUser = await User.findOne({ email });
     if (existingUser) {
-      return res.status(400).json({
-        success: false,
-        message: 'this email existing already try another email',
-      });
+      return handleError(res, new Error('Email already exists'), 400);
     }
-    const newUser = new User({ name, lastName, email, password, userKeeps });
+
+    // Create new user
+    const newUser = new User({
+      name,
+      lastName,
+      email,
+      password,
+    });
+
     await newUser.save();
     const token = _generateToken(newUser._id);
-    console.log('newUser: ', newUser);
-    console.log('token: ', token);
-
-    res.status(201).json({
-      success: true,
-      data: { token, userId: newUser._id, email, name, lastName },
-    });
+    sendResponse(
+      res,
+      {
+        token,
+        user: {
+          id: newUser._id,
+          name,
+          lastName,
+          email,
+        },
+      },
+      201
+    );
   } catch (error) {
-    console.log(error.message);
-    res.status(500).json({ success: false, message: 'server error' });
+    handleError(res, error);
   }
 };
 
@@ -80,38 +111,32 @@ const register = async (req, res) => {
 const login = async (req, res) => {
   try {
     const { email, password } = req.body;
-    if (!email || !password) {
-      return res
-        .status(400)
-        .json({ success: false, message: 'please fill all required filed' });
-    }
-    const user = await User.findOne({ email });
-    console.log('user:', user);
 
-    if (!user) {
-      return res.status(400).json({
-        success: false,
-        message: 'email or password is incorrect',
-      });
+    // Validation
+    if (!email || !password) {
+      return handleError(
+        res,
+        new Error('Please fill all required fields'),
+        400
+      );
     }
-    const isRightPassword = await bcrypt.compare(password, user.password);
-    if (!isRightPassword) {
-      return res.status(400).json({
-        success: false,
-        message: 'email or password is incorrect',
-      });
+
+    // Find user and validate password
+    const user = await User.findOne({ email });
+    if (!user || !(await bcrypt.compare(password, user.password))) {
+      return handleError(res, new Error('Invalid credentials'), 401);
     }
     const token = _generateToken(user._id);
-    // console.log('newUser: ', newUser);
-    console.log('token: ', token);
-
-    res.status(201).json({
-      success: true,
-      data: { token, userId: user._id, email },
+    sendResponse(res, {
+      token,
+      user: {
+        id: user._id,
+        name: user.name,
+        email: user.email,
+      },
     });
   } catch (error) {
-    console.error(error.message);
-    res.status(500).json({ success: false, message: 'server error' });
+    handleError(res, error);
   }
 };
 
@@ -147,6 +172,22 @@ const allKeepsOfOneUserByHisId = async (req, res) => {
   }
 };
 
+const getProfile = async (req, res) => {
+  try {
+    const user = await User.findById(req.user.userId).select(
+      'name lastName email'
+    );
+
+    if (!user) {
+      return handleError(res, new Error('User not found'), 404);
+    }
+
+    sendResponse(res, { user });
+  } catch (error) {
+    handleError(res, error);
+  }
+};
+
 const _generateToken = (userId) => {
   return jwt.sign({ userId }, process.env.JWT, { expiresIn: '24h' });
 };
@@ -159,5 +200,6 @@ module.exports = {
   login,
   addKeepToUser,
   getUserTrashedKeeps,
+  getProfile,
 };
 //

@@ -19,7 +19,7 @@ export default function KeepsPage() {
         if (!loggedInUser) {
           return;
         }
-        const response = await api.get(`/users/${loggedInUser.userId}`);
+        const response = await api.get(`/keeps/user/${loggedInUser.userId}`);
         console.log('response: ', response.data);
 
         setKeeps(response.data);

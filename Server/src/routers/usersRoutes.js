@@ -8,11 +8,18 @@ const {
   login,
   addKeepToUser,
   getUserTrashedKeeps,
+  getProfile,
 } = require('../controllers/userController');
 const authToken = require('../middlewares/auth.middleware');
 const { addNewKeep } = require('../controllers/keepsController');
 const Keep = require('../models/Keep.model');
 // get all users with all their properties
+
+router.get('/', getAllUsers);
+router.post('/', register);
+router.post('/login', login);
+router.get('/profile', authToken, getProfile);
+
 router.get('/', getAllUsers);
 
 // get user by his token
@@ -28,18 +35,18 @@ router.get('/getUser', authToken, async (req, res) => {
   } catch (error) {}
 });
 
-router.post('/addKeepToUser', authToken, addKeepToUser);
+// router.post('/addKeepToUser', authToken, addKeepToUser);
 
-// post new user
-router.post('/', register);
+// // post new user
+// router.post('/', register);
 
-// login user
-router.post('/login', login);
+// // login user
+// router.post('/login', login);
 
-router.get('/trash', authToken, getUserTrashedKeeps);
+// router.get('/trash', authToken, getUserTrashedKeeps);
 
-// get user keeps by his id
-router.get('/:id', allKeepsOfOneUserByHisId);
+// // get user keeps by his id
+// router.get('/:id', allKeepsOfOneUserByHisId);
 
 module.exports = router;
 

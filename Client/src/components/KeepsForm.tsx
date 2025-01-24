@@ -12,7 +12,7 @@ function KeepsForm({ onKeepsAdded }: KeepsFormProps) {
     try {
       const data = Object.fromEntries(formData);
       console.log('data: ', data);
-      const res = await api.post('/users/addKeepToUser', {
+      const res = await api.post('/keeps', {
         title: data.title,
         description: data.description,
         // color: 'Coral',

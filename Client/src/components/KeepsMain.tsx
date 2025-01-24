@@ -1,4 +1,4 @@
-import SingleKeep from "./SingleKeep";
+import SingleKeep from './SingleKeep';
 
 export type Keep = {
   _id: string;
@@ -12,13 +12,29 @@ export type Keep = {
   author: string;
   pin: boolean;
 };
-export type KeepColor = "Transparent" | "Coral" | "Peach" | "Sand" | "Mint" | "Sage" | "Fog" | "Storm" | "Dusk" | "Blossom" | "Clay" | "Chalk";
+export type KeepColor =
+  | 'Transparent'
+  | 'Coral'
+  | 'Peach'
+  | 'Sand'
+  | 'Mint'
+  | 'Sage'
+  | 'Fog'
+  | 'Storm'
+  | 'Dusk'
+  | 'Blossom'
+  | 'Clay'
+  | 'Chalk';
 interface KeepsMainProps {
   keeps: Keep[];
   error: string | null;
   onKeepUpdate: (keepId: string, updates: Partial<Keep>) => void;
 }
-export default function KeepsMain({ error, keeps, onKeepUpdate }: KeepsMainProps) {
+export default function KeepsMain({
+  error,
+  keeps,
+  onKeepUpdate,
+}: KeepsMainProps) {
   if (error) {
     return <div className="text-red-500">{error}</div>;
   }
@@ -36,7 +52,11 @@ export default function KeepsMain({ error, keeps, onKeepUpdate }: KeepsMainProps
               <h2>Pinned</h2>
               <div className="flex flex-wrap gap-4 p-4">
                 {pinnedKeeps.map((keep) => (
-                  <SingleKeep key={keep._id} keep={keep} onKeepUpdate={onKeepUpdate} />
+                  <SingleKeep
+                    key={keep._id}
+                    keep={keep}
+                    onKeepUpdate={onKeepUpdate}
+                  />
                 ))}
               </div>
             </div>
@@ -46,7 +66,11 @@ export default function KeepsMain({ error, keeps, onKeepUpdate }: KeepsMainProps
               {pinnedKeeps.length > 0 && <h2>Others</h2>}
               <div className="flex flex-wrap gap-4 p-4">
                 {otherKeeps.map((keep) => (
-                  <SingleKeep key={keep._id} keep={keep} onKeepUpdate={onKeepUpdate} />
+                  <SingleKeep
+                    key={keep._id}
+                    keep={keep}
+                    onKeepUpdate={onKeepUpdate}
+                  />
                 ))}
               </div>
             </div>
