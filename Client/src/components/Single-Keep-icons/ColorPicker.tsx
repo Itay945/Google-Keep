@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef } from "react";
 import api from "../../helpers/axiosApiToken";
 import { KeepColor } from "../KeepsMain";
+import noColor from "../../assets/format_color_reset_24dp_000000_FILL0_wght400_GRAD0_opsz24.svg";
 
 type ColorPickerProps = {
   keepId: string;
@@ -47,16 +48,25 @@ export default function ColorPicker({ keepId, initialColor, colors, onColorChang
   }, [onClose]);
 
   return (
-    <div ref={colorPickerRef} className="absolute z-50 bg-white p-2 border rounded shadow-lg flex gap-2 flex-wrap">
+    <div ref={colorPickerRef} className="absolute z-50  bg-white p-2 border rounded shadow-lg flex gap-2 flex-wrap">
       {Object.entries(colors).map(([name, color]) => (
         <button
           key={name}
-          className={`w-6 h-6 rounded-full ${selectedColor === name ? "border-2 border-black" : ""}`}
-          style={{ backgroundColor: color }}
-          title={name}
+          className={`w-6 h-6 rounded-full flex items-center justify-center ${
+            selectedColor === name ? "border-2 border-[#A142F4]" : "border border-transparent"
+          } hover:border-black`}
+          style={{
+            backgroundColor: color === "transparent" ? "transparent" : color,
+          }}
+          title={name === "transparent" ? "No Color" : name}
           onClick={() => handleColorSelect(name as KeepColor)}
-        />
+        >
+          {color === "transparent" && (
+            <img src={noColor} alt="No Color" className="w-4 h-4" />
+          )}
+        </button>
       ))}
     </div>
   );
+  
 }
