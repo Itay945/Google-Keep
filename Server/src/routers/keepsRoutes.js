@@ -24,8 +24,8 @@ router.post('/', addNewKeep);
 // delete keep by id
 router.patch('/:id/trash', moveKeepsToTrash);
 // commit
-
-router.get('/user/:id', getUserKeeps);
+// get all keeps of specific user
+router.get('/user/:userId', getUserKeeps);
 
 // get keep by his id
 router.get('/:id', getKeepById);

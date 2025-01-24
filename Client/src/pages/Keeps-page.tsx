@@ -20,9 +20,8 @@ export default function KeepsPage() {
           return;
         }
         const response = await api.get(`/keeps/user/${loggedInUser.userId}`);
-        console.log('response: ', response.data);
-
-        setKeeps(response.data);
+        console.log('response: ', response.data.data.keeps);
+        setKeeps(response.data.data.keeps);
       } catch (err) {
         setError('Failed to fetch keeps.');
         console.error(err);
