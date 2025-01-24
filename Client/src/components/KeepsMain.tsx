@@ -38,6 +38,7 @@ export default function KeepsMain({
   if (error) {
     return <div className="text-red-500">{error}</div>;
   }
+  console.log('keeps@: ', keeps);
 
   const filteredKeeps = keeps.filter((keep) => !keep.isDeleted);
   const pinnedKeeps = filteredKeeps.filter((keep) => keep.pin);

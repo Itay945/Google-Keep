@@ -19,8 +19,8 @@ function KeepsForm({ onKeepsAdded }: KeepsFormProps) {
         // labels: ['work1', 'fun', 'food']
         // isDeleted: false,
       });
-      console.log('keepFormData', res.data);
-      onKeepsAdded(res.data.keep);
+      console.log('keepFormData$$', res.data);
+      onKeepsAdded(res.data.data.keep);
     } catch (error) {
       console.error('error: ', error);
     }
