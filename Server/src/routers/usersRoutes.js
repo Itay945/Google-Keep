@@ -35,19 +35,6 @@ router.get('/getUser', authToken, async (req, res) => {
   } catch (error) {}
 });
 
-// router.post('/addKeepToUser', authToken, addKeepToUser);
-
-// // post new user
-// router.post('/', register);
-
-// // login user
-// router.post('/login', login);
-
-// router.get('/trash', authToken, getUserTrashedKeeps);
-
-// // get user keeps by his id
-// router.get('/:id', allKeepsOfOneUserByHisId);
-
 module.exports = router;
 
 //get all keeps of users (need to be in users or to be remove)
