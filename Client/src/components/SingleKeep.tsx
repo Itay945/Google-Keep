@@ -130,22 +130,22 @@ export default function SingleKeep({ keep, onKeepUpdate }: KeepProps) {
               }))
             }
           />
-            <img
-              src={addImage}
-              alt="add image"
-              className="opacity-0 transition-all duration-300 group-hover:opacity-100 group-hover:translate-y-0 rounded-full p-[12px] hover:bg-[#EBECEC] scale-[0.8]"
-            />
           {keepState.isColorPickerOpen && (
             <ColorPicker
-              keepId={keep._id}
-              initialColor={keepState.currentColor}
-              colors={colorMap}
-              onColorChange={handleColorChange}
-              onClose={() =>
-                setKeepState((prev) => ({ ...prev, isColorPickerOpen: false }))
-              }
+            keepId={keep._id}
+            initialColor={keepState.currentColor}
+            colors={colorMap}
+            onColorChange={handleColorChange}
+            onClose={() =>
+              setKeepState((prev) => ({ ...prev, isColorPickerOpen: false }))
+            }
             />
           )}
+          <img
+            src={addImage}
+            alt="add image"
+            className="opacity-0 transition-all duration-300 group-hover:opacity-100 group-hover:translate-y-0 rounded-full p-[12px] hover:bg-[#EBECEC] scale-[0.8]"
+          />
           <img
             src={brush}
             alt="brush"

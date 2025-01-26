@@ -21,43 +21,22 @@ export default function KeepsForm({ onKeepsAdded }: KeepsFormProps) {
   const [isExpanded, setIsExpanded] = useState(false);
   const formRef = useRef<HTMLFormElement>(null);
 
-  async function handleSubmit(formData: FormData) {
-    const title = formData.get('title') as string || '';
-    const description = formData.get('description') as string || '';
 
-    // need to fix bug, cant post if one of either the title or description is empty.
-    if (title.trim() || description.trim()) {
-      try {
-        const res = await api.post('/keeps', {
-          title,
-          description,
-        });
-        onKeepsAdded(res.data.data.keep);
-      } catch (error) {
-        console.error('error: ', error);
-      }
+  async function handleSubmit(formData: FormData) {
+    try {
+      const data = Object.fromEntries(formData);
+      console.log('data: ', data);
+      const res = await api.post('/keeps', {
+        title: data.title,
+        description: data.description,
+      });
+      console.log('keepFormData$$', res.data);
+      onKeepsAdded(res.data.data.keep);
+    } catch (error) {
+      console.error('error: ', error);
     }
     setIsExpanded(false);
   }
-
-  // yoav's function without trim and submit on click outside.
-  // async function handlesubmit(formData: FormData) {
-  //   try {
-  //     const data = Object.fromEntries(formData);
-  //     console.log('data: ', data);
-  //     const res = await api.post('/keeps', {
-  //       title: data.title,
-  //       description: data.description,
-  //       // color: 'Coral',
-  //       // labels: ['work1', 'fun', 'food']
-  //       // isDeleted: false,
-  //     });
-  //     console.log('keepFormData$$', res.data);
-  //     onKeepsAdded(res.data.data.keep);
-  //   } catch (error) {
-  //     console.error('error: ', error);
-  //   }
-  // }
 
 
 
