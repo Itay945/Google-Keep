@@ -10,6 +10,7 @@ import ColorPicker from './Single-Keep-icons/ColorPicker';
 import DropDownThreeDots from './Single-Keep-icons/ThreeDotsDropDown';
 import circularV from '../assets/check_circle_24dp_000000_FILL1_wght400_GRAD0_opsz24.svg';
 import pinFull from '../assets/keep_24dp_9AA0A6_FILL1_wght400_GRAD0_opsz24.svg';
+import addImage from "../assets/image_24dp_5F6368_FILL0_wght400_GRAD0_opsz24.svg";
 import { handlePinToggle } from '../helpers/HandlePinToggle';
 import { useState } from 'react';
 import { Keep, KeepColor } from './KeepsMain';
@@ -129,6 +130,11 @@ export default function SingleKeep({ keep, onKeepUpdate }: KeepProps) {
               }))
             }
           />
+            <img
+              src={addImage}
+              alt="add image"
+              className="opacity-0 transition-all duration-300 group-hover:opacity-100 group-hover:translate-y-0 rounded-full p-[12px] hover:bg-[#EBECEC] scale-[0.8]"
+            />
           {keepState.isColorPickerOpen && (
             <ColorPicker
               keepId={keep._id}
