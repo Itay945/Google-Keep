@@ -25,7 +25,7 @@ export default function KeepsForm({ onKeepsAdded }: KeepsFormProps) {
     const title = formData.get('title') as string || '';
     const description = formData.get('description') as string || '';
 
-    // Only submit if there's content
+    // need to fix bug, cant post if one of either the title or description is empty.
     if (title.trim() || description.trim()) {
       try {
         const res = await api.post('/keeps', {
@@ -127,7 +127,7 @@ export default function KeepsForm({ onKeepsAdded }: KeepsFormProps) {
         />
         <img src={pin} 
         alt="pin" 
-        className=' rounded-full p-[6px] hover:bg-[#EBECEC]'
+        className='transition-all duration-300 group-hover:translate-y-0 rounded-full p-[6px] hover:bg-[#EBECEC]'
         />
       </div>
       <textarea
@@ -139,41 +139,41 @@ export default function KeepsForm({ onKeepsAdded }: KeepsFormProps) {
         <img
           src={plusBell}
           alt="Remind Me"
-          className=" rounded-full p-[12px] hover:bg-[#EBECEC] scale-[0.8]"
+          className="transition-all duration-300 group-hover:translate-y-0 rounded-full p-[12px] hover:bg-[#EBECEC] scale-[0.8]"
         />
         <img
           src={collaborator}
           alt="collaborator"
-          className=" rounded-full p-[12px] scale-[0.8] hover:bg-[#EBECEC]"
+          className="transition-all duration-300 group-hover:translate-y-0 rounded-full p-[12px] scale-[0.8] hover:bg-[#EBECEC]"
         />
         <img
           src={colors}
           alt="color palette"
-          className=" rounded-full p-[12px] scale-[0.8] hover:bg-[#EBECEC]"
+          className="transition-all duration-300 group-hover:translate-y-0 rounded-full p-[12px] scale-[0.8] hover:bg-[#EBECEC]"
         />
         <img
           src={addImage}
           alt="add image"
-          className=" rounded-full p-[12px] hover:bg-[#EBECEC] scale-[0.8]"
+          className="transition-all duration-300 group-hover:translate-y-0 rounded-full p-[12px] hover:bg-[#EBECEC] scale-[0.8]"
         />
         <img
           src={brush}
           alt="brush"
-          className=" rounded-full p-[12px] scale-[0.8] hover:bg-[#EBECEC]"
+          className="transition-all duration-300 group-hover:translate-y-0 rounded-full p-[12px] scale-[0.8] hover:bg-[#EBECEC]"
         />
         <img
           src={archive}
           alt="archive"
-          className=" rounded-full p-[12px] scale-[0.8] hover:bg-[#EBECEC]"
+          className="transition-all duration-300 group-hover:translate-y-0 rounded-full p-[12px] scale-[0.8] hover:bg-[#EBECEC]"
         />
         <img src={threeDots} alt="three dots options" 
-          className=" rounded-full p-[12px] scale-[0.8] hover:bg-[#EBECEC]"
+          className="transition-all duration-300 group-hover:translate-y-0 rounded-full p-[12px] scale-[0.8] hover:bg-[#EBECEC]"
         /> 
         <img src={undo} alt="undo" 
-          className=" rounded-full p-[12px] scale-[0.8] hover:bg-[#EBECEC]"
+          className="transition-all duration-300 group-hover:translate-y-0 rounded-full p-[12px] scale-[0.8] hover:bg-[#EBECEC]"
         /> 
         <img src={redo} alt="redo" 
-          className=" rounded-full p-[12px] scale-[0.8] hover:bg-[#EBECEC]"
+          className="transition-all duration-300 group-hover:translate-y-0 rounded-full p-[12px] scale-[0.8] hover:bg-[#EBECEC]"
         /> 
         <div className='flex justify-end mx-5'>
           <button
