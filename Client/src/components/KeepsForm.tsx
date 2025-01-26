@@ -125,7 +125,10 @@ export default function KeepsForm({ onKeepsAdded }: KeepsFormProps) {
           name="title"
           className="border-gray-300 text-lg font-medium mb-2 focus:outline-none"
         />
-        <img src={pin} alt="pin" />
+        <img src={pin} 
+        alt="pin" 
+        className=' rounded-full p-[6px] hover:bg-[#EBECEC]'
+        />
       </div>
       <textarea
         placeholder="Take a note..."
@@ -136,41 +139,41 @@ export default function KeepsForm({ onKeepsAdded }: KeepsFormProps) {
         <img
           src={plusBell}
           alt="Remind Me"
-          className="transition-all duration-300 group-hover:translate-y-0 rounded-full p-[12px] hover:bg-[#EBECEC] scale-[0.8]"
+          className=" rounded-full p-[12px] hover:bg-[#EBECEC] scale-[0.8]"
         />
         <img
           src={collaborator}
           alt="collaborator"
-          className="transition-all duration-300 group-hover:translate-y-0 rounded-full p-[12px] scale-[0.8] hover:bg-[#EBECEC]"
+          className=" rounded-full p-[12px] scale-[0.8] hover:bg-[#EBECEC]"
         />
         <img
           src={colors}
           alt="color palette"
-          className="transition-all duration-300 group-hover:translate-y-0 rounded-full p-[12px] scale-[0.8] hover:bg-[#EBECEC]"
+          className=" rounded-full p-[12px] scale-[0.8] hover:bg-[#EBECEC]"
         />
         <img
           src={addImage}
           alt="add image"
-          className="transition-all duration-300 group-hover:translate-y-0 rounded-full p-[12px] hover:bg-[#EBECEC] scale-[0.8]"
+          className=" rounded-full p-[12px] hover:bg-[#EBECEC] scale-[0.8]"
         />
         <img
           src={brush}
           alt="brush"
-          className="transition-all duration-300 group-hover:translate-y-0 rounded-full p-[12px] scale-[0.8] hover:bg-[#EBECEC]"
+          className=" rounded-full p-[12px] scale-[0.8] hover:bg-[#EBECEC]"
         />
         <img
           src={archive}
           alt="archive"
-          className="transition-all duration-300 group-hover:translate-y-0 rounded-full p-[12px] scale-[0.8] hover:bg-[#EBECEC]"
+          className=" rounded-full p-[12px] scale-[0.8] hover:bg-[#EBECEC]"
         />
         <img src={threeDots} alt="three dots options" 
-          className="transition-all duration-300 group-hover:translate-y-0 rounded-full p-[12px] scale-[0.8] hover:bg-[#EBECEC]"
+          className=" rounded-full p-[12px] scale-[0.8] hover:bg-[#EBECEC]"
         /> 
         <img src={undo} alt="undo" 
-          className="transition-all duration-300 group-hover:translate-y-0 rounded-full p-[12px] scale-[0.8] hover:bg-[#EBECEC]"
+          className=" rounded-full p-[12px] scale-[0.8] hover:bg-[#EBECEC]"
         /> 
         <img src={redo} alt="redo" 
-          className="transition-all duration-300 group-hover:translate-y-0 rounded-full p-[12px] scale-[0.8] hover:bg-[#EBECEC]"
+          className=" rounded-full p-[12px] scale-[0.8] hover:bg-[#EBECEC]"
         /> 
         <div className='flex justify-end mx-5'>
           <button

@@ -98,7 +98,7 @@ export default function SingleKeep({ keep, onKeepUpdate }: KeepProps) {
             src={keepState.isPinned ? pinFull : pin}
             alt="pin"
             onClick={handlePinClick}
-            className="opacity-0 transition-all duration-300 group-hover:opacity-100 group-hover:translate-y-0 rounded-full p-[10px] hover:bg-[#EBECEC]"
+            className="opacity-0 transition-all duration-300 group-hover:opacity-100 group-hover:translate-y-0 rounded-full p-[6px] hover:bg-[#EBECEC]"
           />
         </div>
         <p className="text-sm">{keep.description}</p>
