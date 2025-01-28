@@ -31,14 +31,10 @@ interface KeepsMainProps {
   onKeepUpdate: (keepId: string, updates: Partial<Keep>) => void;
 }
 export default function KeepsMain({
-  error,
   keeps,
   onKeepUpdate,
 }: KeepsMainProps) {
-  if (error) {
-    return <div className="text-red-500">{error}</div>;
-  }
-  console.log('keeps@: ', keeps);
+  
 
   const filteredKeeps = keeps.filter((keep) => !keep.isDeleted);
   const pinnedKeeps = filteredKeeps.filter((keep) => keep.pin);
