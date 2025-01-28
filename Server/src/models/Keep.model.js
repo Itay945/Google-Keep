@@ -54,6 +54,10 @@ const keepSchema = new mongoose.Schema({
     type: Date,
     default: null,
   },
+  reminderDate: {
+    type: Date,
+    default: null, // null means no reminder
+  },
 });
 
 module.exports = mongoose.model('Keep', keepSchema);
