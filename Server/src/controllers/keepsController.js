@@ -230,6 +230,36 @@ const getUserKeeps = async (req, res) => {
   }
 };
 
+const getPinnedKeeps = async (req, res) => {
+  try {
+    // Get all pinned keeps for the authenticated user that aren't deleted
+    const pinnedKeeps = await Keep.find({
+      author: req.user.userId,
+      pin: true,
+      isDeleted: false,
+    }).sort({ createdAt: -1 }); // Sort by creation date, newest first
+
+    sendResponse(res, { keeps: pinnedKeeps });
+  } catch (error) {
+    handleError(res, error);
+  }
+};
+
+const getUnpinnedKeeps = async (req, res) => {
+  try {
+    // Get all unpinned keeps for the authenticated user that aren't deleted
+    const unpinnedKeeps = await Keep.find({
+      author: req.user.userId,
+      pin: false,
+      isDeleted: false,
+    }).sort({ createdAt: -1 }); // Sort by creation date, newest first
+
+    sendResponse(res, { keeps: unpinnedKeeps });
+  } catch (error) {
+    handleError(res, error);
+  }
+};
+
 module.exports = {
   getAllKeeps,
   getAllKeepsInTrash,
@@ -240,4 +270,6 @@ module.exports = {
   getUserKeeps,
   setReminder,
   getKeepsWithReminders,
+  getPinnedKeeps,
+  getUnpinnedKeeps,
 };

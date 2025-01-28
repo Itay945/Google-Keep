@@ -12,6 +12,8 @@ const {
   getUserKeeps,
   setReminder,
   getKeepsWithReminders,
+  getPinnedKeeps,
+  getUnpinnedKeeps,
 } = require('../controllers/keepsController');
 const authToken = require('../middlewares/auth.middleware');
 
@@ -19,6 +21,10 @@ router.get('/', getAllKeeps);
 
 // get all keeps in the trash
 router.get('/trash', getAllKeepsInTrash);
+
+router.get('/filter/pinned', getPinnedKeeps);
+
+router.get('/filter/unpinned', getUnpinnedKeeps);
 
 //post new keep
 router.post('/', addNewKeep);
