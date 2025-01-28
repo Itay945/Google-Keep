@@ -10,7 +10,7 @@ import ColorPicker from './Single-Keep-icons/ColorPicker';
 import DropDownThreeDots from './Single-Keep-icons/ThreeDotsDropDown';
 import circularV from '../assets/check_circle_24dp_000000_FILL1_wght400_GRAD0_opsz24.svg';
 import pinFull from '../assets/keep_24dp_9AA0A6_FILL1_wght400_GRAD0_opsz24.svg';
-import addImage from "../assets/image_24dp_5F6368_FILL0_wght400_GRAD0_opsz24.svg";
+import addImage from '../assets/image_24dp_5F6368_FILL0_wght400_GRAD0_opsz24.svg';
 import { handlePinToggle } from '../helpers/HandlePinToggle';
 import { useState } from 'react';
 import { Keep, KeepColor } from './KeepsMain';
@@ -53,7 +53,6 @@ export default function SingleKeep({ keep, onKeepUpdate }: KeepProps) {
   const [keepState, setKeepState] = useState({
     isPinned: keep.pin,
     currentColor: keep.color,
-
     isColorPickerOpen: false,
   });
 
@@ -132,13 +131,13 @@ export default function SingleKeep({ keep, onKeepUpdate }: KeepProps) {
           />
           {keepState.isColorPickerOpen && (
             <ColorPicker
-            keepId={keep._id}
-            initialColor={keepState.currentColor}
-            colors={colorMap}
-            onColorChange={handleColorChange}
-            onClose={() =>
-              setKeepState((prev) => ({ ...prev, isColorPickerOpen: false }))
-            }
+              keepId={keep._id}
+              initialColor={keepState.currentColor}
+              colors={colorMap}
+              onColorChange={handleColorChange}
+              onClose={() =>
+                setKeepState((prev) => ({ ...prev, isColorPickerOpen: false }))
+              }
             />
           )}
           <img

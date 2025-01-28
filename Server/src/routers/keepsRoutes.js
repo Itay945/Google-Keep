@@ -10,6 +10,8 @@ const {
   moveKeepsToTrash,
   getKeepById,
   getUserKeeps,
+  setReminder,
+  getKeepsWithReminders,
 } = require('../controllers/keepsController');
 const authToken = require('../middlewares/auth.middleware');
 
@@ -21,8 +23,10 @@ router.get('/trash', getAllKeepsInTrash);
 //post new keep
 router.post('/', addNewKeep);
 
-// delete keep by id
-router.patch('/:id/trash', moveKeepsToTrash);
+//reminder routes
+router.patch('/:id/reminder', setReminder);
+router.get('/reminders/all', getKeepsWithReminders);
+
 // commit
 // get all keeps of specific user
 router.get('/user/:userId', getUserKeeps);

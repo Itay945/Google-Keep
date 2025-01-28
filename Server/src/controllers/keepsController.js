@@ -65,6 +65,43 @@ const addNewKeep = async (req, res) => {
   }
 };
 
+//reminder option
+// const addNewKeep = async (req, res) => {
+//   try {
+//     const { title, description, reminderDate } = req.body;
+
+//     // Validation
+//     if (!title && !description) {
+//       return handleError(res, new Error('Title or description is required'), 400);
+//     }
+
+//     // Validate reminder date if provided
+//     if (reminderDate) {
+//       const reminderDateTime = new Date(reminderDate);
+//       if (reminderDateTime < new Date()) {
+//         return handleError(res, new Error('Reminder date must be in the future'), 400);
+//       }
+//     }
+
+//     const keep = new Keep({
+//       ...req.body,
+//       author: req.user.userId,
+//       reminderDate: reminderDate || null
+//     });
+
+//     await keep.save();
+
+//     // Add to user's keeps
+//     await User.findByIdAndUpdate(req.user.userId, {
+//       $push: { userKeeps: keep._id },
+//     });
+
+//     sendResponse(res, { keep }, 201);
+//   } catch (error) {
+//     handleError(res, error);
+//   }
+// };
+
 const editKeep = async (req, res) => {
   try {
     const { id } = req.params;
@@ -88,6 +125,58 @@ const editKeep = async (req, res) => {
     }
 
     sendResponse(res, { keep });
+  } catch (error) {
+    handleError(res, error);
+  }
+};
+
+const setReminder = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const { reminderDate } = req.body;
+
+    // Validate the date if provided
+    if (reminderDate) {
+      const reminderDateTime = new Date(reminderDate);
+      if (reminderDateTime < new Date()) {
+        return handleError(
+          res,
+          new Error('Reminder date must be in the future'),
+          400
+        );
+      }
+    }
+
+    const keep = await Keep.findOneAndUpdate(
+      {
+        _id: id,
+        author: req.user.userId,
+      },
+      {
+        $set: { reminderDate: reminderDate || null },
+      },
+      { new: true }
+    );
+
+    if (!keep) {
+      return handleError(res, new Error('Keep not found or unauthorized'), 404);
+    }
+
+    sendResponse(res, { keep });
+  } catch (error) {
+    handleError(res, error);
+  }
+};
+
+const getKeepsWithReminders = async (req, res) => {
+  try {
+    const keeps = await Keep.find({
+      author: req.user.userId,
+      reminderDate: { $ne: null },
+      isDeleted: false,
+    }).sort({ reminderDate: 1 });
+
+    sendResponse(res, { keeps });
   } catch (error) {
     handleError(res, error);
   }
@@ -149,4 +238,6 @@ module.exports = {
   moveKeepsToTrash,
   getKeepById,
   getUserKeeps,
+  setReminder,
+  getKeepsWithReminders,
 };
