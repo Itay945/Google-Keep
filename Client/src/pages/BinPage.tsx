@@ -1,33 +1,36 @@
-import { useEffect, useState } from 'react';
-// import SingleKeepBinned from '../components/SingleKeepBinned';
+// import KeepsMain from '../components/KeepsMain';
+import { useState, useEffect } from 'react';
 import api from '../helpers/axiosApiToken';
+import { useAuth } from '../hooks/useAuth';
+import BinMain from '../components/BinMain';
+function BinPage() {
+  const { loggedInUser } = useAuth();
+  console.log('loggedInUser from useHuth: ', loggedInUser);
 
-export default function BinPage() {
-  const [keepsBined, setkeepsBined] = useState();
+  const [keeps, setKeeps] = useState<Keep[]>([]);
+
   useEffect(() => {
     const fetchKeeps = async () => {
       try {
-        const response = await api.get('/keeps/trash');
-        console.log('response: ', response.data);
-        setkeepsBined(response.data);
+        if (!loggedInUser) {
+          return;
+        }
+        const response = await api.get(`/keeps/trash`);
+        console.log('response: ', response.data.data.keeps);
+        setKeeps(response.data.data.keeps);
       } catch (err) {
         console.error(err);
       }
     };
 
     fetchKeeps();
-  }, []);
+  }, [loggedInUser]);
 
   return (
-    <>
-      <div className="flex justify-center">
-        Notes in the Recycle Bin are deleted after 7 days.
-        <button>Empty bin</button>
-      </div>
-      {/* <SingleKeepBinned /> */}
-      {keepsBined.map((item) => {
-        return <div>{item}</div>;
-      })}
-    </>
+    <div className="flex justify-center flex-col items-center">
+      <BinMain keeps={keeps} />
+    </div>
   );
 }
+
+export default BinPage;
