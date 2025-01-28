@@ -18,6 +18,18 @@ const sendResponse = (res, data, statusCode = 200) => {
   });
 };
 
+const getUserByHisToken = async (req, res) => {
+  try {
+    user = await User.findById(req.user.userId).select('name');
+    res.json({
+      userName: user.name,
+      userLastName: user.lastName,
+      userEmail: user.email,
+      userId: user._id,
+    });
+  } catch (error) {}
+};
+
 const getAllUsers = async (req, res) => {
   try {
     const users = await User.find()
@@ -140,37 +152,37 @@ const login = async (req, res) => {
   }
 };
 
-const getUserTrashedKeeps = async (req, res) => {
-  try {
-    const userId = req.user.userId;
-    const user = await User.findById(userId).populate({
-      path: 'userKeeps',
-      match: { isDeleted: true },
-    });
+// const getUserTrashedKeeps = async (req, res) => {
+//   try {
+//     const userId = req.user.userId;
+//     const user = await User.findById(userId).populate({
+//       path: 'userKeeps',
+//       match: { isDeleted: true },
+//     });
 
-    if (!user) {
-      return res.status(404).json({ message: 'User not found' });
-    }
+//     if (!user) {
+//       return res.status(404).json({ message: 'User not found' });
+//     }
 
-    res.json(user.userKeeps);
-  } catch (error) {
-    console.error('Error fetching trashed keeps:', error);
-    res.status(500).json({ error: error.message });
-  }
-};
+//     res.json(user.userKeeps);
+//   } catch (error) {
+//     console.error('Error fetching trashed keeps:', error);
+//     res.status(500).json({ error: error.message });
+//   }
+// };
 
-const allKeepsOfOneUserByHisId = async (req, res) => {
-  try {
-    // console.log(req.params.id);
-    const userKeepsById = await User.findById(req.params.id).populate(
-      'userKeeps'
-    );
-    console.log(userKeepsById.userKeeps);
-    res.json(userKeepsById.userKeeps);
-  } catch (error) {
-    console.log(error.message);
-  }
-};
+// const allKeepsOfOneUserByHisId = async (req, res) => {
+//   try {
+//     // console.log(req.params.id);
+//     const userKeepsById = await User.findById(req.params.id).populate(
+//       'userKeeps'
+//     );
+//     console.log(userKeepsById.userKeeps);
+//     res.json(userKeepsById.userKeeps);
+//   } catch (error) {
+//     console.log(error.message);
+//   }
+// };
 
 const getProfile = async (req, res) => {
   try {
@@ -195,11 +207,12 @@ const _generateToken = (userId) => {
 module.exports = {
   getAllUsers,
   register,
-  allKeepsOfOneUserByHisId,
+  // allKeepsOfOneUserByHisId,
   _generateToken,
   login,
   addKeepToUser,
-  getUserTrashedKeeps,
+  // getUserTrashedKeeps,
   getProfile,
+  getUserByHisToken,
 };
 //

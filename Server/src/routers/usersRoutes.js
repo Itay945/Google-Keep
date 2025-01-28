@@ -4,11 +4,9 @@ const User = require('../models/User.model');
 const {
   getAllUsers,
   register,
-  allKeepsOfOneUserByHisId,
   login,
-  addKeepToUser,
-  getUserTrashedKeeps,
   getProfile,
+  getUserByHisToken,
 } = require('../controllers/userController');
 const authToken = require('../middlewares/auth.middleware');
 const { addNewKeep } = require('../controllers/keepsController');
@@ -23,36 +21,6 @@ router.get('/profile', authToken, getProfile);
 router.get('/', getAllUsers);
 
 // get user by his token
-router.get('/getUser', authToken, async (req, res) => {
-  try {
-    user = await User.findById(req.user.userId).select('name');
-    res.json({
-      userName: user.name,
-      userLastName: user.lastName,
-      userEmail: user.email,
-      userId: user._id,
-    });
-  } catch (error) {}
-});
-
+router.get('/getUser', authToken, getUserByHisToken);
 
 module.exports = router;
-
-//get all keeps of users (need to be in users or to be remove)
-// router.get('/', async (req, res) => {
-//   try {
-//     // populate('keeps') is a mongoose method that allows us to populate the userKeeps field with the actual keep objects
-//     const users = await User.find().select('userKeeps').populate('userKeeps');
-//     // console.log(user[1].userKeeps);
-//     users.forEach((user) => {
-//       console.log(user.userKeeps);
-//     });
-
-//     // const user = await User.find().populate('userKeeps');
-//     // console.log(user.userKeeps);
-
-//     res.json(user);
-//   } catch (error) {
-//     res.json({ error: error.message });
-//   }
-// });

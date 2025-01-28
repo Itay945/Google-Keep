@@ -1,4 +1,4 @@
-import SingleKeep from './SingleKeep';
+// import SingleKeep from './SingleKeep';
 import SingleTrash from './SingleTrash';
 
 export type Keep = {
@@ -32,7 +32,6 @@ export default function BinMain({ keeps }) {
     <>
       <div className="flex flex-wrap gap-4 p-4">
         <div className="">
-          <h2>Pinned</h2>
           <div className="flex flex-wrap gap-4 p-4">
             {keeps.map((keep) => (
               <SingleTrash key={keep._id} keep={keep} />
