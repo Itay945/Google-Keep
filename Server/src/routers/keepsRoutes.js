@@ -14,6 +14,8 @@ const {
   getKeepsWithReminders,
   getPinnedKeeps,
   getUnpinnedKeeps,
+  restoreKeepFromTrash,
+  permanentlyDeleteKeep,
 } = require('../controllers/keepsController');
 const authToken = require('../middlewares/auth.middleware');
 
@@ -42,5 +44,11 @@ router.get('/:id', getKeepById);
 //
 // update keep description by his id
 router.put('/:id', editKeep);
+
+// Route to restore a keep from trash
+router.patch('/trash/:id/restore', restoreKeepFromTrash);
+
+// Route to permanently delete a keep
+router.delete('/trash/:id', permanentlyDeleteKeep);
 
 module.exports = router;

@@ -203,6 +203,59 @@ const moveKeepsToTrash = async (req, res) => {
   }
 };
 
+const restoreKeepFromTrash = async (req, res) => {
+  try {
+    // Find the keep and ensure it belongs to the requesting user
+    const keep = await Keep.findOneAndUpdate(
+      {
+        _id: req.params.id,
+        author: req.user.userId,
+        isDeleted: true, // Ensure the keep is actually in trash
+      },
+      {
+        isDeleted: false,
+        editedAt: new Date(), // Update the edit timestamp
+      },
+      { new: true }
+    );
+
+    if (!keep) {
+      return handleError(res, new Error('Keep not found or unauthorized'), 404);
+    }
+
+    sendResponse(res, { keep });
+  } catch (error) {
+    handleError(res, error);
+  }
+};
+
+const permanentlyDeleteKeep = async (req, res) => {
+  try {
+    // Find the keep and ensure it belongs to the requesting user
+    const keep = await Keep.findOne({
+      _id: req.params.id,
+      author: req.user.userId,
+      isDeleted: true, // Only allow permanent deletion of items in trash
+    });
+
+    if (!keep) {
+      return handleError(res, new Error('Keep not found or unauthorized'), 404);
+    }
+
+    // Remove the keep reference from the user's userKeeps array
+    await User.findByIdAndUpdate(req.user.userId, {
+      $pull: { userKeeps: keep._id },
+    });
+
+    // Permanently delete the keep
+    await Keep.findByIdAndDelete(req.params.id);
+
+    sendResponse(res, { message: 'Keep permanently deleted' });
+  } catch (error) {
+    handleError(res, error);
+  }
+};
+
 const getKeepById = async (req, res) => {
   try {
     const keep = await Keep.findById(req.params.id);
@@ -272,4 +325,6 @@ module.exports = {
   getKeepsWithReminders,
   getPinnedKeeps,
   getUnpinnedKeeps,
+  restoreKeepFromTrash,
+  permanentlyDeleteKeep,
 };
