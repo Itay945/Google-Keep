@@ -63,10 +63,11 @@ export default function KeepsForm({ onKeepsAdded }: KeepsFormProps) {
       });
       console.log('keepFormData$$', res.data);
       onKeepsAdded(res.data.data.keep);
-      resetForm();
     } catch (error) {
       console.error('error: ', error);
-    }
+    } finally{
+    resetForm();
+  }
   }
 
   useEffect(() => {
