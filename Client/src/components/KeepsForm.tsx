@@ -6,6 +6,7 @@ import collaborator from './../assets/person_add_24dp_5F6368_FILL0_wght400_GRAD0
 import colors from './../assets/palette_24dp_5F6368_FILL0_wght400_GRAD0_opsz24.svg';
 import threeDots from './../assets/more_vert_24dp_5F6368_FILL0_wght400_GRAD0_opsz24.svg';
 import pin from './../assets/keep_24dp_5F6368_FILL0_wght400_GRAD0_opsz24.svg';
+import pinFull from '../assets/keep_24dp_9AA0A6_FILL1_wght400_GRAD0_opsz24.svg';
 import brush from './../assets/brush_24dp_5F6368_FILL0_wght400_GRAD0_opsz24.svg';
 import addImage from "../assets/image_24dp_5F6368_FILL0_wght400_GRAD0_opsz24.svg";
 import archive from './../assets/archive_24dp_5F6368_FILL0_wght400_GRAD0_opsz24.svg';
@@ -18,7 +19,6 @@ interface KeepsFormProps {
   onKeepsAdded: (newKeep: Keep) => void;
 }
 
-// Color options
 const colorOptions: Record<KeepColor, string> = {
   Transparent: 'transparent',
   Coral: '#FAAFA8',
@@ -36,8 +36,9 @@ const colorOptions: Record<KeepColor, string> = {
 
 export default function KeepsForm({ onKeepsAdded }: KeepsFormProps) {
   const [isExpanded, setIsExpanded] = useState(false);
-  const [selectedColor, setSelectedColor] = useState<string>("transparent");
+  const [selectedColor, setSelectedColor] = useState<KeepColor>("Transparent");
   const [isColorPickerOpen, setIsColorPickerOpen] = useState(false);
+  const [isPinned, setIsPinned] = useState(false);
   const formRef = useRef<HTMLFormElement>(null);
   const colorPickerRef = useRef<HTMLDivElement>(null);
 
@@ -45,9 +46,10 @@ export default function KeepsForm({ onKeepsAdded }: KeepsFormProps) {
     if (formRef.current) {
       formRef.current.reset();
     }
-    setSelectedColor("transparent");
+    setSelectedColor("Transparent");
     setIsColorPickerOpen(false);
     setIsExpanded(false);
+    setIsPinned(false);
   };
 
   async function handleSubmit(formData: FormData) {
@@ -56,7 +58,8 @@ export default function KeepsForm({ onKeepsAdded }: KeepsFormProps) {
       const res = await api.post('/keeps', {
         title: data.title,
         description: data.description,
-        color: selectedColor
+        color: selectedColor,
+        pin: isPinned
       });
       console.log('keepFormData$$', res.data);
       onKeepsAdded(res.data.data.keep);
@@ -90,7 +93,7 @@ export default function KeepsForm({ onKeepsAdded }: KeepsFormProps) {
   const ColorPicker = () => (
     <div 
       ref={colorPickerRef}
-      className="absolute z-50  bg-white p-2 border rounded shadow-lg flex gap-2"
+      className="absolute z-50 bg-white p-2 border rounded shadow-lg flex gap-2 "
     >
       {Object.entries(colorOptions).map(([name, color]) => (
         <button
@@ -101,9 +104,9 @@ export default function KeepsForm({ onKeepsAdded }: KeepsFormProps) {
           style={{
             backgroundColor: color
           }}
-          title={name === "transparent" ? "No Color" : name}
+          title={name === "Transparent" ? "No Color" : name}
           onClick={() => {
-            setSelectedColor(name);
+            setSelectedColor(name as KeepColor);
             setIsColorPickerOpen(false);
           }}
         >
@@ -122,7 +125,7 @@ export default function KeepsForm({ onKeepsAdded }: KeepsFormProps) {
           type="text"
           placeholder="Take a note..."
           onClick={() => setIsExpanded(true)}
-          className="w-[400px] p-2 shadow-sm focus:outline-none"
+          className="w-[400px] p-2 shadow-sm focus:outline-none "
         />
         <div className="flex gap-4 group">
           <img 
@@ -149,7 +152,7 @@ export default function KeepsForm({ onKeepsAdded }: KeepsFormProps) {
     <form
       ref={formRef}
       action={handleSubmit}
-      className="flex flex-col border bg-transparent p-4 rounded-lg shadow-lg mb-4 w-[800px] relative"
+      className="flex flex-col border bg-transparent p-4 rounded-lg shadow-lg mb-4 w-[800px] "
       style={{ backgroundColor: colorOptions[selectedColor] }}
     >
       <div className="flex justify-between">
@@ -157,18 +160,19 @@ export default function KeepsForm({ onKeepsAdded }: KeepsFormProps) {
           type="text"
           placeholder="Title"
           name="title"
-          className=" text-lg font-medium mb-2 focus:outline-none bg-transparent "
+          className="text-lg font-medium mb-2 focus:outline-none bg-transparent placeholder-[#46443F]"
         />
         <img 
-          src={pin} 
+          src={isPinned ? pinFull : pin} 
           alt="pin" 
-          className="transition-all duration-300 group-hover:translate-y-0 rounded-full p-[6px] hover:bg-[#EBECEC]"
+          onClick={() => setIsPinned(!isPinned)}
+          className="transition-all duration-300 group-hover:translate-y-0 rounded-full p-[6px] hover:bg-[#EBECEC] "
         />
       </div>
       <textarea
         placeholder="Take a note..."
         name="description"
-        className="border-gray-300 text-sm resize-none mb-4 focus:outline-none bg-transparent"
+        className="border-gray-300 text-sm resize-none mb-4 focus:outline-none bg-transparent placeholder-[#46443F]"
       />
       <div className="flex gap-1 group relative">
         <img
@@ -185,7 +189,7 @@ export default function KeepsForm({ onKeepsAdded }: KeepsFormProps) {
           <img
             src={colors}
             alt="color palette"
-            className="transition-all duration-300 group-hover:translate-y-0 rounded-full p-[12px] scale-[0.8] hover:bg-[#EBECEC] cursor-pointer"
+            className="transition-all duration-300 group-hover:translate-y-0 rounded-full p-[12px] scale-[0.8] hover:bg-[#EBECEC] "
             onClick={() => setIsColorPickerOpen(!isColorPickerOpen)}
           />
           {isColorPickerOpen && <ColorPicker />}
@@ -220,7 +224,7 @@ export default function KeepsForm({ onKeepsAdded }: KeepsFormProps) {
           alt="redo" 
           className="transition-all duration-300 group-hover:translate-y-0 rounded-full p-[12px] scale-[0.8] hover:bg-[#EBECEC]"
         /> 
-        <div className="flex justify-end mx-5">
+        <div className="flex ">
           <button
             type="button"
             onClick={() => {
