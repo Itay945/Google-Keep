@@ -3,6 +3,7 @@ import restore from '../assets/restore_from_trash_24dp_5F6368_FILL0_wght400_GRAD
 import deleteForever from '../assets/delete_forever_24dp_5F6368_FILL0_wght400_GRAD0_opsz24.svg';
 import { useState } from 'react';
 import { Keep, KeepColor } from './KeepsMain';
+import api from '../helpers/axiosApiToken';
 
 const colorMap: Record<KeepColor, string> = {
   Transparent: 'transparent',
@@ -45,6 +46,16 @@ export default function SingleTrash({ keep }) {
     isColorPickerOpen: false,
   });
 
+  const handleRestore = async () => {
+    try {
+      console.log('keep id: ', keep._id);
+      await api.patch(`/keeps/trash/${keep._id}/restore`);
+      window.location.reload();
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   return (
     <>
       <div
@@ -71,6 +82,7 @@ export default function SingleTrash({ keep }) {
         <div className="flex gap-4 group justify-start w-[230px]">
           {/* <div className="opacity-0 transition-all duration-300 group-hover:opacity-100 group-hover:translate-y-0 rounded-full p-[12px] scale-[0.8] hover:bg-[#EBECEC]"></div> */}
           <img
+            onClick={handleRestore}
             src={restore}
             className="opacity-0 transition-all duration-300 group-hover:opacity-100 group-hover:translate-y-0 rounded-full p-[12px] scale-[0.8] hover:bg-[#EBECEC]"
             alt=""
