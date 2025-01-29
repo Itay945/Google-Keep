@@ -80,9 +80,7 @@ export default function SingleTrash({ keep }) {
           <small>{new Date(keep.createdAt).toLocaleDateString()}</small>
         </p>
         <div className="flex gap-4 group">
-          <div className="opacity-0 transition-all duration-300 group-hover:opacity-100 group-hover:translate-y-0 rounded-full p-[12px] scale-[0.8] hover:bg-[#EBECEC]">
-            <DropDownThreeDots iconSrc={threeDots} _id={keep._id} />
-          </div>
+          <div className="opacity-0 transition-all duration-300 group-hover:opacity-100 group-hover:translate-y-0 rounded-full p-[12px] scale-[0.8] hover:bg-[#EBECEC]"></div>
         </div>
       </div>
     </>

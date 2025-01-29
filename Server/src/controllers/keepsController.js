@@ -37,58 +37,21 @@ const getAllKeepsInTrash = async (req, res) => {
   }
 };
 
-const addNewKeep = async (req, res) => {
-  try {
-    const { title, description } = req.body;
-
-    // Validation
-    if (!title && !description) {
-      return handleError(
-        res,
-        new Error('Title or description is required'),
-        400
-      );
-    }
-
-    const keep = new Keep({ ...req.body, author: req.user.userId });
-    // keep.author = req.user.userId;
-    await keep.save();
-
-    // Add to user's keeps
-    await User.findByIdAndUpdate(req.user.userId, {
-      $push: { userKeeps: keep._id },
-    });
-
-    sendResponse(res, { keep }, 201);
-  } catch (error) {
-    handleError(res, error);
-  }
-};
-
-//reminder option
 // const addNewKeep = async (req, res) => {
 //   try {
-//     const { title, description, reminderDate } = req.body;
+//     const { title, description } = req.body;
 
 //     // Validation
 //     if (!title && !description) {
-//       return handleError(res, new Error('Title or description is required'), 400);
+//       return handleError(
+//         res,
+//         new Error('Title or description is required'),
+//         400
+//       );
 //     }
 
-//     // Validate reminder date if provided
-//     if (reminderDate) {
-//       const reminderDateTime = new Date(reminderDate);
-//       if (reminderDateTime < new Date()) {
-//         return handleError(res, new Error('Reminder date must be in the future'), 400);
-//       }
-//     }
-
-//     const keep = new Keep({
-//       ...req.body,
-//       author: req.user.userId,
-//       reminderDate: reminderDate || null
-//     });
-
+//     const keep = new Keep({ ...req.body, author: req.user.userId });
+//     // keep.author = req.user.userId;
 //     await keep.save();
 
 //     // Add to user's keeps
@@ -101,6 +64,51 @@ const addNewKeep = async (req, res) => {
 //     handleError(res, error);
 //   }
 // };
+
+// reminder option
+const addNewKeep = async (req, res) => {
+  try {
+    const { title, description, reminderDate } = req.body;
+
+    // Validation
+    if (!title && !description) {
+      return handleError(
+        res,
+        new Error('Title or description is required'),
+        400
+      );
+    }
+
+    // Validate reminder date if provided
+    if (reminderDate) {
+      const reminderDateTime = new Date(reminderDate);
+      if (reminderDateTime < new Date()) {
+        return handleError(
+          res,
+          new Error('Reminder date must be in the future'),
+          400
+        );
+      }
+    }
+
+    const keep = new Keep({
+      ...req.body,
+      author: req.user.userId,
+      reminderDate: reminderDate || null,
+    });
+
+    await keep.save();
+
+    // Add to user's keeps
+    await User.findByIdAndUpdate(req.user.userId, {
+      $push: { userKeeps: keep._id },
+    });
+
+    sendResponse(res, { keep }, 201);
+  } catch (error) {
+    handleError(res, error);
+  }
+};
 
 const editKeep = async (req, res) => {
   try {
