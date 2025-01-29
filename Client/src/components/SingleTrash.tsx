@@ -1,17 +1,6 @@
 // SingleKeep.tsx
-import plusBell from './../assets/add_alert_24dp_5F6368_FILL0_wght400_GRAD0_opsz24.svg';
-import collaborator from './../assets/person_add_24dp_5F6368_FILL0_wght400_GRAD0_opsz24.svg';
-import colors from './../assets/palette_24dp_5F6368_FILL0_wght400_GRAD0_opsz24.svg';
-import brush from './../assets/brush_24dp_5F6368_FILL0_wght400_GRAD0_opsz24.svg';
-import archive from './../assets/archive_24dp_5F6368_FILL0_wght400_GRAD0_opsz24.svg';
-import threeDots from './../assets/more_vert_24dp_5F6368_FILL0_wght400_GRAD0_opsz24.svg';
-import pin from './../assets/keep_24dp_5F6368_FILL0_wght400_GRAD0_opsz24.svg';
-import ColorPicker from './Single-Keep-icons/ColorPicker';
-import DropDownThreeDots from './Single-Keep-icons/ThreeDotsDropDown';
-import circularV from '../assets/check_circle_24dp_000000_FILL1_wght400_GRAD0_opsz24.svg';
-import pinFull from '../assets/keep_24dp_9AA0A6_FILL1_wght400_GRAD0_opsz24.svg';
-import addImage from '../assets/image_24dp_5F6368_FILL0_wght400_GRAD0_opsz24.svg';
-import { handlePinToggle } from '../helpers/HandlePinToggle';
+import restore from '../assets/restore_from_trash_24dp_5F6368_FILL0_wght400_GRAD0_opsz24.svg';
+import deleteForever from '../assets/delete_forever_24dp_5F6368_FILL0_wght400_GRAD0_opsz24.svg';
 import { useState } from 'react';
 import { Keep, KeepColor } from './KeepsMain';
 
@@ -79,8 +68,18 @@ export default function SingleTrash({ keep }) {
         <p className="text-xs">
           <small>{new Date(keep.createdAt).toLocaleDateString()}</small>
         </p>
-        <div className="flex gap-4 group">
-          <div className="opacity-0 transition-all duration-300 group-hover:opacity-100 group-hover:translate-y-0 rounded-full p-[12px] scale-[0.8] hover:bg-[#EBECEC]"></div>
+        <div className="flex gap-4 group justify-start w-[230px]">
+          {/* <div className="opacity-0 transition-all duration-300 group-hover:opacity-100 group-hover:translate-y-0 rounded-full p-[12px] scale-[0.8] hover:bg-[#EBECEC]"></div> */}
+          <img
+            src={restore}
+            className="opacity-0 transition-all duration-300 group-hover:opacity-100 group-hover:translate-y-0 rounded-full p-[12px] scale-[0.8] hover:bg-[#EBECEC]"
+            alt=""
+          />
+          <img
+            src={deleteForever}
+            className="opacity-0 transition-all duration-300 group-hover:opacity-100 group-hover:translate-y-0 rounded-full p-[12px] scale-[0.8] hover:bg-[#EBECEC]"
+            alt=""
+          />
         </div>
       </div>
     </>
