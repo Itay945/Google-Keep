@@ -1,45 +1,45 @@
 // SingleKeep.tsx
-import restore from '../assets/restore_from_trash_24dp_5F6368_FILL0_wght400_GRAD0_opsz24.svg';
-import deleteForever from '../assets/delete_forever_24dp_5F6368_FILL0_wght400_GRAD0_opsz24.svg';
-import { useState } from 'react';
-import { Keep, KeepColor } from './KeepsMain';
-import api from '../helpers/axiosApiToken';
+import restore from "../assets/restore_from_trash_24dp_5F6368_FILL0_wght400_GRAD0_opsz24.svg";
+import deleteForever from "../assets/delete_forever_24dp_5F6368_FILL0_wght400_GRAD0_opsz24.svg";
+import { useState } from "react";
+import { Keep, KeepColor } from "./KeepsMain";
+import api from "../helpers/axiosApiToken";
 
 const colorMap: Record<KeepColor, string> = {
-  Transparent: 'transparent',
-  Coral: '#FAAFA8',
-  Peach: '#F39F76',
-  Sand: '#FFF8B8',
-  Mint: '#E2F6D3',
-  Sage: '#B4DDD3',
-  Fog: '#D4E4ED',
-  Storm: '#AECCDC',
-  Dusk: '#D3BFDB',
-  Blossom: '#F6E2DD',
-  Clay: '#E9E3D4',
-  Chalk: '#EFEFF1',
+  Transparent: "transparent",
+  Coral: "#FAAFA8",
+  Peach: "#F39F76",
+  Sand: "#FFF8B8",
+  Mint: "#E2F6D3",
+  Sage: "#B4DDD3",
+  Fog: "#D4E4ED",
+  Storm: "#AECCDC",
+  Dusk: "#D3BFDB",
+  Blossom: "#F6E2DD",
+  Clay: "#E9E3D4",
+  Chalk: "#EFEFF1",
 };
 const darkModeColorMap: Record<KeepColor, string> = {
-  Transparent: 'transparent',
-  Coral: '#77172E',
-  Peach: '#692B17',
-  Sand: '##7C4A03',
-  Mint: '#264D3B',
-  Sage: '#0C625D',
-  Fog: '#256377',
-  Storm: '#284255',
-  Dusk: '#472E5B',
-  Blossom: '#6C394F',
-  Clay: '#4B443A',
-  Chalk: '#232427',
+  Transparent: "transparent",
+  Coral: "#77172E",
+  Peach: "#692B17",
+  Sand: "##7C4A03",
+  Mint: "#264D3B",
+  Sage: "#0C625D",
+  Fog: "#256377",
+  Storm: "#284255",
+  Dusk: "#472E5B",
+  Blossom: "#6C394F",
+  Clay: "#4B443A",
+  Chalk: "#232427",
 };
 
 type KeepProps = {
   keep: Keep;
-  onKeepUpdate: (keepId: string, updates: Partial<Keep>) => void;
+  fetchKeeps: () => Promise<void>;
 };
 
-export default function SingleTrash({ keep }) {
+export default function SingleTrash({ keep, fetchKeeps }: KeepProps) {
   const [keepState, setKeepState] = useState({
     isPinned: keep.pin,
     currentColor: keep.color,
@@ -48,9 +48,9 @@ export default function SingleTrash({ keep }) {
 
   const handleRestore = async () => {
     try {
-      console.log('keep id: ', keep._id);
+      console.log("keep id: ", keep._id);
       await api.patch(`/keeps/trash/${keep._id}/restore`);
-      window.location.reload();
+      fetchKeeps();
     } catch (error) {
       console.error(error);
     }
@@ -60,13 +60,10 @@ export default function SingleTrash({ keep }) {
     <>
       <div
         style={{
-          backgroundColor: colorMap[keepState.currentColor] || 'transparent',
+          backgroundColor: colorMap[keepState.currentColor] || "transparent",
         }}
         className={`rounded-lg p-4 group hover:shadow-[0_0_4px_rgb(0,0,0,0.3)] ${
-          !keepState.currentColor ||
-          colorMap[keepState.currentColor] === 'transparent'
-            ? 'border border-gray-300'
-            : ''
+          !keepState.currentColor || colorMap[keepState.currentColor] === "transparent" ? "border border-gray-300" : ""
         }`}
       >
         <div className="flex justify-between">
@@ -74,7 +71,7 @@ export default function SingleTrash({ keep }) {
         </div>
         <p className="text-sm">{keep.description}</p>
         <p className="text-xs">
-          <strong>Labels:</strong> {keep.labels?.join(', ')}
+          <strong>Labels:</strong> {keep.labels?.join(", ")}
         </p>
         <p className="text-xs">
           <small>{new Date(keep.createdAt).toLocaleDateString()}</small>

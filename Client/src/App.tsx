@@ -1,16 +1,15 @@
-import { useState } from 'react';
-import { Route, Routes, useLocation } from 'react-router-dom';
-import NavBar from './components/NavBar';
-import SideBar from './components/SideBar';
-import KeepsPage from './pages/Keeps-page';
-import RegisterPage from './pages/RegisterPage';
-import LoginPage from './pages/LoginPage';
-import BinPage from './pages/BinPage';
+import { useState } from "react";
+import { Route, Routes, useLocation } from "react-router-dom";
+import NavBar from "./components/NavBar";
+import SideBar from "./components/SideBar";
+import KeepsPage from "./pages/Keeps-page";
+import RegisterPage from "./pages/RegisterPage";
+import LoginPage from "./pages/LoginPage";
+import BinPage from "./pages/BinPage";
 
 export default function App() {
   const location = useLocation();
-  const isLandingPage =
-    location.pathname === '/register' || location.pathname === '/login';
+  const isLandingPage = location.pathname === "/register" || location.pathname === "/login";
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
   const toggleSidebar = () => {
@@ -24,10 +23,8 @@ export default function App() {
   return (
     <>
       {!isLandingPage && <NavBar toggleSidebar={toggleSidebar} />}
-      <div className={`flex h-screen ${isLandingPage ? '' : 'flex-grow'}`}>
-        {!isLandingPage && (
-          <SideBar isSidebarOpen={isSidebarOpen} closeSidebar={closeSidebar} />
-        )}
+      <div className={`flex h-screen ${isLandingPage ? "" : "flex-grow"}`}>
+        {!isLandingPage && <SideBar isSidebarOpen={isSidebarOpen} closeSidebar={closeSidebar} />}
         <main className="flex-grow p-4">
           <Routes>
             <Route path="/" element={<KeepsPage />} />
