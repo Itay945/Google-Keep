@@ -1,11 +1,11 @@
 // import NoteForm from '../components/Input-Form';
 // import AllKeeps from '../components/KeepMain';
-import { useState, useEffect } from 'react';
-import KeepsForm from '../components/KeepsForm';
-import KeepsMain, { Keep } from '../components/KeepsMain';
-import api from '../helpers/axiosApiToken';
-import { useAuth } from '../hooks/useAuth';
-import { Outlet  useLocation} from 'react-router-dom';
+import { useState, useEffect } from "react";
+import KeepsForm from "../components/KeepsForm";
+import KeepsMain, { Keep } from "../components/KeepsMain";
+import api from "../helpers/axiosApiToken";
+import { useAuth } from "../hooks/useAuth";
+import { Outlet, useLocation } from "react-router-dom";
 
 export default function KeepsPage() {
   const { loggedInUser } = useAuth();
