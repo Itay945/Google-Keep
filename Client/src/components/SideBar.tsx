@@ -7,6 +7,7 @@ import archive from "../assets/archive_24dp_5F6368_FILL0_wght400_GRAD0_opsz24.sv
 import close from "../assets/close_24dp_000000_FILL1_wght400_GRAD0_opsz24.svg";
 import bin from "../assets/delete_24dp_5F6368_FILL0_wght400_GRAD0_opsz24.svg";
 import add from "../assets/add_24dp_000000_FILL1_wght400_GRAD0_opsz24.svg";
+import check from "../assets/check_24dp_000000_FILL1_wght400_GRAD0_opsz24.svg";
 export default function SideBar({ isSidebarOpen, closeSidebar }) {
   const [isLabelCreatorOpen, setIsLabelCreatorOpen] = useState(false);
   const sidebarRef = useRef(null);
@@ -56,19 +57,26 @@ export default function SideBar({ isSidebarOpen, closeSidebar }) {
 
         {isLabelCreatorOpen && (
           <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">
-            <div ref={labelEditorRef} className="bg-white p-4 shadow-lg w-[300px] h-[265px]">
-              <h2 className="text-lg font-semibold mb-2">Edit Labels</h2>
-              <div className="flex items-center">
-                <img
-                  src={close}
-                  alt="bin"
-                  className="transition-all duration-300 group-hover:translate-y-0 rounded-full p-[12px] hover:bg-[#EBECEC]"
-                />
+            <div ref={labelEditorRef} className="bg-white shadow-lg w-[300px]">
+              <div className="m-3">
+                <h2 className="text-lg font-semibold mb-2">Edit Labels</h2>
+                <div className="flex items-center">
+                  <img
+                    src={close}
+                    alt="bin"
+                    className="transition-all duration-300 group-hover:translate-y-0 rounded-full  hover:bg-[#EBECEC] w-[20px] h-[20px]"
+                  />
 
-                <input type="text" placeholder="Create new label" className="w-full p-2 focus:border-b focus:outline-none" />
+                  <input type="text" placeholder="Create new label" className="w-full p-2 focus:border-b focus:outline-none" />
+                  <img
+                    src={check}
+                    alt="vi"
+                    className="transition-all duration-300 group-hover:translate-y-0 rounded-full  w-[20px] h-[20px] hover:bg-[#EBECEC]"
+                  />
+                </div>
               </div>
-              <div className="flex justify-end mt-4">
-                <button className="hover:bg-secondary-light text-[#212121] px-3 py-1 rounded-md">Close</button>
+              <div className="flex justify-end mt-4 border-t ">
+                <button className="hover:bg-secondary-light text-[#212121] px-3 py-1 my-4 rounded-md">Done</button>
               </div>
             </div>
           </div>

@@ -42,7 +42,7 @@ export default function KeepsForm({ onKeepsAdded }: KeepsFormProps) {
   const formRef = useRef<HTMLFormElement>(null);
   const colorPickerRef = useRef<HTMLDivElement>(null);
 
-  const resetForm = () => {
+  const resetForm = useCallback(() => {
     if (formRef.current) {
       formRef.current.reset();
     }
@@ -50,13 +50,15 @@ export default function KeepsForm({ onKeepsAdded }: KeepsFormProps) {
     setIsColorPickerOpen(false);
     setIsExpanded(false);
     setIsPinned(false);
-  };
+  }, []);
 
   async function handleSubmit(ev: React.FormEvent<HTMLFormElement>) {
     ev.preventDefault();
     const { title, description } = extractFormValues();
 
-    await addKeep(title, description);
+    if (title && description) {
+      await addKeep(title, description);
+    }
   }
 
   function extractFormValues() {
@@ -69,24 +71,22 @@ export default function KeepsForm({ onKeepsAdded }: KeepsFormProps) {
 
   const addKeep = useCallback(
     async (title: string, description: string) => {
-      if (title && description) {
-        try {
-          const res = await api.post("/keeps", {
-            title,
-            description,
-            color: selectedColor,
-            pin: isPinned,
-          });
-          console.log("keepFormData$$", res.data);
-          onKeepsAdded(res.data.data.keep);
-        } catch (error) {
-          console.error("error: ", error);
-        } finally {
-          resetForm();
-        }
+      try {
+        const res = await api.post("/keeps", {
+          title,
+          description,
+          color: selectedColor,
+          pin: isPinned,
+        });
+        console.log("keepFormData$$", res.data);
+        onKeepsAdded(res.data.data.keep);
+      } catch (error) {
+        console.error("error: ", error);
+      } finally {
+        resetForm();
       }
     },
-    [selectedColor, isPinned, onKeepsAdded]
+    [selectedColor, isPinned, onKeepsAdded, resetForm]
   );
 
   useEffect(() => {
@@ -94,16 +94,16 @@ export default function KeepsForm({ onKeepsAdded }: KeepsFormProps) {
       if (formRef.current && !formRef.current.contains(event.target as Node)) {
         const { title, description } = extractFormValues();
 
-        await addKeep(title, description);
+        if (title && description) {
+          await addKeep(title, description);
+        } else {
+          resetForm();
+        }
       }
 
       if (colorPickerRef.current && !colorPickerRef.current.contains(event.target as Node)) {
         setIsColorPickerOpen(false);
       }
-      if (formRef.current && !formRef.current.contains(event.target as Node)) {
-        setIsExpanded(false);
-      }
-
       // add more when needed ('reminder' / 'more' and so on...)
     }
 
@@ -114,7 +114,7 @@ export default function KeepsForm({ onKeepsAdded }: KeepsFormProps) {
     return () => {
       document.removeEventListener("mousedown", handleClickOutside);
     };
-  }, [isExpanded, isColorPickerOpen, addKeep]);
+  }, [isExpanded, isColorPickerOpen, addKeep, resetForm]);
 
   const ColorPicker = () => (
     <div ref={colorPickerRef} className="absolute z-50 bg-white p-2 border rounded shadow-lg flex gap-2 ">
