@@ -27,10 +27,25 @@ const userSchema = new mongoose.Schema({
     type: Date,
     default: Date.now,
   },
-  // isLogeIn: {
-  //   type: Boolean,
-  //   require: true,
-  // },
+  labels: [
+    {
+      id: {
+        type: mongoose.Schema.Types.ObjectId,
+        default: () => new mongoose.Types.ObjectId(),
+      },
+      name: {
+        type: String,
+        required: true,
+        trim: true,
+        minLength: 1,
+        maxLength: 50,
+      },
+      createdAt: {
+        type: Date,
+        default: Date.now,
+      },
+    },
+  ],
 });
 
 userSchema.pre('save', async function (next) {
