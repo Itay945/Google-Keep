@@ -5,6 +5,7 @@ import KeepsForm from '../components/KeepsForm';
 import KeepsMain, { Keep } from '../components/KeepsMain';
 import api from '../helpers/axiosApiToken';
 import { useAuth } from '../hooks/useAuth';
+import { Outlet } from 'react-router-dom';
 
 export default function KeepsPage() {
   const { loggedInUser } = useAuth();
@@ -14,6 +15,7 @@ export default function KeepsPage() {
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
+    // to do: fetch again when coming back from KeepDetails
     const fetchKeeps = async () => {
       try {
         if (!loggedInUser) {
@@ -45,7 +47,7 @@ export default function KeepsPage() {
 
   return (
     <div className="flex justify-center flex-col items-center">
-      {/* <NoteForm /> */}
+      <Outlet />
       <KeepsForm onKeepsAdded={handleKeepAdded} />
       <KeepsMain keeps={keeps} onKeepUpdate={handleKeepUpdate} error={error} />
     </div>

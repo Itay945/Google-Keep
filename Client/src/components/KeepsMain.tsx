@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import SingleKeep from './SingleKeep';
 
 export type Keep = {
@@ -30,12 +31,7 @@ interface KeepsMainProps {
   error: string | null;
   onKeepUpdate: (keepId: string, updates: Partial<Keep>) => void;
 }
-export default function KeepsMain({
-  keeps,
-  onKeepUpdate,
-}: KeepsMainProps) {
-  
-
+export default function KeepsMain({ keeps, onKeepUpdate }: KeepsMainProps) {
   const filteredKeeps = keeps.filter((keep) => !keep.isDeleted);
   const pinnedKeeps = filteredKeeps.filter((keep) => keep.pin);
   const otherKeeps = filteredKeeps.filter((keep) => !keep.pin);
@@ -49,11 +45,13 @@ export default function KeepsMain({
               <h2>Pinned</h2>
               <div className="flex flex-wrap gap-4 p-4">
                 {pinnedKeeps.map((keep) => (
-                  <SingleKeep
-                    key={keep._id}
-                    keep={keep}
-                    onKeepUpdate={onKeepUpdate}
-                  />
+                  <Link to={`/keeps/${keep._id}`} key={keep._id}>
+                    <SingleKeep
+                      key={keep._id}
+                      keep={keep}
+                      onKeepUpdate={onKeepUpdate}
+                    />
+                  </Link>
                 ))}
               </div>
             </div>
