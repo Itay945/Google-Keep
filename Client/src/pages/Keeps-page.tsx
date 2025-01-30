@@ -5,7 +5,7 @@ import KeepsForm from '../components/KeepsForm';
 import KeepsMain, { Keep } from '../components/KeepsMain';
 import api from '../helpers/axiosApiToken';
 import { useAuth } from '../hooks/useAuth';
-import { Outlet } from 'react-router-dom';
+import { Outlet, useLocation } from 'react-router-dom';
 
 export default function KeepsPage() {
   const { loggedInUser } = useAuth();
@@ -13,7 +13,7 @@ export default function KeepsPage() {
 
   const [keeps, setKeeps] = useState<Keep[]>([]);
   const [error, setError] = useState<string | null>(null);
-
+  const location = useLocation();
   useEffect(() => {
     // to do: fetch again when coming back from KeepDetails
     const fetchKeeps = async () => {
@@ -31,7 +31,7 @@ export default function KeepsPage() {
     };
 
     fetchKeeps();
-  }, [loggedInUser]);
+  }, [loggedInUser, location.pathname]);
 
   const handleKeepUpdate = (keepId: string, updates: Partial<Keep>) => {
     setKeeps((prevKeeps) =>

@@ -61,11 +61,13 @@ export default function KeepsMain({ keeps, onKeepUpdate }: KeepsMainProps) {
               {pinnedKeeps.length > 0 && <h2>Others</h2>}
               <div className="flex flex-wrap gap-4 p-4">
                 {otherKeeps.map((keep) => (
-                  <SingleKeep
-                    key={keep._id}
-                    keep={keep}
-                    onKeepUpdate={onKeepUpdate}
-                  />
+                  <Link to={`/keeps/${keep._id}`} key={keep._id}>
+                    <SingleKeep
+                      key={keep._id}
+                      keep={keep}
+                      onKeepUpdate={onKeepUpdate}
+                    />
+                  </Link>
                 ))}
               </div>
             </div>
