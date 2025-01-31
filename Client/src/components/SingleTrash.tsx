@@ -23,7 +23,7 @@ const darkModeColorMap: Record<KeepColor, string> = {
   Transparent: "transparent",
   Coral: "#77172E",
   Peach: "#692B17",
-  Sand: "##7C4A03",
+  Sand: "#7C4A03",
   Mint: "#264D3B",
   Sage: "#0C625D",
   Fog: "#256377",
