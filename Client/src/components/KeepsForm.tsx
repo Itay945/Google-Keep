@@ -39,6 +39,7 @@ export default function KeepsForm({ onKeepsAdded }: KeepsFormProps) {
   const [selectedColor, setSelectedColor] = useState<KeepColor>("Transparent");
   const [isColorPickerOpen, setIsColorPickerOpen] = useState(false);
   const [isPinned, setIsPinned] = useState(false);
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const formRef = useRef<HTMLFormElement>(null);
   const colorPickerRef = useRef<HTMLDivElement>(null);
 
@@ -228,8 +229,24 @@ export default function KeepsForm({ onKeepsAdded }: KeepsFormProps) {
         <img
           src={threeDots}
           alt="three dots options"
+          onClick={() => setIsDropdownOpen((prev) => !prev)}
           className="transition-all duration-300 group-hover:translate-y-0 rounded-full p-[12px] scale-[0.8] hover:bg-[#EBECEC]"
         />
+        {isDropdownOpen && (
+  <div className="absolute right-[300px] top-[50px] w-[133px] bg-white  border rounded shadow-lg gap-2 z-50 w ">
+    <div className="flex flex-col items-start mt-2">
+    <div className="w-full hover:bg-gray-200">
+    <button className="text-sm ml-4 py-1 hover:bg-gray-200">Add label</button>
+    </div>
+    <div className="w-full hover:bg-gray-200">
+    <button className="text-sm ml-4 py-1 hover:bg-gray-200">Add drawing</button>
+    </div>
+    <div className="w-full hover:bg-gray-200 mb-2">
+    <button className="text-sm ml-4 py-1 mr-2 ">Show tick boxes</button>
+    </div>
+    </div>
+  </div>
+)}
         <img
           src={undo}
           alt="undo"
