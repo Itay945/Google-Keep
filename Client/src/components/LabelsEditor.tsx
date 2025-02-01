@@ -4,43 +4,70 @@ import check from "../assets/check_24dp_000000_FILL1_wght400_GRAD0_opsz24.svg";
 import pen from "../assets/edit_24dp_5F6368_FILL0_wght400_GRAD0_opsz24.svg";
 import add from "../assets/add_24dp_000000_FILL1_wght400_GRAD0_opsz24.svg";
 import api from "../helpers/axiosApiToken";
+import remove from "../assets/delete_24dp_5F6368_FILL0_wght400_GRAD0_opsz24.svg";
+
+type Label = {
+  id: string;
+  name: string;
+  createdAt: Date;
+};
+
 
 import { useAuth } from "../hooks/useAuth";
 export default function LabelsEditor({ isSidebarOpen }) {
   const [isLabelCreatorOpen, setIsLabelCreatorOpen] = useState(false);
-  const [labels, setLabels] = useState<Keep[]>([]);
+  const [labels, setLabels] = useState<Label[]>([]);
   const [error, setError] = useState<string | null>(null);
   const [newLabelName, setNewLabelName] = useState("");
   const labelEditorRef = useRef(null);
   const { loggedInUser } = useAuth();
 
-  const handleAddLabel = async (newLabelName: string) => {
-    try {
-      const response = await api.post(`/users/labels`, { name: newLabelName });
-      console.log("Label created:", response.data);
-      setLabels((prevLabels) => [...prevLabels, response.data.label]); // Update state with new label
-    } catch (err) {
-      setError("Failed to create label.");
-      console.error(err);
+
+  const handleDeleteLabel = async (id: string) => {
+  try {
+    await api.delete(`/users/labels/${id}`); // Corrected URL
+
+    setLabels((prevLabels) => prevLabels.filter(label => label.id !== id)); // Remove deleted label from state
+    console.log("Label Deleted:", id);
+    fetchLabels();
+  } catch (err) {
+    setError("Failed to delete label.");
+    console.error(err);
+  }
+};
+
+const handleAddLabel = async (newLabelName: string) => {
+  try {
+    const response = await api.post(`/users/labels`, { name: newLabelName });
+    console.log("Full API Response:", response.data);
+
+    const newLabel = response.data?.data?.label; // Ensure correct path
+
+  
+
+    setLabels((prevLabels) => [...prevLabels, newLabel]);
+    
+    setTimeout(fetchLabels, 500);
+  } catch (err) {
+    setError("Failed to create label.");
+    console.error(err);
+  }
+};
+const fetchLabels = async () => {
+  try {
+    if (!loggedInUser) {
+      return;
     }
-  };
+    const response = await api.get(`/users/labels`);
+    console.log("labels: ", response.data.data.labels);
+    setLabels(response.data.data.labels);
+  } catch (err) {
+    setError("Failed to fetch labels.");
+    console.error(err);
+  }
+};
 
   useEffect(() => {
-    // to do: fetch again when coming back from KeepDetails
-    const fetchLabels = async () => {
-      try {
-        if (!loggedInUser) {
-          return;
-        }
-        const response = await api.get(`/users/labels`);
-        console.log("labels: ", response.data.data.labels);
-        setLabels(response.data.data.labels);
-      } catch (err) {
-        setError("Failed to fetch labels.");
-        console.error(err);
-      }
-    };
-
     fetchLabels();
   }, [loggedInUser]);
 
@@ -70,7 +97,7 @@ export default function LabelsEditor({ isSidebarOpen }) {
                 <img
                   src={close}
                   alt="close"
-                  className="transition-all duration-300 group-hover:translate-y-0 rounded-full hover:bg-[#EBECEC] w-[20px] h-[20px]"
+                  className=" group-hover:translate-y-0 rounded-full hover:bg-[#EBECEC] w-[20px] h-[20px]"
                 />
                 <input
                   type="text"
@@ -82,10 +109,10 @@ export default function LabelsEditor({ isSidebarOpen }) {
                 <img
                   src={check}
                   alt="check"
-                  className="transition-all duration-300 group-hover:translate-y-0 rounded-full w-[20px] h-[20px] hover:bg-[#EBECEC]"
+                  className=" group-hover:translate-y-0 rounded-full w-[20px] h-[20px] hover:bg-[#EBECEC]"
                   onClick={() => {
-                    handleAddLabel(newLabelName); // Pass the input content to the handleAddLabel function
-                    setNewLabelName(""); // Clear the input after submitting
+                    handleAddLabel(newLabelName);
+                    setNewLabelName(""); 
                   }}
                 />
               </div>
@@ -93,8 +120,14 @@ export default function LabelsEditor({ isSidebarOpen }) {
             <div>
               {labels.length > 0
                 ? labels.map((label, index) => (
-                    <div key={index} className="p-2 px-6">
+                  
+                    <div key={index} className="flex p-2 px-6 justify-between">
+                      <img src={remove} alt="bin" onClick={() => handleDeleteLabel(label.id)} className=" group-hover:translate-y-0 rounded-full w-[20px] h-[20px] hover:bg-[#EBECEC]"/>
+                      <div className="ml-[30px]">
                       {label.name}
+                      </div>
+                      <span className="flex flex-grow"></span>
+                      <img src={pen} alt="pen" className=" group-hover:translate-y-0 rounded-full w-[20px] h-[20px] hover:bg-[#EBECEC]" />
                     </div>
                   ))
                 : ""}
