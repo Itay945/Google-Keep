@@ -16,7 +16,10 @@ export default function NavBar({ toggleSidebar }) {
         <div className="flex items-center gap-6 justify-start w-40 ">
           <span className="text-2xl text-black">
             <div className="rounded-full p-3 hover:bg-[#EBECEC]">
-              <img src={menu} alt="burger" className="cursor-pointer" onClick={toggleSidebar} />
+              <img src={menu} alt="burger" className="cursor-pointer" onClick={(e) => {
+    e.stopPropagation();
+    toggleSidebar();
+  }}  />
             </div>
           </span>
           <Link to="/">

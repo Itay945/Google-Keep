@@ -30,11 +30,17 @@ export default function SideBar({ isSidebarOpen, closeSidebar }) {
 
   useEffect(() => {
     const handleClickOutside = (event) => {
-      if (isSidebarOpen && sidebarRef.current && !sidebarRef.current.contains(event.target)) {
+      const burgerButton = document.querySelector('img[alt="burger"]');
+      if (
+        isSidebarOpen && 
+        sidebarRef.current && 
+        !sidebarRef.current.contains(event.target) &&
+        event.target !== burgerButton
+      ) {
         closeSidebar();
       }
     };
-
+  
     document.addEventListener("mousedown", handleClickOutside);
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, [isSidebarOpen, closeSidebar]);
