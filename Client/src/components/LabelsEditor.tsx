@@ -57,7 +57,9 @@ export default function LabelsEditor({ isSidebarOpen, labels, setLabels, onLabel
   return (
     <>
       <div onClick={() => setIsLabelCreatorOpen(true)} className="mb-2 flex items-center hover:bg-[#EBECEC] rounded-full w-48">
+      <div className="rounded-full p-[12px] hover:bg-[#EBECEC]">
         <img src={pen} alt="pen" className="w-6 h-6" />
+        </div>
         <span className={`ml-3 ${isSidebarOpen ? "opacity-100" : "opacity-0 invisible"}`}>Edit Labels</span>
       </div>
       {isLabelCreatorOpen && (
