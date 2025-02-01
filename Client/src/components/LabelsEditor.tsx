@@ -14,62 +14,34 @@ type Label = {
 
 
 import { useAuth } from "../hooks/useAuth";
-export default function LabelsEditor({ isSidebarOpen }) {
+export default function LabelsEditor({ isSidebarOpen, labels, setLabels, onLabelsUpdate }) {
   const [isLabelCreatorOpen, setIsLabelCreatorOpen] = useState(false);
-  const [labels, setLabels] = useState<Label[]>([]);
-  const [error, setError] = useState<string | null>(null);
+  const [error, setError] = useState(null);
   const [newLabelName, setNewLabelName] = useState("");
   const labelEditorRef = useRef(null);
-  const { loggedInUser } = useAuth();
 
-
-  const handleDeleteLabel = async (id: string) => {
-  try {
-    await api.delete(`/users/labels/${id}`); // Corrected URL
-
-    setLabels((prevLabels) => prevLabels.filter(label => label.id !== id)); // Remove deleted label from state
-    console.log("Label Deleted:", id);
-    fetchLabels();
-  } catch (err) {
-    setError("Failed to delete label.");
-    console.error(err);
-  }
-};
-
-const handleAddLabel = async (newLabelName: string) => {
-  try {
-    const response = await api.post(`/users/labels`, { name: newLabelName });
-    console.log("Full API Response:", response.data);
-
-    const newLabel = response.data?.data?.label; // Ensure correct path
-
-  
-
-    setLabels((prevLabels) => [...prevLabels, newLabel]);
-    
-    setTimeout(fetchLabels, 500);
-  } catch (err) {
-    setError("Failed to create label.");
-    console.error(err);
-  }
-};
-const fetchLabels = async () => {
-  try {
-    if (!loggedInUser) {
-      return;
+  const handleDeleteLabel = async (id) => {
+    try {
+      await api.delete(`/users/labels/${id}`);
+      setLabels((prevLabels) => prevLabels.filter(label => label.id !== id));
+      onLabelsUpdate();
+    } catch (err) {
+      setError("Failed to delete label.");
+      console.error(err);
     }
-    const response = await api.get(`/users/labels`);
-    console.log("labels: ", response.data.data.labels);
-    setLabels(response.data.data.labels);
-  } catch (err) {
-    setError("Failed to fetch labels.");
-    console.error(err);
-  }
-};
+  };
 
-  useEffect(() => {
-    fetchLabels();
-  }, [loggedInUser]);
+  const handleAddLabel = async (newLabelName) => {
+    try {
+      const response = await api.post(`/users/labels`, { name: newLabelName });
+      const newLabel = response.data?.data?.label;
+      setLabels((prevLabels) => [...prevLabels, newLabel]);
+      onLabelsUpdate();
+    } catch (err) {
+      setError("Failed to create label.");
+      console.error(err);
+    }
+  };
 
   useEffect(() => {
     const handleClickOutsideLabelEditor = (event) => {
