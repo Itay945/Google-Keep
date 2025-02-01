@@ -111,6 +111,9 @@ const fetchLabels = async () => {
                   alt="check"
                   className=" group-hover:translate-y-0 rounded-full w-[20px] h-[20px] hover:bg-[#EBECEC]"
                   onClick={() => {
+                    if (!newLabelName.trim()) {
+                      return;
+                    }
                     handleAddLabel(newLabelName);
                     setNewLabelName(""); 
                   }}
