@@ -71,7 +71,7 @@ function KeepDetails() {
         <div ref={modalRef} className="bg-white p-4 rounded-lg w-96">
           <h1 className="text-xl font-bold">Keep Details</h1>
           <p>Keep ID: {params.keepID}</p>
-          <SingleKeep keep={keep} onKeepUpdate={handleKeepUpdate} />
+          {/* <SingleKeep keep={keep} onKeepUpdate={handleKeepUpdate} /> */}
           {/* <p>axios: </p> */}
         </div>
       </div>
