@@ -58,6 +58,21 @@ const keepSchema = new mongoose.Schema({
     type: Date,
     default: null, // null means no reminder
   },
+  position: {
+    type: Number,
+    default: 0,
+    required: true,
+  },
+});
+keepSchema.pre('save', async function (next) {
+  if (this.isNew && !this.position) {
+    const lastKeep = await this.constructor
+      .findOne({})
+      .sort('-position')
+      .exec();
+    this.position = lastKeep ? lastKeep.position + 1 : 0;
+  }
+  next();
 });
 
 module.exports = mongoose.model('Keep', keepSchema);

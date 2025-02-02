@@ -90,10 +90,15 @@ const addNewKeep = async (req, res) => {
         );
       }
     }
+    const lastKeep = await Keep.findOne({ isDeleted: false })
+      .sort('-position')
+      .limit(1);
+    const position = lastKeep ? lastKeep.position + 1 : 0;
 
     const keep = new Keep({
       ...req.body,
       author: req.user.userId,
+      position,
       reminderDate: reminderDate || null,
     });
 
@@ -109,7 +114,53 @@ const addNewKeep = async (req, res) => {
     handleError(res, error);
   }
 };
+const updateKeepPosition = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const { position, pin } = req.body;
 
+    const currentKeep = await Keep.findById(id);
+
+    if (!currentKeep) {
+      return handleError(res, new Error('Keep not found or unauthorized'), 404);
+    }
+
+    const keepAtTargetPosition = await Keep.findOne({
+      position: position,
+      pin: pin,
+      isDeleted: false,
+    });
+
+    if (keepAtTargetPosition) {
+      await Keep.findByIdAndUpdate(
+        keepAtTargetPosition._id,
+        { position: currentKeep.position },
+        { new: true }
+      );
+    }
+
+    const updatedKeep = await Keep.findByIdAndUpdate(
+      id,
+      {
+        position: position,
+        pin: pin,
+      },
+      { new: true }
+    );
+
+    const keeps = await Keep.find({ isDeleted: false });
+
+    res.status(200).json({
+      success: true,
+      data: {
+        keep: updatedKeep,
+        keeps: keeps,
+      },
+    });
+  } catch (error) {
+    handleError(res, error);
+  }
+};
 const editKeep = async (req, res) => {
   try {
     const { id } = req.params;
@@ -335,4 +386,5 @@ module.exports = {
   getUnpinnedKeeps,
   restoreKeepFromTrash,
   permanentlyDeleteKeep,
+  updateKeepPosition,
 };

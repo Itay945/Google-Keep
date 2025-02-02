@@ -50,14 +50,14 @@ function LoginPage() {
                 placeholder="Email or phone"
                 type="text"
                 name="email"
-                value="yoav@0"
+                value="yoav@01"
                 className="border border-gray-600 text-xl bg-transparent text-[#A1C7C5]"
               />
               <input
                 placeholder="password"
                 type="text"
                 name="password"
-                value="1234"
+                value="12345"
                 className="border border-gray-600 text-xl bg-transparent text-[#A1C7C5]"
               />
             </div>
