@@ -118,7 +118,7 @@ export default function KeepsForm({ onKeepsAdded }: KeepsFormProps) {
   }, [isExpanded, isColorPickerOpen, addKeep, resetForm]);
 
   const ColorPicker = () => (
-    <div ref={colorPickerRef} className="absolute z-50 bg-white p-2 border rounded shadow-lg flex gap-2 ">
+    <div ref={colorPickerRef} className="absolute z-50 bg-transparent p-2 border rounded shadow-lg flex gap-2 ">
       {Object.entries(colorOptions).map(([name, color]) => (
         <button
           key={name}
@@ -143,22 +143,22 @@ export default function KeepsForm({ onKeepsAdded }: KeepsFormProps) {
   if (!isExpanded) {
     return (
       <div className="flex justify-center w-[600px] border rounded-lg">
-        <input type="text" placeholder="Take a note..." onClick={() => setIsExpanded(true)} className="w-[400px] p-2 shadow-sm focus:outline-none " />
+        <input type="text" placeholder="Take a note..." onClick={() => setIsExpanded(true)} className="w-[400px] h-[46px] p-2 shadow-sm focus:outline-none bg-transparent" />
         <div className="flex gap-4 group">
           <img
             src={newList}
             alt="newList"
-            className="transition-all duration-300 group-hover:translate-y-0 rounded-full p-[12px] hover:bg-[#EBECEC] w-[48px] h-[48px]"
+            className=" group-hover:translate-y-0 rounded-full p-[12px] hover:bg-[#EBECEC] w-[48px] h-[48px]"
           />
           <img
             src={brush}
             alt="brush"
-            className="transition-all duration-300 group-hover:translate-y-0 rounded-full p-[12px] hover:bg-[#EBECEC] w-[48px] h-[48px]"
+            className=" group-hover:translate-y-0 rounded-full p-[12px] hover:bg-[#EBECEC] w-[48px] h-[48px]"
           />
           <img
             src={addImage}
             alt="addImage"
-            className="transition-all duration-300 group-hover:translate-y-0 rounded-full p-[12px] hover:bg-[#EBECEC] w-[48px] h-[48px]"
+            className=" group-hover:translate-y-0 rounded-full p-[12px] hover:bg-[#EBECEC] w-[48px] h-[48px]"
           />
         </div>
       </div>
@@ -183,7 +183,7 @@ export default function KeepsForm({ onKeepsAdded }: KeepsFormProps) {
           src={isPinned ? pinFull : pin}
           alt="pin"
           onClick={() => setIsPinned((prev) => !prev)}
-          className="transition-all duration-300 group-hover:translate-y-0 rounded-full p-[6px] hover:bg-[#EBECEC] "
+          className=" group-hover:translate-y-0 rounded-full p-[6px] hover:bg-[#EBECEC] "
         />
       </div>
       <textarea
@@ -195,18 +195,18 @@ export default function KeepsForm({ onKeepsAdded }: KeepsFormProps) {
         <img
           src={plusBell}
           alt="Remind Me"
-          className="transition-all duration-300 group-hover:translate-y-0 rounded-full p-[12px] hover:bg-[#EBECEC] scale-[0.8]"
+          className=" group-hover:translate-y-0 rounded-full p-[12px] hover:bg-[#EBECEC] scale-[0.8]"
         />
         <img
           src={collaborator}
           alt="collaborator"
-          className="transition-all duration-300 group-hover:translate-y-0 rounded-full p-[12px] scale-[0.8] hover:bg-[#EBECEC]"
+          className=" group-hover:translate-y-0 rounded-full p-[12px] scale-[0.8] hover:bg-[#EBECEC]"
         />
         <div className="relative">
           <img
             src={colors}
             alt="color palette"
-            className="transition-all duration-300 group-hover:translate-y-0 rounded-full p-[12px] scale-[0.8] hover:bg-[#EBECEC] "
+            className=" group-hover:translate-y-0 rounded-full p-[12px] scale-[0.8] hover:bg-[#EBECEC] "
             onClick={() => setIsColorPickerOpen(!isColorPickerOpen)}
           />
           {isColorPickerOpen && <ColorPicker />}
@@ -214,23 +214,23 @@ export default function KeepsForm({ onKeepsAdded }: KeepsFormProps) {
         <img
           src={addImage}
           alt="add image"
-          className="transition-all duration-300 group-hover:translate-y-0 rounded-full p-[12px] hover:bg-[#EBECEC] scale-[0.8]"
+          className=" group-hover:translate-y-0 rounded-full p-[12px] hover:bg-[#EBECEC] scale-[0.8]"
         />
         <img
           src={brush}
           alt="brush"
-          className="transition-all duration-300 group-hover:translate-y-0 rounded-full p-[12px] scale-[0.8] hover:bg-[#EBECEC]"
+          className=" group-hover:translate-y-0 rounded-full p-[12px] scale-[0.8] hover:bg-[#EBECEC]"
         />
         <img
           src={archive}
           alt="archive"
-          className="transition-all duration-300 group-hover:translate-y-0 rounded-full p-[12px] scale-[0.8] hover:bg-[#EBECEC]"
+          className=" group-hover:translate-y-0 rounded-full p-[12px] scale-[0.8] hover:bg-[#EBECEC]"
         />
         <img
           src={threeDots}
           alt="three dots options"
           onClick={() => setIsDropdownOpen((prev) => !prev)}
-          className="transition-all duration-300 group-hover:translate-y-0 rounded-full p-[12px] scale-[0.8] hover:bg-[#EBECEC]"
+          className=" group-hover:translate-y-0 rounded-full p-[12px] scale-[0.8] hover:bg-[#EBECEC]"
         />
         {isDropdownOpen && (
   <div className="absolute right-[300px] top-[50px] w-[133px] bg-white  border rounded shadow-lg gap-2 z-50 w ">
@@ -250,12 +250,12 @@ export default function KeepsForm({ onKeepsAdded }: KeepsFormProps) {
         <img
           src={undo}
           alt="undo"
-          className="transition-all duration-300 group-hover:translate-y-0 rounded-full p-[12px] scale-[0.8] hover:bg-[#EBECEC]"
+          className=" group-hover:translate-y-0 rounded-full p-[12px] scale-[0.8] hover:bg-[#EBECEC]"
         />
         <img
           src={redo}
           alt="redo"
-          className="transition-all duration-300 group-hover:translate-y-0 rounded-full p-[12px] scale-[0.8] hover:bg-[#EBECEC]"
+          className=" group-hover:translate-y-0 rounded-full p-[12px] scale-[0.8] hover:bg-[#EBECEC]"
         />
         <div className="flex ">
           <button type="submit" className="transparent text-black py-2 px-4 w-[86px] rounded-md hover:bg-secondary-light">

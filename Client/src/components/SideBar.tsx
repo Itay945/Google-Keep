@@ -16,7 +16,6 @@ interface SideBarProps {
 }
 
 export default function SideBar({ isSidebarOpen, closeSidebar }: SideBarProps) {
-  const sidebarRef = useRef<HTMLDivElement | null>(null);
   const [labels, setLabels] = useState<{ id: string; name: string }[]>([]);
   const { loggedInUser } = useAuth();
 
@@ -34,25 +33,9 @@ export default function SideBar({ isSidebarOpen, closeSidebar }: SideBarProps) {
     fetchLabels();
   }, [loggedInUser]);
 
-  useEffect(() => {
-    const handleClickOutside = (event: MouseEvent) => {
-      const burgerButton = document.querySelector('img[alt="burger"]');
-      if (
-        isSidebarOpen && 
-        sidebarRef.current && 
-        !sidebarRef.current.contains(event.target as Node) &&
-        event.target !== burgerButton
-      ) {
-        closeSidebar();
-      }
-    };
   
-    document.addEventListener("mousedown", handleClickOutside);
-    return () => document.removeEventListener("mousedown", handleClickOutside);
-  }, [isSidebarOpen, closeSidebar]);
-
   return (
-    <div ref={sidebarRef} className={`flex justify-between h-full p-4 transition-width duration-150 ${isSidebarOpen ? "w-64" : "w-20"}`}>
+    <div  className={`flex justify-between h-full p-4 transition-width duration-150 ${isSidebarOpen ? "w-64" : "w-20"}`}>
       <nav className="flex flex-col">
         <Link to="/" className={`${isSidebarOpen ? "hover:bg-[#EBECEC] rounded-full" : ""} mb-2 flex items-center`}>
           <div className="rounded-full p-[12px] hover:bg-[#EBECEC]">
