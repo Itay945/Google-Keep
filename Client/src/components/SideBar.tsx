@@ -9,9 +9,15 @@ import LabelsEditor from "./LabelsEditor";
 import { useAuth } from "../hooks/useAuth";
 import api from "../helpers/axiosApiToken";
 
-export default function SideBar({ isSidebarOpen, closeSidebar }) {
-  const sidebarRef = useRef(null);
-  const [labels, setLabels] = useState([]);
+
+interface SideBarProps {
+  isSidebarOpen: boolean;
+  closeSidebar: () => void;
+}
+
+export default function SideBar({ isSidebarOpen, closeSidebar }: SideBarProps) {
+  const sidebarRef = useRef<HTMLDivElement | null>(null);
+  const [labels, setLabels] = useState<{ id: string; name: string }[]>([]);
   const { loggedInUser } = useAuth();
 
   const fetchLabels = async () => {
@@ -29,12 +35,12 @@ export default function SideBar({ isSidebarOpen, closeSidebar }) {
   }, [loggedInUser]);
 
   useEffect(() => {
-    const handleClickOutside = (event) => {
+    const handleClickOutside = (event: MouseEvent) => {
       const burgerButton = document.querySelector('img[alt="burger"]');
       if (
         isSidebarOpen && 
         sidebarRef.current && 
-        !sidebarRef.current.contains(event.target) &&
+        !sidebarRef.current.contains(event.target as Node) &&
         event.target !== burgerButton
       ) {
         closeSidebar();

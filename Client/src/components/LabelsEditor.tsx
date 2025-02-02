@@ -12,15 +12,22 @@ type Label = {
   createdAt: Date;
 };
 
+interface LabelsEditorProps {
+  isSidebarOpen: boolean;
+  labels: Label[];
+  setLabels: React.Dispatch<React.SetStateAction<Label[]>>;
+  onLabelsUpdate: () => void;
+}
+
 
 import { useAuth } from "../hooks/useAuth";
-export default function LabelsEditor({ isSidebarOpen, labels, setLabels, onLabelsUpdate }) {
+export default function LabelsEditor({ isSidebarOpen, labels, setLabels, onLabelsUpdate }: LabelsEditorProps) {
   const [isLabelCreatorOpen, setIsLabelCreatorOpen] = useState(false);
-  const [error, setError] = useState(null);
+  const [error, setError] = useState<string | null>(null);
   const [newLabelName, setNewLabelName] = useState("");
-  const labelEditorRef = useRef(null);
+  const labelEditorRef = useRef<HTMLDivElement | null>(null);
 
-  const handleDeleteLabel = async (id) => {
+  const handleDeleteLabel = async (id: string) => {
     try {
       await api.delete(`/users/labels/${id}`);
       setLabels((prevLabels) => prevLabels.filter(label => label.id !== id));
@@ -31,7 +38,7 @@ export default function LabelsEditor({ isSidebarOpen, labels, setLabels, onLabel
     }
   };
 
-  const handleAddLabel = async (newLabelName) => {
+  const handleAddLabel = async (newLabelName: string) => {
     try {
       const response = await api.post(`/users/labels`, { name: newLabelName });
       const newLabel = response.data?.data?.label;
@@ -44,8 +51,8 @@ export default function LabelsEditor({ isSidebarOpen, labels, setLabels, onLabel
   };
 
   useEffect(() => {
-    const handleClickOutsideLabelEditor = (event) => {
-      if (isLabelCreatorOpen && labelEditorRef.current && !labelEditorRef.current.contains(event.target)) {
+    const handleClickOutsideLabelEditor = (event: MouseEvent) => {
+      if (isLabelCreatorOpen && labelEditorRef.current && !labelEditorRef.current.contains(event.target as Node)) {
         setIsLabelCreatorOpen(false);
       }
     };
