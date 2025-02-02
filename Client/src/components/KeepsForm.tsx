@@ -118,7 +118,7 @@ export default function KeepsForm({ onKeepsAdded }: KeepsFormProps) {
   }, [isExpanded, isColorPickerOpen, addKeep, resetForm]);
 
   const ColorPicker = () => (
-    <div ref={colorPickerRef} className="absolute z-50 bg-transparent p-2 border rounded shadow-lg flex gap-2 ">
+    <div ref={colorPickerRef} className="absolute z-50 bg-white p-2 border rounded shadow-lg flex gap-2 ">
       {Object.entries(colorOptions).map(([name, color]) => (
         <button
           key={name}
