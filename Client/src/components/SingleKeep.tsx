@@ -13,6 +13,7 @@ import { handlePinToggle } from '../helpers/HandlePinToggle';
 import { useState } from 'react';
 import { Keep, KeepColor } from './KeepsMain';
 import ColorPicker from './Single-Keep-icons/ColorPicker';
+import DropDownThreeDots from './Single-Keep-icons/ThreeDotsDropDown';
 
 const colorMap: Record<KeepColor, string> = {
   Transparent: 'transparent',
@@ -165,11 +166,14 @@ export default function SingleKeep({ keep, onKeepUpdate }: KeepProps) {
           alt="archive"
           className="opacity-0 transition-all duration-300 group-hover:opacity-100 group-hover:translate-y-0 rounded-full p-[12px] scale-[0.8] hover:bg-[#EBECEC]"
         />
-        <img
-          src={threeDots}
-          alt="more options"
-          className="opacity-0 transition-all duration-300 group-hover:opacity-100 group-hover:translate-y-0 rounded-full p-[12px] scale-[0.8] hover:bg-[#EBECEC]"
-        />
+
+        <div className="opacity-0 transition-all duration-300 group-hover:opacity-100 group-hover:translate-y-0 rounded-full p-[12px] scale-[0.8] hover:bg-[#EBECEC]">
+          <DropDownThreeDots
+            iconSrc={threeDots}
+            _id={keep._id}
+            onKeepUpdate={onKeepUpdate}
+          />
+        </div>
       </div>
     </div>
   );
