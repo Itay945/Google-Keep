@@ -16,7 +16,7 @@ const {
   getUnpinnedKeeps,
   restoreKeepFromTrash,
   permanentlyDeleteKeep,
-  updateKeepPosition,
+  // updateKeepPosition,
 } = require('../controllers/keepsController');
 const authToken = require('../middlewares/auth.middleware');
 
@@ -45,7 +45,7 @@ router.get('/:id', getKeepById);
 //
 // update keep description by his id
 router.put('/:id', editKeep);
-router.patch('/position/:id', updateKeepPosition);
+// router.patch('/position/:id', updateKeepPosition);
 // Route to restore a keep from trash
 router.patch('/trash/:id/restore', restoreKeepFromTrash);
 

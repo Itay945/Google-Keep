@@ -22,6 +22,8 @@ import { useRef, useEffect, useState } from 'react';
 import api from '../helpers/axiosApiToken';
 import SingleKeep from '../components/SingleKeep';
 import { Keep } from '../components/KeepsMain';
+import KeepsForm from '../components/KeepsForm';
+import KeepsFormEdit from '../components/KeepsFormEdit';
 
 function KeepDetails() {
   const params = useParams();
@@ -60,17 +62,42 @@ function KeepDetails() {
     fetchKeep();
   }, []);
 
-  function handleKeepUpdate(keepId: string, updates: Partial<Keep>) {
-    setKeep({ ...updates, _id: keepId } as Keep);
+  async function handleKeepUpdate(keepId: string, updates: Partial<Keep>) {
+    try {
+      const response = await api.put(`/keeps/${keepId}`, updates);
+      if (response.data) {
+        setKeep((prevKeep) => ({
+          ...prevKeep!,
+          ...updates,
+        }));
+
+        const event = new CustomEvent('keepUpdated', {
+          detail: { keepId, updates },
+        });
+        document.dispatchEvent(event);
+      }
+    } catch (error) {
+      console.error('Failed to update keep:', error);
+    }
   }
 
+  const handleClose = () => {
+    navigate('/');
+  };
   if (!keep) return null;
+  console.log('keep: ', keep);
+
   return (
     <div className="fixed inset-0 w-full bg-black/50 z-50">
       <div className="flex justify-center items-center h-full">
-        <div ref={modalRef} className="bg-white p-4 rounded-lg w-96">
-          <h1 className="text-xl font-bold">Keep Details</h1>
-          <p>Keep ID: {params.keepID}</p>
+        <div ref={modalRef} className=" p-4 rounded-lg w-96">
+          {/* <h1 className="text-xl font-bold">Keep Details</h1> */}
+          {/* <p>Keep ID: {params.keepID}</p> */}
+          <KeepsFormEdit
+            keep={keep}
+            handleKeepUpdate={handleKeepUpdate}
+            handleClose={handleClose}
+          />
           {/* <SingleKeep keep={keep} onKeepUpdate={handleKeepUpdate} /> */}
           {/* <p>axios: </p> */}
         </div>

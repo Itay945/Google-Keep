@@ -16,7 +16,10 @@ import newList from '../assets/check_box_24dp_5F6368_FILL0_wght400_GRAD0_opsz24.
 import noColor from '../assets/format_color_reset_24dp_000000_FILL0_wght400_GRAD0_opsz24.svg';
 
 interface KeepsFormProps {
+  keep: Keep;
   onKeepsAdded?: (newKeep: Keep) => void;
+  handleKeepUpdate: (keepId: string, updates: Partial<Keep>) => void;
+  handleClose: () => void;
 }
 
 const colorOptions: Record<KeepColor, string> = {
@@ -34,96 +37,69 @@ const colorOptions: Record<KeepColor, string> = {
   Chalk: '#EFEFF1',
 };
 
-export default function KeepsForm({ onKeepsAdded }: KeepsFormProps) {
-  const [isExpanded, setIsExpanded] = useState(false);
-  const [selectedColor, setSelectedColor] = useState<KeepColor>('Transparent');
+export default function KeepsFormEdit({
+  onKeepsAdded,
+  keep,
+  handleKeepUpdate,
+  handleClose,
+}: KeepsFormProps) {
+  const [formData, setFormData] = useState({
+    title: keep.title,
+    description: keep.description,
+  });
+  const [selectedColor, setSelectedColor] = useState<KeepColor>(keep.color);
   const [isColorPickerOpen, setIsColorPickerOpen] = useState(false);
-  const [isPinned, setIsPinned] = useState(false);
+  const [isPinned, setIsPinned] = useState(keep.pin);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const formRef = useRef<HTMLFormElement>(null);
   const colorPickerRef = useRef<HTMLDivElement>(null);
 
-  const resetForm = useCallback(() => {
-    if (formRef.current) {
-      formRef.current.reset();
-    }
-    setSelectedColor('Transparent');
-    setIsColorPickerOpen(false);
-    setIsExpanded(false);
-    setIsPinned(false);
-  }, []);
-
-  async function handleSubmit(ev: React.FormEvent<HTMLFormElement>) {
-    ev.preventDefault();
-    const { title, description } = extractFormValues();
-
-    if (title && description) {
-      await addKeep(title, description);
-    }
-  }
-
-  function extractFormValues() {
-    const formData = new FormData(formRef.current!);
-    const title = formData.get('title') as string;
-    const description = formData.get('description') as string;
-
-    return { title, description };
-  }
-
-  const addKeep = useCallback(
-    async (title: string, description: string) => {
-      try {
-        const res = await api.post('/keeps', {
-          title,
-          description,
-          color: selectedColor,
-          pin: isPinned,
-        });
-        console.log('keepFormData$$', res.data);
-        onKeepsAdded(res.data.data.keep);
-      } catch (error) {
-        console.error('error: ', error);
-      } finally {
-        resetForm();
-      }
-    },
-    [selectedColor, isPinned, onKeepsAdded, resetForm]
-  );
+  useEffect(() => {
+    setFormData({
+      title: keep.title,
+      description: keep.description,
+    });
+    setSelectedColor(keep.color);
+    setIsPinned(keep.pin);
+  }, [keep]);
 
   useEffect(() => {
-    async function handleClickOutside(event: MouseEvent) {
-      if (formRef.current && !formRef.current.contains(event.target as Node)) {
-        const { title, description } = extractFormValues();
-
-        if (title && description) {
-          await addKeep(title, description);
-        } else {
-          resetForm();
-        }
-      }
-
+    function handleClickOutside(event: MouseEvent) {
       if (
         colorPickerRef.current &&
         !colorPickerRef.current.contains(event.target as Node)
       ) {
         setIsColorPickerOpen(false);
       }
-      // add more when needed ('reminder' / 'more' and so on...)
     }
 
-    if (isExpanded || isColorPickerOpen) {
+    if (isColorPickerOpen) {
       document.addEventListener('mousedown', handleClickOutside);
     }
 
     return () => {
       document.removeEventListener('mousedown', handleClickOutside);
     };
-  }, [isExpanded, isColorPickerOpen, addKeep, resetForm]);
+  }, [isColorPickerOpen]);
+
+  const handleSubmit = async (ev: React.FormEvent<HTMLFormElement>) => {
+    ev.preventDefault();
+    const updates = {
+      title: formData.title,
+      description: formData.description,
+      color: selectedColor,
+      pin: isPinned,
+    };
+
+    handleKeepUpdate(keep._id, updates);
+    handleClose();
+    window.location.reload();
+  };
 
   const ColorPicker = () => (
     <div
       ref={colorPickerRef}
-      className="absolute z-50 bg-white p-2 border rounded shadow-lg flex gap-2 "
+      className="absolute z-50 bg-white p-2 border rounded shadow-lg flex gap-2"
     >
       {Object.entries(colorOptions).map(([name, color]) => (
         <button
@@ -150,41 +126,11 @@ export default function KeepsForm({ onKeepsAdded }: KeepsFormProps) {
     </div>
   );
 
-  if (!isExpanded) {
-    return (
-      <div className="flex justify-center w-[600px] border rounded-lg">
-        <input
-          type="text"
-          placeholder="Take a note..."
-          onClick={() => setIsExpanded(true)}
-          className="w-[400px] p-2 shadow-sm focus:outline-none "
-        />
-        <div className="flex gap-4 group">
-          <img
-            src={newList}
-            alt="newList"
-            className="transition-all duration-300 group-hover:translate-y-0 rounded-full p-[12px] hover:bg-[#EBECEC] w-[48px] h-[48px]"
-          />
-          <img
-            src={brush}
-            alt="brush"
-            className="transition-all duration-300 group-hover:translate-y-0 rounded-full p-[12px] hover:bg-[#EBECEC] w-[48px] h-[48px]"
-          />
-          <img
-            src={addImage}
-            alt="addImage"
-            className="transition-all duration-300 group-hover:translate-y-0 rounded-full p-[12px] hover:bg-[#EBECEC] w-[48px] h-[48px]"
-          />
-        </div>
-      </div>
-    );
-  }
-
   return (
     <form
       ref={formRef}
       onSubmit={handleSubmit}
-      className="flex flex-col border bg-transparent p-4 rounded-lg shadow-lg mb-4 w-[800px] "
+      className="flex flex-col border bg-transparent p-4 rounded-lg shadow-lg mb-4 w-[800px]"
       style={{ backgroundColor: colorOptions[selectedColor] }}
     >
       <div className="flex justify-between">
@@ -192,20 +138,30 @@ export default function KeepsForm({ onKeepsAdded }: KeepsFormProps) {
           type="text"
           placeholder="Title"
           name="title"
-          className="text-lg font-medium mb-2 focus:outline-none bg-transparent placeholder-[#46443F]"
+          value={formData.title}
+          onChange={(e) =>
+            setFormData((prev) => ({ ...prev, title: e.target.value }))
+          }
+          className="text-lg font-medium mb-2 focus:outline-none bg-transparent placeholder-[#46443F] w-full"
         />
         <img
           src={isPinned ? pinFull : pin}
           alt="pin"
           onClick={() => setIsPinned((prev) => !prev)}
-          className="transition-all duration-300 group-hover:translate-y-0 rounded-full p-[6px] hover:bg-[#EBECEC] "
+          className="transition-all duration-300 group-hover:translate-y-0 rounded-full p-[6px] hover:bg-[#EBECEC]"
         />
       </div>
+
       <textarea
         placeholder="Take a note..."
         name="description"
+        value={formData.description}
+        onChange={(e) =>
+          setFormData((prev) => ({ ...prev, description: e.target.value }))
+        }
         className="border-gray-300 text-sm resize-none mb-4 focus:outline-none bg-transparent placeholder-[#46443F]"
       />
+
       <div className="flex gap-1 group relative">
         <img
           src={plusBell}
@@ -221,7 +177,7 @@ export default function KeepsForm({ onKeepsAdded }: KeepsFormProps) {
           <img
             src={colors}
             alt="color palette"
-            className="transition-all duration-300 group-hover:translate-y-0 rounded-full p-[12px] scale-[0.8] hover:bg-[#EBECEC] "
+            className="transition-all duration-300 group-hover:translate-y-0 rounded-full p-[12px] scale-[0.8] hover:bg-[#EBECEC]"
             onClick={() => setIsColorPickerOpen(!isColorPickerOpen)}
           />
           {isColorPickerOpen && <ColorPicker />}
@@ -248,7 +204,7 @@ export default function KeepsForm({ onKeepsAdded }: KeepsFormProps) {
           className="transition-all duration-300 group-hover:translate-y-0 rounded-full p-[12px] scale-[0.8] hover:bg-[#EBECEC]"
         />
         {isDropdownOpen && (
-          <div className="absolute right-[300px] top-[50px] w-[133px] bg-white  border rounded shadow-lg gap-2 z-50 w ">
+          <div className="absolute right-[300px] top-[50px] w-[133px] bg-white border rounded shadow-lg gap-2 z-50">
             <div className="flex flex-col items-start mt-2">
               <div className="w-full hover:bg-gray-200">
                 <button className="text-sm ml-4 py-1 hover:bg-gray-200">
@@ -261,7 +217,7 @@ export default function KeepsForm({ onKeepsAdded }: KeepsFormProps) {
                 </button>
               </div>
               <div className="w-full hover:bg-gray-200 mb-2">
-                <button className="text-sm ml-4 py-1 mr-2 ">
+                <button className="text-sm ml-4 py-1 mr-2">
                   Show tick boxes
                 </button>
               </div>
@@ -278,12 +234,12 @@ export default function KeepsForm({ onKeepsAdded }: KeepsFormProps) {
           alt="redo"
           className="transition-all duration-300 group-hover:translate-y-0 rounded-full p-[12px] scale-[0.8] hover:bg-[#EBECEC]"
         />
-        <div className="flex ">
+        <div className="flex">
           <button
             type="submit"
             className="transparent text-black py-2 px-4 w-[86px] rounded-md hover:bg-secondary-light"
           >
-            Close
+            close
           </button>
         </div>
       </div>
