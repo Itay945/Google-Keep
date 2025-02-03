@@ -25,7 +25,7 @@ export default function LabelsEditor({ isSidebarOpen, labels, setLabels, onLabel
   const [isLabelCreatorOpen, setIsLabelCreatorOpen] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [newLabelName, setNewLabelName] = useState("");
-  const labelEditorRef = useRef<HTMLDivElement | null>(null);
+  const labelEditorRef = useRef(null);
 
   const handleDeleteLabel = async (id: string) => {
     try {
@@ -63,11 +63,11 @@ export default function LabelsEditor({ isSidebarOpen, labels, setLabels, onLabel
 
   return (
     <>
-      <div onClick={() => setIsLabelCreatorOpen(true)} className="mb-2 flex items-center hover:bg-[#EBECEC] rounded-full w-48">
+      <div onClick={() => setIsLabelCreatorOpen(true)} className="mb-2 flex items-center  rounded-full w-48">
       <div className="rounded-full p-[12px] hover:bg-[#EBECEC]">
         <img src={pen} alt="pen" className="w-6 h-6" />
         </div>
-        <span className={`ml-3 ${isSidebarOpen ? "opacity-100" : "opacity-0 invisible"}`}>Edit Labels</span>
+        <span className={`ml-3 ${isSidebarOpen ? "opacity-100 " : "opacity-0 invisible"}`}>Edit Labels</span>
       </div>
       {isLabelCreatorOpen && (
         <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">

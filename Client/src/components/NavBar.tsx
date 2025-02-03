@@ -40,6 +40,9 @@ export default function NavBar({ toggleSidebar }) {
         <span className="flex-grow"></span>
         {/* icons */}
         <div className="flex items-center gap-0 ">
+          <Link to="/login">
+          <button className="transparent text-black py-2 px-4 w-[75px] rounded-md hover:bg-secondary-light">Login</button>
+          </Link>
           <div className="rounded-full p-[12px] hover:bg-[#EBECEC]">
             <img src={refresh} alt="refresh" />
           </div>
