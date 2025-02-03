@@ -1,9 +1,9 @@
 // import axios from 'axios';
 import api from '../helpers/axiosApiToken';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../hooks/useAuth';
 import google from '../assets/google.png';
-
+// hoveron dark mode color [#313236]
 // import { useState } from 'react';
 
 function LoginPage() {
@@ -34,7 +34,7 @@ function LoginPage() {
   return (
     <>
       <div className="bg-[#1E1F20] h-screen flex items-center justify-center">
-        <div className="bg-[#0E0E0E] p-6 rounded-lg  shadow-lg max-w-sm w-full">
+        <div className="bg-[#0E0E0E] p-6 rounded-xl  shadow-lg max-w-sm w-full">
           <div className="flex justify-start w-[100%]">
             <img
               src={google}
@@ -43,7 +43,7 @@ function LoginPage() {
             />
           </div>
           <h1 className="text-[#E3E3E3] text-[32px]">Sign in</h1>
-          <h2 className="text-[#E3E3E3]">Use your Google Account</h2>
+          <h2 className="text-[#E3E3E3] mb-2">Use your Google Account</h2>
           <form action={handleSubmite}>
             <div className="flex flex-col items-center gap-4">
               <input
@@ -58,15 +58,22 @@ function LoginPage() {
                 type="text"
                 name="password"
                 value="12345"
-                className="border border-gray-600 text-xl bg-transparent text-[#A1C7C5]"
+                className="border border-gray-600 text-xl bg-transparent text-[#A1C7C5] mb-4"
               />
             </div>
+            <div className='flex justify-between mt-8'>
+              <Link to="/register">
+              <button  className="flex justify-start items-center text-[#1E4482] py-2 px-4 ml-2 mb-3 rounded-3xl bg-[#A8C7FA]">
+                Sign-up
+              </button>
+              </Link>
             <button
               type="submit"
-              className="flex justify-start rounded-full max-w-24 p-2 border-solid border-2  border-red-700 bg-[#A8C7FA]"
+              className="flex justify-start items-center text-[#1E4482] py-2 px-4 mr-3 mb-3 rounded-3xl bg-[#A8C7FA]"
             >
-              submit
+              next
             </button>
+            </div>
           </form>
         </div>
       </div>
