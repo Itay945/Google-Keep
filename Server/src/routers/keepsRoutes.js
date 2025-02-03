@@ -1,7 +1,6 @@
 const express = require('express');
 const router = express.Router();
 const Keep = require('../models/Keep.model');
-// const { default: mongoose } = require('mongoose');
 const {
   getAllKeeps,
   getAllKeepsInTrash,
@@ -16,7 +15,9 @@ const {
   getUnpinnedKeeps,
   restoreKeepFromTrash,
   permanentlyDeleteKeep,
-  // updateKeepPosition,
+  getKeepsByLabel,
+  addLabelToKeep,
+  removeLabelFromKeep,
 } = require('../controllers/keepsController');
 const authToken = require('../middlewares/auth.middleware');
 
@@ -36,16 +37,20 @@ router.post('/', addNewKeep);
 router.patch('/:id/reminder', setReminder);
 router.get('/reminders/all', getKeepsWithReminders);
 
-// commit
 // get all keeps of specific user
 router.get('/user/:userId', getUserKeeps);
 
+// Label related routes
+router.get('/labels/:labelName', getKeepsByLabel);
+router.post('/:id/labels', addLabelToKeep);
+router.delete('/:id/labels/:labelName', removeLabelFromKeep);
+
 // get keep by his id
 router.get('/:id', getKeepById);
-//
+
 // update keep description by his id
 router.put('/:id', editKeep);
-// router.patch('/position/:id', updateKeepPosition);
+
 // Route to restore a keep from trash
 router.patch('/trash/:id/restore', restoreKeepFromTrash);
 

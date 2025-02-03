@@ -37,35 +37,6 @@ const getAllKeepsInTrash = async (req, res) => {
   }
 };
 
-// const addNewKeep = async (req, res) => {
-//   try {
-//     const { title, description } = req.body;
-
-//     // Validation
-//     if (!title && !description) {
-//       return handleError(
-//         res,
-//         new Error('Title or description is required'),
-//         400
-//       );
-//     }
-
-//     const keep = new Keep({ ...req.body, author: req.user.userId });
-//     // keep.author = req.user.userId;
-//     await keep.save();
-
-//     // Add to user's keeps
-//     await User.findByIdAndUpdate(req.user.userId, {
-//       $push: { userKeeps: keep._id },
-//     });
-
-//     sendResponse(res, { keep }, 201);
-//   } catch (error) {
-//     handleError(res, error);
-//   }
-// };
-
-// reminder option
 const addNewKeep = async (req, res) => {
   try {
     const { title, description, reminderDate } = req.body;
@@ -114,58 +85,11 @@ const addNewKeep = async (req, res) => {
     handleError(res, error);
   }
 };
-// const updateKeepPosition = async (req, res) => {
-//   try {
-//     const { id } = req.params;
-//     const { position, pin } = req.body;
 
-//     const currentKeep = await Keep.findById(id);
-
-//     if (!currentKeep) {
-//       return handleError(res, new Error('Keep not found or unauthorized'), 404);
-//     }
-
-//     const keepAtTargetPosition = await Keep.findOne({
-//       position: position,
-//       pin: pin,
-//       isDeleted: false,
-//     });
-
-//     if (keepAtTargetPosition) {
-//       await Keep.findByIdAndUpdate(
-//         keepAtTargetPosition._id,
-//         { position: currentKeep.position },
-//         { new: true }
-//       );
-//     }
-
-//     const updatedKeep = await Keep.findByIdAndUpdate(
-//       id,
-//       {
-//         position: position,
-//         pin: pin,
-//       },
-//       { new: true }
-//     );
-
-//     const keeps = await Keep.find({ isDeleted: false });
-
-//     res.status(200).json({
-//       success: true,
-//       data: {
-//         keep: updatedKeep,
-//         keeps: keeps,
-//       },
-//     });
-//   } catch (error) {
-//     handleError(res, error);
-//   }
-// };
 const editKeep = async (req, res) => {
   try {
     const { id } = req.params;
 
-    // description, title, color, labels, pin, isDeleted
     const updates = {
       ...req.body,
       editedAt: new Date(),
@@ -173,7 +97,7 @@ const editKeep = async (req, res) => {
     const keep = await Keep.findOneAndUpdate(
       {
         _id: id,
-        author: req.user.userId, // Ensure user owns the keep
+        author: req.user.userId,
       },
       { $set: updates },
       { new: true }
@@ -246,7 +170,7 @@ const moveKeepsToTrash = async (req, res) => {
     const keep = await Keep.findOneAndUpdate(
       {
         _id: req.params.id,
-        author: req.user.userId, // Ensure user owns the keep
+        author: req.user.userId,
       },
       { isDeleted: true },
       { new: true }
@@ -264,16 +188,15 @@ const moveKeepsToTrash = async (req, res) => {
 
 const restoreKeepFromTrash = async (req, res) => {
   try {
-    // Find the keep and ensure it belongs to the requesting user
     const keep = await Keep.findOneAndUpdate(
       {
         _id: req.params.id,
         author: req.user.userId,
-        isDeleted: true, // Ensure the keep is actually in trash
+        isDeleted: true,
       },
       {
         isDeleted: false,
-        editedAt: new Date(), // Update the edit timestamp
+        editedAt: new Date(),
       },
       { new: true }
     );
@@ -290,23 +213,20 @@ const restoreKeepFromTrash = async (req, res) => {
 
 const permanentlyDeleteKeep = async (req, res) => {
   try {
-    // Find the keep and ensure it belongs to the requesting user
     const keep = await Keep.findOne({
       _id: req.params.id,
       author: req.user.userId,
-      isDeleted: true, // Only allow permanent deletion of items in trash
+      isDeleted: true,
     });
 
     if (!keep) {
       return handleError(res, new Error('Keep not found or unauthorized'), 404);
     }
 
-    // Remove the keep reference from the user's userKeeps array
     await User.findByIdAndUpdate(req.user.userId, {
       $pull: { userKeeps: keep._id },
     });
 
-    // Permanently delete the keep
     await Keep.findByIdAndDelete(req.params.id);
 
     sendResponse(res, { message: 'Keep permanently deleted' });
@@ -344,12 +264,11 @@ const getUserKeeps = async (req, res) => {
 
 const getPinnedKeeps = async (req, res) => {
   try {
-    // Get all pinned keeps for the authenticated user that aren't deleted
     const pinnedKeeps = await Keep.find({
       author: req.user.userId,
       pin: true,
       isDeleted: false,
-    }).sort({ createdAt: -1 }); // Sort by creation date, newest first
+    }).sort({ createdAt: -1 });
 
     sendResponse(res, { keeps: pinnedKeeps });
   } catch (error) {
@@ -359,14 +278,106 @@ const getPinnedKeeps = async (req, res) => {
 
 const getUnpinnedKeeps = async (req, res) => {
   try {
-    // Get all unpinned keeps for the authenticated user that aren't deleted
     const unpinnedKeeps = await Keep.find({
       author: req.user.userId,
       pin: false,
       isDeleted: false,
-    }).sort({ createdAt: -1 }); // Sort by creation date, newest first
+    }).sort({ createdAt: -1 });
 
     sendResponse(res, { keeps: unpinnedKeeps });
+  } catch (error) {
+    handleError(res, error);
+  }
+};
+
+// Get all keeps that have a specific label
+const getKeepsByLabel = async (req, res) => {
+  try {
+    const { labelName } = req.params;
+
+    const keeps = await Keep.find({
+      author: req.user.userId,
+      labels: labelName,
+      isDeleted: false,
+    }).sort({ createdAt: -1 });
+
+    sendResponse(res, { keeps });
+  } catch (error) {
+    handleError(res, error);
+  }
+};
+
+// Add a label to a keep
+const addLabelToKeep = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const { labelName } = req.body;
+
+    if (!labelName) {
+      return handleError(res, new Error('Label name is required'), 400);
+    }
+
+    // Verify the label exists in user's labels
+    const user = await User.findById(req.user.userId);
+    const labelExists = user.labels.some((label) => label.name === labelName);
+
+    if (!labelExists) {
+      return handleError(res, new Error('Label does not exist'), 404);
+    }
+
+    const keep = await Keep.findOne({
+      _id: id,
+      author: req.user.userId,
+    });
+
+    if (!keep) {
+      return handleError(res, new Error('Keep not found or unauthorized'), 404);
+    }
+
+    // Check if label is already added to the keep
+    if (keep.labels.includes(labelName)) {
+      return handleError(
+        res,
+        new Error('Label already added to this keep'),
+        400
+      );
+    }
+
+    // Add the label
+    keep.labels.push(labelName);
+    await keep.save();
+
+    sendResponse(res, { keep });
+  } catch (error) {
+    handleError(res, error);
+  }
+};
+
+// Remove a label from a keep
+const removeLabelFromKeep = async (req, res) => {
+  try {
+    const { id, labelName } = req.params;
+
+    const keep = await Keep.findOne({
+      _id: id,
+      author: req.user.userId,
+    });
+
+    if (!keep) {
+      return handleError(res, new Error('Keep not found or unauthorized'), 404);
+    }
+
+    // Check if the label exists in the keep
+    const labelIndex = keep.labels.indexOf(labelName);
+    if (labelIndex === -1) {
+      return handleError(res, new Error('Label not found in this keep'), 404);
+    }
+
+    // Remove the label
+    keep.labels.splice(labelIndex, 1);
+    await keep.save();
+
+    sendResponse(res, { keep });
   } catch (error) {
     handleError(res, error);
   }
@@ -386,5 +397,7 @@ module.exports = {
   getUnpinnedKeeps,
   restoreKeepFromTrash,
   permanentlyDeleteKeep,
-  // updateKeepPosition,
+  getKeepsByLabel,
+  addLabelToKeep,
+  removeLabelFromKeep,
 };
