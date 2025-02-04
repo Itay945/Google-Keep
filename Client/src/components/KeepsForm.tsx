@@ -1,48 +1,50 @@
-import { useCallback, useEffect, useRef, useState } from "react";
-import api from "../helpers/axiosApiToken";
-import { Keep, KeepColor } from "./KeepsMain";
-import plusBell from "./../assets/add_alert_24dp_5F6368_FILL0_wght400_GRAD0_opsz24.svg";
-import collaborator from "./../assets/person_add_24dp_5F6368_FILL0_wght400_GRAD0_opsz24.svg";
-import colors from "./../assets/palette_24dp_5F6368_FILL0_wght400_GRAD0_opsz24.svg";
-import threeDots from "./../assets/more_vert_24dp_5F6368_FILL0_wght400_GRAD0_opsz24.svg";
-import pin from "./../assets/keep_24dp_5F6368_FILL0_wght400_GRAD0_opsz24.svg";
-import pinFull from "../assets/keep_24dp_9AA0A6_FILL1_wght400_GRAD0_opsz24.svg";
-import brush from "./../assets/brush_24dp_5F6368_FILL0_wght400_GRAD0_opsz24.svg";
-import addImage from "../assets/image_24dp_5F6368_FILL0_wght400_GRAD0_opsz24.svg";
-import archive from "./../assets/archive_24dp_5F6368_FILL0_wght400_GRAD0_opsz24.svg";
-import redo from "../assets/redo_24dp_5F6368_FILL0_wght400_GRAD0_opsz24.svg";
-import undo from "../assets/undo_24dp_5F6368_FILL0_wght400_GRAD0_opsz24.svg";
-import newList from "../assets/check_box_24dp_5F6368_FILL0_wght400_GRAD0_opsz24.svg";
-import noColor from "../assets/format_color_reset_24dp_000000_FILL0_wght400_GRAD0_opsz24.svg";
-import LabelSelector from "./LabelSelector";
+import { useCallback, useEffect, useRef, useState } from 'react';
+import api from '../helpers/axiosApiToken';
+import { Keep, KeepColor } from './KeepsMain';
+import plusBell from './../assets/add_alert_24dp_5F6368_FILL0_wght400_GRAD0_opsz24.svg';
+import collaborator from './../assets/person_add_24dp_5F6368_FILL0_wght400_GRAD0_opsz24.svg';
+import colors from './../assets/palette_24dp_5F6368_FILL0_wght400_GRAD0_opsz24.svg';
+import threeDots from './../assets/more_vert_24dp_5F6368_FILL0_wght400_GRAD0_opsz24.svg';
+import pin from './../assets/keep_24dp_5F6368_FILL0_wght400_GRAD0_opsz24.svg';
+import pinFull from '../assets/keep_24dp_9AA0A6_FILL1_wght400_GRAD0_opsz24.svg';
+import brush from './../assets/brush_24dp_5F6368_FILL0_wght400_GRAD0_opsz24.svg';
+import addImage from '../assets/image_24dp_5F6368_FILL0_wght400_GRAD0_opsz24.svg';
+import archive from './../assets/archive_24dp_5F6368_FILL0_wght400_GRAD0_opsz24.svg';
+import redo from '../assets/redo_24dp_5F6368_FILL0_wght400_GRAD0_opsz24.svg';
+import undo from '../assets/undo_24dp_5F6368_FILL0_wght400_GRAD0_opsz24.svg';
+import newList from '../assets/check_box_24dp_5F6368_FILL0_wght400_GRAD0_opsz24.svg';
+import noColor from '../assets/format_color_reset_24dp_000000_FILL0_wght400_GRAD0_opsz24.svg';
+import LabelSelector from './LabelSelector';
 
 interface KeepsFormProps {
-  onKeepsAdded: (newKeep: Keep) => void;
+  onKeepsAdded?: (newKeep: Keep) => void;
 }
 
 const colorOptions: Record<KeepColor, string> = {
-  Transparent: "transparent",
-  Coral: "#FAAFA8",
-  Peach: "#F39F76",
-  Sand: "#FFF8B8",
-  Mint: "#E2F6D3",
-  Sage: "#B4DDD3",
-  Fog: "#D4E4ED",
-  Storm: "#AECCDC",
-  Dusk: "#D3BFDB",
-  Blossom: "#F6E2DD",
-  Clay: "#E9E3D4",
-  Chalk: "#EFEFF1",
+  Transparent: 'transparent',
+  Coral: '#FAAFA8',
+  Peach: '#F39F76',
+  Sand: '#FFF8B8',
+  Mint: '#E2F6D3',
+  Sage: '#B4DDD3',
+  Fog: '#D4E4ED',
+  Storm: '#AECCDC',
+  Dusk: '#D3BFDB',
+  Blossom: '#F6E2DD',
+  Clay: '#E9E3D4',
+  Chalk: '#EFEFF1',
 };
 
 export default function KeepsForm({ onKeepsAdded }: KeepsFormProps) {
   const [isExpanded, setIsExpanded] = useState(false);
-  const [selectedColor, setSelectedColor] = useState<KeepColor>("Transparent");
+  const [selectedColor, setSelectedColor] = useState<KeepColor>('Transparent');
   const [isColorPickerOpen, setIsColorPickerOpen] = useState(false);
   const [isPinned, setIsPinned] = useState(false);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [isLabelSelectorOpen, setIsLabelSelectorOpen] = useState(false);
-  const [selectedLabels, setSelectedLabels] = useState<Array<{ id: string; name: string }>>([]);
+  const [selectedLabels, setSelectedLabels] = useState<
+    Array<{ id: string; name: string }>
+  >([]);
   const formRef = useRef<HTMLFormElement>(null);
   const colorPickerRef = useRef<HTMLDivElement>(null);
 
@@ -50,7 +52,7 @@ export default function KeepsForm({ onKeepsAdded }: KeepsFormProps) {
     if (formRef.current) {
       formRef.current.reset();
     }
-    setSelectedColor("Transparent");
+    setSelectedColor('Transparent');
     setIsColorPickerOpen(false);
     setIsExpanded(false);
     setIsPinned(false);
@@ -68,8 +70,8 @@ export default function KeepsForm({ onKeepsAdded }: KeepsFormProps) {
 
   function extractFormValues() {
     const formData = new FormData(formRef.current!);
-    const title = formData.get("title") as string;
-    const description = formData.get("description") as string;
+    const title = formData.get('title') as string;
+    const description = formData.get('description') as string;
 
     return { title, description };
   }
@@ -77,17 +79,17 @@ export default function KeepsForm({ onKeepsAdded }: KeepsFormProps) {
   const addKeep = useCallback(
     async (title: string, description: string) => {
       try {
-        const res = await api.post("/keeps", {
+        const res = await api.post('/keeps', {
           title,
           description,
           color: selectedColor,
           pin: isPinned,
           labels: selectedLabels.map((label) => label.id),
         });
-        console.log("keepFormData$$", res.data);
+        console.log('keepFormData$$', res.data);
         onKeepsAdded(res.data.data.keep);
       } catch (error) {
-        console.error("error: ", error);
+        console.error('error: ', error);
       } finally {
         resetForm();
       }
@@ -117,38 +119,48 @@ export default function KeepsForm({ onKeepsAdded }: KeepsFormProps) {
         }
       }
 
-      if (colorPickerRef.current && !colorPickerRef.current.contains(event.target as Node)) {
+      if (
+        colorPickerRef.current &&
+        !colorPickerRef.current.contains(event.target as Node)
+      ) {
         setIsColorPickerOpen(false);
       }
     }
 
     if (isExpanded || isColorPickerOpen) {
-      document.addEventListener("mousedown", handleClickOutside);
+      document.addEventListener('mousedown', handleClickOutside);
     }
 
     return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
+      document.removeEventListener('mousedown', handleClickOutside);
     };
   }, [isExpanded, isColorPickerOpen, addKeep, resetForm]);
 
   const ColorPicker = () => (
-    <div ref={colorPickerRef} className="absolute z-50 bg-white p-2 border rounded shadow-lg flex gap-2 ">
+    <div
+      ref={colorPickerRef}
+      className="absolute z-50 bg-white p-2 border rounded shadow-lg flex gap-2 "
+    >
       {Object.entries(colorOptions).map(([name, color]) => (
         <button
           key={name}
           className={`w-6 h-6 rounded-full flex items-center justify-center ${
-            selectedColor === name ? "border-2 border-[#A142F4]" : "border border-transparent"
+            selectedColor === name
+              ? 'border-2 border-[#A142F4]'
+              : 'border border-transparent'
           } hover:border-black`}
           style={{
             backgroundColor: color,
           }}
-          title={name === "Transparent" ? "No Color" : name}
+          title={name === 'Transparent' ? 'No Color' : name}
           onClick={() => {
             setSelectedColor(name as KeepColor);
             setIsColorPickerOpen(false);
           }}
         >
-          {color === "transparent" && <img src={noColor} alt="No Color" className="w-4 h-4" />}
+          {color === 'transparent' && (
+            <img src={noColor} alt="No Color" className="w-4 h-4" />
+          )}
         </button>
       ))}
     </div>
@@ -164,9 +176,21 @@ export default function KeepsForm({ onKeepsAdded }: KeepsFormProps) {
           className="w-[400px] h-[46px] p-2 shadow-sm focus:outline-none bg-transparent"
         />
         <div className="flex gap-4 group">
-          <img src={newList} alt="newList" className="group-hover:translate-y-0 rounded-full p-[12px] hover:bg-[#EBECEC] w-[48px] h-[48px]" />
-          <img src={brush} alt="brush" className="group-hover:translate-y-0 rounded-full p-[12px] hover:bg-[#EBECEC] w-[48px] h-[48px]" />
-          <img src={addImage} alt="addImage" className="group-hover:translate-y-0 rounded-full p-[12px] hover:bg-[#EBECEC] w-[48px] h-[48px]" />
+          <img
+            src={newList}
+            alt="newList"
+            className="group-hover:translate-y-0 rounded-full p-[12px] hover:bg-[#EBECEC] w-[48px] h-[48px]"
+          />
+          <img
+            src={brush}
+            alt="brush"
+            className="group-hover:translate-y-0 rounded-full p-[12px] hover:bg-[#EBECEC] w-[48px] h-[48px]"
+          />
+          <img
+            src={addImage}
+            alt="addImage"
+            className="group-hover:translate-y-0 rounded-full p-[12px] hover:bg-[#EBECEC] w-[48px] h-[48px]"
+          />
         </div>
       </div>
     );
@@ -201,7 +225,10 @@ export default function KeepsForm({ onKeepsAdded }: KeepsFormProps) {
       {selectedLabels.length > 0 && (
         <div className="flex flex-wrap gap-2 mb-4">
           {selectedLabels.map((label) => (
-            <span key={label.id} className="px-2 py-1 bg-gray-100 bg-opacity-40 rounded-full text-sm flex items-center gap-1 group">
+            <span
+              key={label.id}
+              className="px-2 py-1 bg-gray-100 bg-opacity-40 rounded-full text-sm flex items-center gap-1 group"
+            >
               {label.name}
               <button
                 onClick={() => handleLabelSelection(label.id, label.name)}
@@ -214,8 +241,16 @@ export default function KeepsForm({ onKeepsAdded }: KeepsFormProps) {
         </div>
       )}
       <div className="flex gap-1 group relative">
-        <img src={plusBell} alt="Remind Me" className="group-hover:translate-y-0 rounded-full p-[12px] hover:bg-[#EBECEC] scale-[0.8]" />
-        <img src={collaborator} alt="collaborator" className="group-hover:translate-y-0 rounded-full p-[12px] scale-[0.8] hover:bg-[#EBECEC]" />
+        <img
+          src={plusBell}
+          alt="Remind Me"
+          className="group-hover:translate-y-0 rounded-full p-[12px] hover:bg-[#EBECEC] scale-[0.8]"
+        />
+        <img
+          src={collaborator}
+          alt="collaborator"
+          className="group-hover:translate-y-0 rounded-full p-[12px] scale-[0.8] hover:bg-[#EBECEC]"
+        />
         <div className="relative">
           <img
             src={colors}
@@ -225,9 +260,21 @@ export default function KeepsForm({ onKeepsAdded }: KeepsFormProps) {
           />
           {isColorPickerOpen && <ColorPicker />}
         </div>
-        <img src={addImage} alt="add image" className="group-hover:translate-y-0 rounded-full p-[12px] hover:bg-[#EBECEC] scale-[0.8]" />
-        <img src={brush} alt="brush" className="group-hover:translate-y-0 rounded-full p-[12px] scale-[0.8] hover:bg-[#EBECEC]" />
-        <img src={archive} alt="archive" className="group-hover:translate-y-0 rounded-full p-[12px] scale-[0.8] hover:bg-[#EBECEC]" />
+        <img
+          src={addImage}
+          alt="add image"
+          className="group-hover:translate-y-0 rounded-full p-[12px] hover:bg-[#EBECEC] scale-[0.8]"
+        />
+        <img
+          src={brush}
+          alt="brush"
+          className="group-hover:translate-y-0 rounded-full p-[12px] scale-[0.8] hover:bg-[#EBECEC]"
+        />
+        <img
+          src={archive}
+          alt="archive"
+          className="group-hover:translate-y-0 rounded-full p-[12px] scale-[0.8] hover:bg-[#EBECEC]"
+        />
         <img
           src={threeDots}
           alt="three dots options"
@@ -249,10 +296,14 @@ export default function KeepsForm({ onKeepsAdded }: KeepsFormProps) {
                 </button>
               </div>
               <div className="w-full hover:bg-gray-200">
-                <button className="text-sm ml-4 py-1 hover:bg-gray-200">Add drawing</button>
+                <button className="text-sm ml-4 py-1 hover:bg-gray-200">
+                  Add drawing
+                </button>
               </div>
               <div className="w-full hover:bg-gray-200 mb-2">
-                <button className="text-sm ml-4 py-1 mr-2">Show tick boxes</button>
+                <button className="text-sm ml-4 py-1 mr-2">
+                  Show tick boxes
+                </button>
               </div>
             </div>
           </div>
@@ -264,10 +315,21 @@ export default function KeepsForm({ onKeepsAdded }: KeepsFormProps) {
             selectedLabelIds={selectedLabels.map((label) => label.id)}
           />
         )}
-        <img src={undo} alt="undo" className="group-hover:translate-y-0 rounded-full p-[12px] scale-[0.8] hover:bg-[#EBECEC]" />
-        <img src={redo} alt="redo" className="group-hover:translate-y-0 rounded-full p-[12px] scale-[0.8] hover:bg-[#EBECEC]" />
+        <img
+          src={undo}
+          alt="undo"
+          className="group-hover:translate-y-0 rounded-full p-[12px] scale-[0.8] hover:bg-[#EBECEC]"
+        />
+        <img
+          src={redo}
+          alt="redo"
+          className="group-hover:translate-y-0 rounded-full p-[12px] scale-[0.8] hover:bg-[#EBECEC]"
+        />
         <div className="flex">
-          <button type="submit" className="transparent text-black py-2 px-4 w-[86px] rounded-md hover:bg-secondary-light">
+          <button
+            type="submit"
+            className="transparent text-black py-2 px-4 w-[86px] rounded-md hover:bg-secondary-light"
+          >
             Close
           </button>
         </div>
