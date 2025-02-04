@@ -93,7 +93,7 @@ export default function SingleKeep({ keep, onKeepUpdate }: KeepProps) {
           className="opacity-0 transition-all duration-300 group-hover:opacity-100 group-hover:translate-y-0 rounded-full p-[6px] hover:bg-[#EBECEC]"
         />
       </div>
-      <p className="text-sm">{keep.description}</p>
+      <p className="text-sm break-words w-[464px]">{keep.description}</p>
       {keep.labels?.length > 0 && (
         <p className="text-xs">
           <strong>Labels:</strong> {keep.labels.join(', ')}
@@ -107,18 +107,18 @@ export default function SingleKeep({ keep, onKeepUpdate }: KeepProps) {
           <img
             src={plusBell}
             alt="Remind Me"
-            className="opacity-0 transition-all duration-300 group-hover:opacity-100 group-hover:translate-y-0 rounded-full p-[12px] hover:bg-[#EBECEC] "
+            className="opacity-0 transition-all duration-300 group-hover:opacity-100 group-hover:translate-y-0 rounded-full p-[12px] hover:bg-[#EBECEC] scale-[0.8]"
           />
         </div>
         <img
           src={collaborator}
           alt="collaborator"
-          className="opacity-0 transition-all duration-300 group-hover:opacity-100 group-hover:translate-y-0 rounded-full p-[12px]  hover:bg-[#EBECEC]"
+          className="opacity-0 transition-all duration-300 group-hover:opacity-100 group-hover:translate-y-0 rounded-full p-[12px] scale-[0.8] hover:bg-[#EBECEC]"
         />
         <img
           src={colors}
           alt="color palette"
-          className="opacity-0 transition-all duration-300 group-hover:opacity-100 group-hover:translate-y-0 rounded-full p-[12px]  hover:bg-[#EBECEC]"
+          className="opacity-0 transition-all duration-300 group-hover:opacity-100 group-hover:translate-y-0 rounded-full p-[12px] scale-[0.8] hover:bg-[#EBECEC]"
           onClick={(e) => {
             e.preventDefault();
             e.stopPropagation();
@@ -140,17 +140,17 @@ export default function SingleKeep({ keep, onKeepUpdate }: KeepProps) {
         <img
           src={addImage}
           alt="add image"
-          className="opacity-0 transition-all duration-300 group-hover:opacity-100 group-hover:translate-y-0 rounded-full p-[12px] hover:bg-[#EBECEC] "
+          className="opacity-0 transition-all duration-300 group-hover:opacity-100 group-hover:translate-y-0 rounded-full p-[12px] scale-[0.8] hover:bg-[#EBECEC] "
         />
         <img
           src={brush}
           alt="brush"
-          className="opacity-0 transition-all duration-300 group-hover:opacity-100 group-hover:translate-y-0 rounded-full p-[12px]  hover:bg-[#EBECEC]"
+          className="opacity-0 transition-all duration-300 group-hover:opacity-100 group-hover:translate-y-0 rounded-full p-[12px] scale-[0.8] hover:bg-[#EBECEC]"
         />
         <img
           src={archive}
           alt="archive"
-          className="opacity-0 transition-all duration-300 group-hover:opacity-100 group-hover:translate-y-0 rounded-full p-[12px]  hover:bg-[#EBECEC]"
+          className="opacity-0 transition-all duration-300 group-hover:opacity-100 group-hover:translate-y-0 rounded-full p-[12px] scale-[0.8] hover:bg-[#EBECEC]"
         />
 
         <div
@@ -158,7 +158,7 @@ export default function SingleKeep({ keep, onKeepUpdate }: KeepProps) {
             e.preventDefault();
             e.stopPropagation();
           }}
-          className="opacity-0 transition-all duration-300 group-hover:opacity-100 group-hover:translate-y-0 rounded-full p-[12px]  hover:bg-[#EBECEC]"
+          className="opacity-0 transition-all duration-300 group-hover:opacity-100 group-hover:translate-y-0 rounded-full p-[12px] scale-[0.8] hover:bg-[#EBECEC]"
         >
           <DropDownThreeDots iconSrc={threeDots} _id={keep._id} onKeepUpdate={onKeepUpdate} />
         </div>
