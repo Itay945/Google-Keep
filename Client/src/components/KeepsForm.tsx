@@ -145,7 +145,7 @@ export default function KeepsForm({ onKeepsAdded }: KeepsFormProps) {
           title={name === 'Transparent' ? 'No Color' : name}
           onClick={() => {
             setSelectedColor(name as KeepColor);
-            setIsColorPickerOpen(false);
+            // setIsColorPickerOpen(false);
           }}
         >
           {color === 'transparent' && <img src={noColor} alt="No Color" className="w-4 h-4" />}
