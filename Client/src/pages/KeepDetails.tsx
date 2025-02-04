@@ -1,22 +1,3 @@
-// import { useParams } from 'react-router-dom';
-
-// function KeepDetails() {
-//   const params = useParams();
-//   console.log('params: ', params);
-//   return (
-//     <div className="fixed inset-0 w-full bg-black/50 z-50">
-//       <div className="flex justify-center items-center h-full">
-//         <div className="bg-white p-4 rounded-lg w-96">
-//           <h1 className="text-xl font-bold">Keep Details</h1>
-//           <p>Keep ID: {params.keepID}</p>
-//         </div>
-//       </div>
-//     </div>
-//   );
-// }
-
-// export default KeepDetails;
-
 import { useParams, useNavigate } from 'react-router-dom';
 import { useRef, useEffect, useState } from 'react';
 import api from '../helpers/axiosApiToken';
