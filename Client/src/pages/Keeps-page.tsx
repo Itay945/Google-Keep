@@ -40,11 +40,7 @@ export default function KeepsPage() {
       const response = await api.put(`/keeps/${keepId}`, updates);
 
       if (response.status === 200 && response.data?.data?.keep) {
-        setKeeps((prevKeeps) =>
-          prevKeeps.map((keep) =>
-            keep._id === keepId ? { ...keep, ...response.data.data.keep } : keep
-          )
-        );
+        setKeeps((prevKeeps) => prevKeeps.map((keep) => (keep._id === keepId ? { ...keep, ...response.data.data.keep } : keep)));
         setError(null);
       }
     } catch (error) {
@@ -74,11 +70,8 @@ export default function KeepsPage() {
       ) : (
         <>
           <KeepsForm onKeepsAdded={handleKeepAdded} />
-          <KeepsMain
-            keeps={keeps}
-            onKeepUpdate={handleKeepUpdate}
-            error={error}
-          />
+
+          <KeepsMain keeps={keeps} onKeepUpdate={handleKeepUpdate} error={error} />
         </>
       )}
     </div>

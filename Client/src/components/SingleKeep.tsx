@@ -42,14 +42,7 @@ export default function SingleKeep({ keep, onKeepUpdate }: KeepProps) {
     isColorPickerOpen: false,
   });
 
-  const {
-    attributes,
-    listeners,
-    setNodeRef,
-    transform,
-    transition,
-    isDragging,
-  } = useSortable({ id: keep._id });
+  const { attributes, listeners, setNodeRef, transform, transition, isDragging } = useSortable({ id: keep._id });
 
   const style = {
     transform: CSS.Transform.toString(transform),
@@ -60,17 +53,13 @@ export default function SingleKeep({ keep, onKeepUpdate }: KeepProps) {
   };
 
   const handlePinClick = async () => {
-    await handlePinToggle(
-      keep._id,
-      keepState.isPinned,
-      (newPinState: boolean) => {
-        setKeepState((prev) => ({
-          ...prev,
-          isPinned: newPinState,
-        }));
-        onKeepUpdate(keep._id, { pin: newPinState });
-      }
-    );
+    await handlePinToggle(keep._id, keepState.isPinned, (newPinState: boolean) => {
+      setKeepState((prev) => ({
+        ...prev,
+        isPinned: newPinState,
+      }));
+      onKeepUpdate(keep._id, { pin: newPinState });
+    });
   };
 
   const handleColorChange = (newColor: KeepColor) => {
@@ -88,10 +77,7 @@ export default function SingleKeep({ keep, onKeepUpdate }: KeepProps) {
       {...attributes}
       {...listeners}
       className={`rounded-lg p-4 group hover:shadow-[0_0_4px_rgb(0,0,0,0.3)] ${
-        !keepState.currentColor ||
-        colorMap[keepState.currentColor] === 'transparent'
-          ? 'border border-gray-300'
-          : ''
+        !keepState.currentColor || colorMap[keepState.currentColor] === 'transparent' ? 'border border-gray-300' : ''
       } ${isDragging ? 'shadow-lg ring-2 ring-blue-500' : ''}`}
     >
       <div className="flex justify-between">
@@ -117,20 +103,22 @@ export default function SingleKeep({ keep, onKeepUpdate }: KeepProps) {
         <small>{new Date(keep.createdAt).toLocaleDateString()}</small>
       </p>
       <div className="flex gap-4 group">
-        <img
-          src={plusBell}
-          alt="Remind Me"
-          className="opacity-0 transition-all duration-300 group-hover:opacity-100 group-hover:translate-y-0 rounded-full p-[12px] hover:bg-[#EBECEC] scale-[0.8]"
-        />
+        <div>
+          <img
+            src={plusBell}
+            alt="Remind Me"
+            className="opacity-0 transition-all duration-300 group-hover:opacity-100 group-hover:translate-y-0 rounded-full p-[12px] hover:bg-[#EBECEC] "
+          />
+        </div>
         <img
           src={collaborator}
           alt="collaborator"
-          className="opacity-0 transition-all duration-300 group-hover:opacity-100 group-hover:translate-y-0 rounded-full p-[12px] scale-[0.8] hover:bg-[#EBECEC]"
+          className="opacity-0 transition-all duration-300 group-hover:opacity-100 group-hover:translate-y-0 rounded-full p-[12px]  hover:bg-[#EBECEC]"
         />
         <img
           src={colors}
           alt="color palette"
-          className="opacity-0 transition-all duration-300 group-hover:opacity-100 group-hover:translate-y-0 rounded-full p-[12px] scale-[0.8] hover:bg-[#EBECEC]"
+          className="opacity-0 transition-all duration-300 group-hover:opacity-100 group-hover:translate-y-0 rounded-full p-[12px]  hover:bg-[#EBECEC]"
           onClick={(e) => {
             e.preventDefault();
             e.stopPropagation();
@@ -146,25 +134,23 @@ export default function SingleKeep({ keep, onKeepUpdate }: KeepProps) {
             initialColor={keepState.currentColor}
             colors={colorMap}
             onColorChange={handleColorChange}
-            onClose={() =>
-              setKeepState((prev) => ({ ...prev, isColorPickerOpen: false }))
-            }
+            onClose={() => setKeepState((prev) => ({ ...prev, isColorPickerOpen: false }))}
           />
         )}
         <img
           src={addImage}
           alt="add image"
-          className="opacity-0 transition-all duration-300 group-hover:opacity-100 group-hover:translate-y-0 rounded-full p-[12px] hover:bg-[#EBECEC] scale-[0.8]"
+          className="opacity-0 transition-all duration-300 group-hover:opacity-100 group-hover:translate-y-0 rounded-full p-[12px] hover:bg-[#EBECEC] "
         />
         <img
           src={brush}
           alt="brush"
-          className="opacity-0 transition-all duration-300 group-hover:opacity-100 group-hover:translate-y-0 rounded-full p-[12px] scale-[0.8] hover:bg-[#EBECEC]"
+          className="opacity-0 transition-all duration-300 group-hover:opacity-100 group-hover:translate-y-0 rounded-full p-[12px]  hover:bg-[#EBECEC]"
         />
         <img
           src={archive}
           alt="archive"
-          className="opacity-0 transition-all duration-300 group-hover:opacity-100 group-hover:translate-y-0 rounded-full p-[12px] scale-[0.8] hover:bg-[#EBECEC]"
+          className="opacity-0 transition-all duration-300 group-hover:opacity-100 group-hover:translate-y-0 rounded-full p-[12px]  hover:bg-[#EBECEC]"
         />
 
         <div
@@ -172,13 +158,9 @@ export default function SingleKeep({ keep, onKeepUpdate }: KeepProps) {
             e.preventDefault();
             e.stopPropagation();
           }}
-          className="opacity-0 transition-all duration-300 group-hover:opacity-100 group-hover:translate-y-0 rounded-full p-[12px] scale-[0.8] hover:bg-[#EBECEC]"
+          className="opacity-0 transition-all duration-300 group-hover:opacity-100 group-hover:translate-y-0 rounded-full p-[12px]  hover:bg-[#EBECEC]"
         >
-          <DropDownThreeDots
-            iconSrc={threeDots}
-            _id={keep._id}
-            onKeepUpdate={onKeepUpdate}
-          />
+          <DropDownThreeDots iconSrc={threeDots} _id={keep._id} onKeepUpdate={onKeepUpdate} />
         </div>
       </div>
     </div>
