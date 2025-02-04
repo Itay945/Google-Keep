@@ -55,6 +55,15 @@ export default function SingleTrash({ keep, fetchKeeps }: KeepProps) {
       console.error(error);
     }
   };
+  const handleDeleteKeep = async () => {
+    try {
+      console.log("keep id: ", keep._id);
+      await api.delete(`/keeps/trash/${keep._id}`);
+      fetchKeeps();
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
   return (
     <>
@@ -85,6 +94,7 @@ export default function SingleTrash({ keep, fetchKeeps }: KeepProps) {
             alt=""
           />
           <img
+            onClick={handleDeleteKeep}
             src={deleteForever}
             className="opacity-0 transition-all duration-300 group-hover:opacity-100 group-hover:translate-y-0 rounded-full p-[12px] scale-[0.8] hover:bg-[#EBECEC]"
             alt=""

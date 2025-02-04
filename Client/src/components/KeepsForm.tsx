@@ -14,6 +14,7 @@ import redo from "../assets/redo_24dp_5F6368_FILL0_wght400_GRAD0_opsz24.svg";
 import undo from "../assets/undo_24dp_5F6368_FILL0_wght400_GRAD0_opsz24.svg";
 import newList from "../assets/check_box_24dp_5F6368_FILL0_wght400_GRAD0_opsz24.svg";
 import noColor from "../assets/format_color_reset_24dp_000000_FILL0_wght400_GRAD0_opsz24.svg";
+import LabelSelector from "./LabelSelector";
 
 interface KeepsFormProps {
   onKeepsAdded: (newKeep: Keep) => void;
@@ -40,6 +41,8 @@ export default function KeepsForm({ onKeepsAdded }: KeepsFormProps) {
   const [isColorPickerOpen, setIsColorPickerOpen] = useState(false);
   const [isPinned, setIsPinned] = useState(false);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const [isLabelSelectorOpen, setIsLabelSelectorOpen] = useState(false);
+  const [selectedLabels, setSelectedLabels] = useState<Array<{ id: string; name: string }>>([]);
   const formRef = useRef<HTMLFormElement>(null);
   const colorPickerRef = useRef<HTMLDivElement>(null);
 
@@ -51,6 +54,7 @@ export default function KeepsForm({ onKeepsAdded }: KeepsFormProps) {
     setIsColorPickerOpen(false);
     setIsExpanded(false);
     setIsPinned(false);
+    setSelectedLabels([]);
   }, []);
 
   async function handleSubmit(ev: React.FormEvent<HTMLFormElement>) {
@@ -78,6 +82,7 @@ export default function KeepsForm({ onKeepsAdded }: KeepsFormProps) {
           description,
           color: selectedColor,
           pin: isPinned,
+          labels: selectedLabels.map((label) => label.id),
         });
         console.log("keepFormData$$", res.data);
         onKeepsAdded(res.data.data.keep);
@@ -87,8 +92,18 @@ export default function KeepsForm({ onKeepsAdded }: KeepsFormProps) {
         resetForm();
       }
     },
-    [selectedColor, isPinned, onKeepsAdded, resetForm]
+    [selectedColor, isPinned, selectedLabels, onKeepsAdded, resetForm]
   );
+
+  const handleLabelSelection = (labelId: string, labelName: string) => {
+    setSelectedLabels((prev) => {
+      const exists = prev.some((label) => label.id === labelId);
+      if (exists) {
+        return prev.filter((label) => label.id !== labelId);
+      }
+      return [...prev, { id: labelId, name: labelName }];
+    });
+  };
 
   useEffect(() => {
     async function handleClickOutside(event: MouseEvent) {
@@ -105,7 +120,6 @@ export default function KeepsForm({ onKeepsAdded }: KeepsFormProps) {
       if (colorPickerRef.current && !colorPickerRef.current.contains(event.target as Node)) {
         setIsColorPickerOpen(false);
       }
-      // add more when needed ('reminder' / 'more' and so on...)
     }
 
     if (isExpanded || isColorPickerOpen) {
@@ -143,23 +157,16 @@ export default function KeepsForm({ onKeepsAdded }: KeepsFormProps) {
   if (!isExpanded) {
     return (
       <div className="flex justify-center w-[600px] border rounded-lg">
-        <input type="text" placeholder="Take a note..." onClick={() => setIsExpanded(true)} className="w-[400px] h-[46px] p-2 shadow-sm focus:outline-none bg-transparent" />
+        <input
+          type="text"
+          placeholder="Take a note..."
+          onClick={() => setIsExpanded(true)}
+          className="w-[400px] h-[46px] p-2 shadow-sm focus:outline-none bg-transparent"
+        />
         <div className="flex gap-4 group">
-          <img
-            src={newList}
-            alt="newList"
-            className=" group-hover:translate-y-0 rounded-full p-[12px] hover:bg-[#EBECEC] w-[48px] h-[48px]"
-          />
-          <img
-            src={brush}
-            alt="brush"
-            className=" group-hover:translate-y-0 rounded-full p-[12px] hover:bg-[#EBECEC] w-[48px] h-[48px]"
-          />
-          <img
-            src={addImage}
-            alt="addImage"
-            className=" group-hover:translate-y-0 rounded-full p-[12px] hover:bg-[#EBECEC] w-[48px] h-[48px]"
-          />
+          <img src={newList} alt="newList" className="group-hover:translate-y-0 rounded-full p-[12px] hover:bg-[#EBECEC] w-[48px] h-[48px]" />
+          <img src={brush} alt="brush" className="group-hover:translate-y-0 rounded-full p-[12px] hover:bg-[#EBECEC] w-[48px] h-[48px]" />
+          <img src={addImage} alt="addImage" className="group-hover:translate-y-0 rounded-full p-[12px] hover:bg-[#EBECEC] w-[48px] h-[48px]" />
         </div>
       </div>
     );
@@ -169,7 +176,7 @@ export default function KeepsForm({ onKeepsAdded }: KeepsFormProps) {
     <form
       ref={formRef}
       onSubmit={handleSubmit}
-      className="flex flex-col border bg-transparent p-4 rounded-lg shadow-lg mb-4 w-[800px] "
+      className="flex flex-col border bg-transparent p-4 rounded-lg shadow-lg mb-4 w-[800px]"
       style={{ backgroundColor: colorOptions[selectedColor] }}
     >
       <div className="flex justify-between">
@@ -183,7 +190,7 @@ export default function KeepsForm({ onKeepsAdded }: KeepsFormProps) {
           src={isPinned ? pinFull : pin}
           alt="pin"
           onClick={() => setIsPinned((prev) => !prev)}
-          className=" group-hover:translate-y-0 rounded-full p-[6px] hover:bg-[#EBECEC] "
+          className="group-hover:translate-y-0 rounded-full p-[6px] hover:bg-[#EBECEC]"
         />
       </div>
       <textarea
@@ -191,73 +198,75 @@ export default function KeepsForm({ onKeepsAdded }: KeepsFormProps) {
         name="description"
         className="border-gray-300 text-sm resize-none mb-4 focus:outline-none bg-transparent placeholder-[#46443F]"
       />
+      {selectedLabels.length > 0 && (
+        <div className="flex flex-wrap gap-2 mb-4">
+          {selectedLabels.map((label) => (
+            <span key={label.id} className="px-2 py-1 bg-gray-100 bg-opacity-40 rounded-full text-sm flex items-center gap-1 group">
+              {label.name}
+              <button
+                onClick={() => handleLabelSelection(label.id, label.name)}
+                className="ml-1 text-gray-500 hover:text-gray-700 opacity-0 group-hover:opacity-100"
+              >
+                ×
+              </button>
+            </span>
+          ))}
+        </div>
+      )}
       <div className="flex gap-1 group relative">
-        <img
-          src={plusBell}
-          alt="Remind Me"
-          className=" group-hover:translate-y-0 rounded-full p-[12px] hover:bg-[#EBECEC] scale-[0.8]"
-        />
-        <img
-          src={collaborator}
-          alt="collaborator"
-          className=" group-hover:translate-y-0 rounded-full p-[12px] scale-[0.8] hover:bg-[#EBECEC]"
-        />
+        <img src={plusBell} alt="Remind Me" className="group-hover:translate-y-0 rounded-full p-[12px] hover:bg-[#EBECEC] scale-[0.8]" />
+        <img src={collaborator} alt="collaborator" className="group-hover:translate-y-0 rounded-full p-[12px] scale-[0.8] hover:bg-[#EBECEC]" />
         <div className="relative">
           <img
             src={colors}
             alt="color palette"
-            className=" group-hover:translate-y-0 rounded-full p-[12px] scale-[0.8] hover:bg-[#EBECEC] "
+            className="group-hover:translate-y-0 rounded-full p-[12px] scale-[0.8] hover:bg-[#EBECEC]"
             onClick={() => setIsColorPickerOpen(!isColorPickerOpen)}
           />
           {isColorPickerOpen && <ColorPicker />}
         </div>
-        <img
-          src={addImage}
-          alt="add image"
-          className=" group-hover:translate-y-0 rounded-full p-[12px] hover:bg-[#EBECEC] scale-[0.8]"
-        />
-        <img
-          src={brush}
-          alt="brush"
-          className=" group-hover:translate-y-0 rounded-full p-[12px] scale-[0.8] hover:bg-[#EBECEC]"
-        />
-        <img
-          src={archive}
-          alt="archive"
-          className=" group-hover:translate-y-0 rounded-full p-[12px] scale-[0.8] hover:bg-[#EBECEC]"
-        />
+        <img src={addImage} alt="add image" className="group-hover:translate-y-0 rounded-full p-[12px] hover:bg-[#EBECEC] scale-[0.8]" />
+        <img src={brush} alt="brush" className="group-hover:translate-y-0 rounded-full p-[12px] scale-[0.8] hover:bg-[#EBECEC]" />
+        <img src={archive} alt="archive" className="group-hover:translate-y-0 rounded-full p-[12px] scale-[0.8] hover:bg-[#EBECEC]" />
         <img
           src={threeDots}
           alt="three dots options"
           onClick={() => setIsDropdownOpen((prev) => !prev)}
-          className=" group-hover:translate-y-0 rounded-full p-[12px] scale-[0.8] hover:bg-[#EBECEC]"
+          className="group-hover:translate-y-0 rounded-full p-[12px] scale-[0.8] hover:bg-[#EBECEC]"
         />
         {isDropdownOpen && (
-  <div className="absolute right-[300px] top-[50px] w-[133px] bg-white  border rounded shadow-lg gap-2 z-50 w ">
-    <div className="flex flex-col items-start mt-2">
-    <div className="w-full hover:bg-gray-200">
-    <button className="text-sm ml-4 py-1 hover:bg-gray-200">Add label</button>
-    </div>
-    <div className="w-full hover:bg-gray-200">
-    <button className="text-sm ml-4 py-1 hover:bg-gray-200">Add drawing</button>
-    </div>
-    <div className="w-full hover:bg-gray-200 mb-2">
-    <button className="text-sm ml-4 py-1 mr-2 ">Show tick boxes</button>
-    </div>
-    </div>
-  </div>
-)}
-        <img
-          src={undo}
-          alt="undo"
-          className=" group-hover:translate-y-0 rounded-full p-[12px] scale-[0.8] hover:bg-[#EBECEC]"
-        />
-        <img
-          src={redo}
-          alt="redo"
-          className=" group-hover:translate-y-0 rounded-full p-[12px] scale-[0.8] hover:bg-[#EBECEC]"
-        />
-        <div className="flex ">
+          <div className="absolute right-[300px] top-[50px] w-[133px] bg-white border rounded shadow-lg gap-2 z-50">
+            <div className="flex flex-col items-start mt-2">
+              <div className="w-full hover:bg-gray-200">
+                <button
+                  onClick={() => {
+                    setIsDropdownOpen(false);
+                    setIsLabelSelectorOpen(true);
+                  }}
+                  className="text-sm ml-4 py-1 hover:bg-gray-200"
+                >
+                  Add label
+                </button>
+              </div>
+              <div className="w-full hover:bg-gray-200">
+                <button className="text-sm ml-4 py-1 hover:bg-gray-200">Add drawing</button>
+              </div>
+              <div className="w-full hover:bg-gray-200 mb-2">
+                <button className="text-sm ml-4 py-1 mr-2">Show tick boxes</button>
+              </div>
+            </div>
+          </div>
+        )}
+        {isLabelSelectorOpen && (
+          <LabelSelector
+            onClose={() => setIsLabelSelectorOpen(false)}
+            onLabelSelect={handleLabelSelection}
+            selectedLabelIds={selectedLabels.map((label) => label.id)}
+          />
+        )}
+        <img src={undo} alt="undo" className="group-hover:translate-y-0 rounded-full p-[12px] scale-[0.8] hover:bg-[#EBECEC]" />
+        <img src={redo} alt="redo" className="group-hover:translate-y-0 rounded-full p-[12px] scale-[0.8] hover:bg-[#EBECEC]" />
+        <div className="flex">
           <button type="submit" className="transparent text-black py-2 px-4 w-[86px] rounded-md hover:bg-secondary-light">
             Close
           </button>
