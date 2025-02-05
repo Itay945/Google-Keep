@@ -21,7 +21,7 @@ interface KeepsFormEditProps {
 }
 
 const colorOptions: Record<KeepColor, string> = {
-  Transparent: 'transparent',
+  Transparent: '#FFFFFF',
   Coral: '#FAAFA8',
   Peach: '#F39F76',
   Sand: '#FFF8B8',
