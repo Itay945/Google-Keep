@@ -168,7 +168,7 @@ export default function KeepsForm({ onKeepsAdded }: KeepsFormProps) {
 
   if (!isExpanded) {
     return (
-      <div className="flex justify-center w-[600px] border rounded-lg m-4">
+      <div className="flex justify-center w-[600px] border rounded-lg mt-4">
         <input
           type="text"
           placeholder="Take a note..."
@@ -200,7 +200,7 @@ export default function KeepsForm({ onKeepsAdded }: KeepsFormProps) {
     <form
       ref={formRef}
       onSubmit={handleSubmit}
-      className="flex flex-col border bg-transparent p-4 rounded-lg shadow-lg mb-4 w-[800px]"
+      className="flex flex-col border bg-transparent p-4 rounded-lg shadow-lg mb-4 w-[800px] mt-4"
       style={{ backgroundColor: colorOptions[selectedColor] }}
     >
       <div className="flex justify-between">
