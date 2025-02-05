@@ -66,11 +66,7 @@ export default function LabelPage() {
       const response = await api.put(`/keeps/${keepId}`, updates);
 
       if (response.status === 200 && response.data?.data?.keep) {
-        setKeeps((prevKeeps) =>
-          prevKeeps.map((keep) =>
-            keep._id === keepId ? { ...keep, ...response.data.data.keep } : keep
-          )
-        );
+        setKeeps((prevKeeps) => prevKeeps.map((keep) => (keep._id === keepId ? { ...keep, ...response.data.data.keep } : keep)));
         setError(null);
       }
     } catch (error) {
@@ -91,7 +87,7 @@ export default function LabelPage() {
 
   return (
     <div className="flex justify-center flex-col items-center">
-      <h1 className="text-xl font-semibold mb-4">Label: {labelName}</h1>
+      {/* <h1 className="text-xl font-semibold mb-4">Label: {labelName}</h1> */}
 
       {error && <div className="text-red-500 mb-4">{error}</div>}
 
@@ -103,11 +99,7 @@ export default function LabelPage() {
         <>
           <KeepsForm onKeepsAdded={handleKeepAdded} />
 
-          <KeepsMain
-            keeps={keeps}
-            onKeepUpdate={handleKeepUpdate}
-            error={error}
-          />
+          <KeepsMain keeps={keeps} onKeepUpdate={handleKeepUpdate} error={error} />
         </>
       )}
     </div>

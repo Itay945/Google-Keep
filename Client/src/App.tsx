@@ -27,7 +27,7 @@ export default function App() {
       {!isLandingPage && <NavBar toggleSidebar={toggleSidebar} />}
       <div className={`flex h-screen ${isLandingPage ? '' : 'flex-grow'}`}>
         {!isLandingPage && <SideBar isSidebarOpen={isSidebarOpen} closeSidebar={closeSidebar} />}
-        <main className="flex-grow p-4">
+        <main className="flex-grow">
           <Routes>
             <Route path="/" element={<KeepsPage />}>
               <Route path="/keeps/:keepID" element={<KeepDetails />} />
