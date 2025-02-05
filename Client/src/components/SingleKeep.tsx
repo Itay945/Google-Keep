@@ -97,7 +97,7 @@ export default function SingleKeep({ keep, onKeepUpdate }: KeepProps) {
       {keep.labels?.length > 0 && (
         <div className="flex flex-wrap gap-1 mt-2">
           {keep.labels.map((label, index) => (
-            <span key={index} className="bg-gray-200 bg-opacity-30	 text-gray-700 text-xs px-2 py-1 rounded-lg">
+            <span key={index} className="bg-gray-200 bg-opacity-50	 text-gray-700 text-xs px-2 py-1 rounded-lg">
               {label}
             </span>
           ))}
