@@ -31,9 +31,7 @@ function RegisterPage() {
   return (
     <>
       <div className="bg-[#1E1F20] h-screen flex flex-col items-center justify-center">
-        <Link to="/">
-          <button className="text-white border border-white mb-16">Work in Progress move to main keep page</button>
-        </Link>
+        <Link to="/">{/* <button className="text-white border border-white mb-16">Work in Progress move to main keep page</button> */}</Link>
         <div>
           <div className="bg-[#0E0E0E] p-6 rounded-xl  shadow-lg max-w-sm w-full">
             <div className="flex justify-start w-[100%]">
