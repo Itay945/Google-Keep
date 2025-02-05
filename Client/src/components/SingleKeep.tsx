@@ -95,9 +95,13 @@ export default function SingleKeep({ keep, onKeepUpdate }: KeepProps) {
       </div>
       <p className="text-sm break-words w-[464px]">{keep.description}</p>
       {keep.labels?.length > 0 && (
-        <p className="text-xs">
-          <strong>Labels:</strong> {keep.labels.join(', ')}
-        </p>
+        <div className="flex flex-wrap gap-1 mt-2">
+          {keep.labels.map((label, index) => (
+            <span key={index} className="bg-gray-200 bg-opacity-30	 text-gray-700 text-xs px-2 py-1 rounded-lg">
+              {label}
+            </span>
+          ))}
+        </div>
       )}
       <p className="text-xs">
         <small>{new Date(keep.createdAt).toLocaleDateString()}</small>

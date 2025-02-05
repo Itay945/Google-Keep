@@ -42,9 +42,7 @@ export default function KeepsForm({ onKeepsAdded }: KeepsFormProps) {
   const [isPinned, setIsPinned] = useState(false);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [isLabelSelectorOpen, setIsLabelSelectorOpen] = useState(false);
-  const [selectedLabels, setSelectedLabels] = useState<
-    Array<{ id: string; name: string }>
-  >([]);
+  const [selectedLabels, setSelectedLabels] = useState<Array<{ id: string; name: string }>>([]);
   const formRef = useRef<HTMLFormElement>(null);
   const colorPickerRef = useRef<HTMLDivElement>(null);
 
@@ -119,10 +117,7 @@ export default function KeepsForm({ onKeepsAdded }: KeepsFormProps) {
         }
       }
 
-      if (
-        colorPickerRef.current &&
-        !colorPickerRef.current.contains(event.target as Node)
-      ) {
+      if (colorPickerRef.current && !colorPickerRef.current.contains(event.target as Node)) {
         setIsColorPickerOpen(false);
       }
     }
@@ -137,17 +132,12 @@ export default function KeepsForm({ onKeepsAdded }: KeepsFormProps) {
   }, [isExpanded, isColorPickerOpen, addKeep, resetForm]);
 
   const ColorPicker = () => (
-    <div
-      ref={colorPickerRef}
-      className="absolute z-50 bg-white p-2 border rounded shadow-lg flex gap-2 "
-    >
+    <div ref={colorPickerRef} className="absolute z-50 bg-white p-2 border rounded shadow-lg flex gap-2 ">
       {Object.entries(colorOptions).map(([name, color]) => (
         <button
           key={name}
           className={`w-6 h-6 rounded-full flex items-center justify-center ${
-            selectedColor === name
-              ? 'border-2 border-[#A142F4]'
-              : 'border border-transparent'
+            selectedColor === name ? 'border-2 border-[#A142F4]' : 'border border-transparent'
           } hover:border-black`}
           style={{
             backgroundColor: color,
@@ -158,9 +148,7 @@ export default function KeepsForm({ onKeepsAdded }: KeepsFormProps) {
             // setIsColorPickerOpen(false);
           }}
         >
-          {color === 'transparent' && (
-            <img src={noColor} alt="No Color" className="w-4 h-4" />
-          )}
+          {color === 'transparent' && <img src={noColor} alt="No Color" className="w-4 h-4" />}
         </button>
       ))}
     </div>
@@ -176,21 +164,9 @@ export default function KeepsForm({ onKeepsAdded }: KeepsFormProps) {
           className="w-[400px] h-[46px] p-2 shadow-sm focus:outline-none bg-transparent"
         />
         <div className="flex gap-4 group">
-          <img
-            src={newList}
-            alt="newList"
-            className="group-hover:translate-y-0 rounded-full p-[12px] hover:bg-[#EBECEC] w-[48px] h-[48px]"
-          />
-          <img
-            src={brush}
-            alt="brush"
-            className="group-hover:translate-y-0 rounded-full p-[12px] hover:bg-[#EBECEC] w-[48px] h-[48px]"
-          />
-          <img
-            src={addImage}
-            alt="addImage"
-            className="group-hover:translate-y-0 rounded-full p-[12px] hover:bg-[#EBECEC] w-[48px] h-[48px]"
-          />
+          <img src={newList} alt="newList" className="group-hover:translate-y-0 rounded-full p-[12px] hover:bg-[#EBECEC] w-[48px] h-[48px]" />
+          <img src={brush} alt="brush" className="group-hover:translate-y-0 rounded-full p-[12px] hover:bg-[#EBECEC] w-[48px] h-[48px]" />
+          <img src={addImage} alt="addImage" className="group-hover:translate-y-0 rounded-full p-[12px] hover:bg-[#EBECEC] w-[48px] h-[48px]" />
         </div>
       </div>
     );
@@ -225,10 +201,7 @@ export default function KeepsForm({ onKeepsAdded }: KeepsFormProps) {
       {selectedLabels.length > 0 && (
         <div className="flex flex-wrap gap-2 mb-4">
           {selectedLabels.map((label) => (
-            <span
-              key={label.id}
-              className="px-2 py-1 bg-gray-100 bg-opacity-40 rounded-full text-sm flex items-center gap-1 group"
-            >
+            <span key={label.id} className="px-2 py-1 bg-gray-100 bg-opacity-40 rounded-full text-sm flex items-center gap-1 group">
               {label.name}
               <button
                 onClick={() => handleLabelSelection(label.id, label.name)}
@@ -241,16 +214,8 @@ export default function KeepsForm({ onKeepsAdded }: KeepsFormProps) {
         </div>
       )}
       <div className="flex gap-1 group relative">
-        <img
-          src={plusBell}
-          alt="Remind Me"
-          className="group-hover:translate-y-0 rounded-full p-[12px] hover:bg-[#EBECEC] scale-[0.8]"
-        />
-        <img
-          src={collaborator}
-          alt="collaborator"
-          className="group-hover:translate-y-0 rounded-full p-[12px] scale-[0.8] hover:bg-[#EBECEC]"
-        />
+        <img src={plusBell} alt="Remind Me" className="group-hover:translate-y-0 rounded-full p-[12px] hover:bg-[#EBECEC] scale-[0.8]" />
+        <img src={collaborator} alt="collaborator" className="group-hover:translate-y-0 rounded-full p-[12px] scale-[0.8] hover:bg-[#EBECEC]" />
         <div className="relative">
           <img
             src={colors}
@@ -260,21 +225,9 @@ export default function KeepsForm({ onKeepsAdded }: KeepsFormProps) {
           />
           {isColorPickerOpen && <ColorPicker />}
         </div>
-        <img
-          src={addImage}
-          alt="add image"
-          className="group-hover:translate-y-0 rounded-full p-[12px] hover:bg-[#EBECEC] scale-[0.8]"
-        />
-        <img
-          src={brush}
-          alt="brush"
-          className="group-hover:translate-y-0 rounded-full p-[12px] scale-[0.8] hover:bg-[#EBECEC]"
-        />
-        <img
-          src={archive}
-          alt="archive"
-          className="group-hover:translate-y-0 rounded-full p-[12px] scale-[0.8] hover:bg-[#EBECEC]"
-        />
+        <img src={addImage} alt="add image" className="group-hover:translate-y-0 rounded-full p-[12px] hover:bg-[#EBECEC] scale-[0.8]" />
+        <img src={brush} alt="brush" className="group-hover:translate-y-0 rounded-full p-[12px] scale-[0.8] hover:bg-[#EBECEC]" />
+        <img src={archive} alt="archive" className="group-hover:translate-y-0 rounded-full p-[12px] scale-[0.8] hover:bg-[#EBECEC]" />
         <img
           src={threeDots}
           alt="three dots options"
@@ -296,14 +249,10 @@ export default function KeepsForm({ onKeepsAdded }: KeepsFormProps) {
                 </button>
               </div>
               <div className="w-full hover:bg-gray-200">
-                <button className="text-sm ml-4 py-1 hover:bg-gray-200">
-                  Add drawing
-                </button>
+                <button className="text-sm ml-4 py-1 hover:bg-gray-200">Add drawing</button>
               </div>
               <div className="w-full hover:bg-gray-200 mb-2">
-                <button className="text-sm ml-4 py-1 mr-2">
-                  Show tick boxes
-                </button>
+                <button className="text-sm ml-4 py-1 mr-2">Show tick boxes</button>
               </div>
             </div>
           </div>
@@ -315,21 +264,10 @@ export default function KeepsForm({ onKeepsAdded }: KeepsFormProps) {
             selectedLabelIds={selectedLabels.map((label) => label.id)}
           />
         )}
-        <img
-          src={undo}
-          alt="undo"
-          className="group-hover:translate-y-0 rounded-full p-[12px] scale-[0.8] hover:bg-[#EBECEC]"
-        />
-        <img
-          src={redo}
-          alt="redo"
-          className="group-hover:translate-y-0 rounded-full p-[12px] scale-[0.8] hover:bg-[#EBECEC]"
-        />
+        <img src={undo} alt="undo" className="group-hover:translate-y-0 rounded-full p-[12px] scale-[0.8] hover:bg-[#EBECEC]" />
+        <img src={redo} alt="redo" className="group-hover:translate-y-0 rounded-full p-[12px] scale-[0.8] hover:bg-[#EBECEC]" />
         <div className="flex">
-          <button
-            type="submit"
-            className="transparent text-black py-2 px-4 w-[86px] rounded-md hover:bg-secondary-light"
-          >
+          <button type="submit" className="transparent text-black py-2 px-4 w-[86px] rounded-md hover:bg-secondary-light">
             Close
           </button>
         </div>
