@@ -61,18 +61,18 @@ function LoginPage() {
                 className="border border-gray-600 text-xl bg-transparent text-[#A1C7C5] mb-4"
               />
             </div>
-            <div className='flex justify-between mt-8'>
+            <div className="flex justify-between mt-8">
               <Link to="/register">
-              <button  className="flex justify-start items-center text-[#1E4482] py-2 px-4 ml-2 mb-3 rounded-3xl bg-[#A8C7FA]">
-                Sign-up
-              </button>
+                <button className="flex justify-start items-center text-[#1E4482] py-2 px-4 ml-2 mb-3 rounded-3xl bg-[#A8C7FA]">
+                  Sign-up
+                </button>
               </Link>
-            <button
-              type="submit"
-              className="flex justify-start items-center text-[#1E4482] py-2 px-4 mr-3 mb-3 rounded-3xl bg-[#A8C7FA]"
-            >
-              next
-            </button>
+              <button
+                type="submit"
+                className="flex justify-start items-center text-[#1E4482] py-2 px-4 mr-3 mb-3 rounded-3xl bg-[#A8C7FA]"
+              >
+                next
+              </button>
             </div>
           </form>
         </div>
@@ -82,37 +82,3 @@ function LoginPage() {
 }
 
 export default LoginPage;
-
-// import React, { useState } from 'react';
-
-// function LoginPage() {
-//     const [email, setEmail] = useState('');
-
-//     async function handleSubmite(formData) {
-//       const data = Object.fromEntries(formData);
-//       console.log('data: ', data);
-//       // const res = await axios.post('http://localhost:3000/users/login', data);
-//     }
-
-//     const handleEmailChange = (event) => {
-//       setEmail(event.target.value);
-//     };
-
-//     return (
-//       <>
-//         <form action={handleSubmite}>
-//           <div className="flex flex-col items-center gap-4">
-//             <input
-//               type="email"
-//               placeholder="email"
-//               value={email}
-//               onChange={handleEmailChange}
-//             />
-//             <div>{email}</div>
-//           </div>
-//         </form>
-//       </>
-//     );
-//   }
-
-//   export default LoginPage;
