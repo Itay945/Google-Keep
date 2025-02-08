@@ -102,7 +102,7 @@ const editLabel = async (req, res) => {
     if (!label) {
       return handleError(res, new Error('Label not found'), 404);
     }
-
+    //
     // Check if the new name already exists in other labels
     const labelExists = user.labels.some(
       (existingLabel) =>
