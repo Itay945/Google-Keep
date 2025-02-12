@@ -7,6 +7,7 @@ import RegisterPage from './pages/RegisterPage';
 import LoginPage from './pages/LoginPage';
 import BinPage from './pages/BinPage';
 import KeepDetails from './pages/KeepDetails';
+import LabelPage from './pages/LabelPage';
 
 export default function App() {
   const location = useLocation();
@@ -37,6 +38,7 @@ export default function App() {
             <Route path="/bin" element={<BinPage />} />
             <Route path="/register" element={<RegisterPage />} />
             <Route path="/login" element={<LoginPage />} />
+            <Route path="/labels/:labelName" element={<LabelPage />} />
           </Routes>
         </main>
       </div>

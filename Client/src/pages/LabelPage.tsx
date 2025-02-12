@@ -37,6 +37,7 @@ export default function LabelPage() {
   const [isLoading, setIsLoading] = useState(false);
   const { labelName } = useParams();
   const { loggedInUser } = useAuth();
+  
 
   const fetchKeepsByLabel = async () => {
     try {
