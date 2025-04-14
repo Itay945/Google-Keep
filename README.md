@@ -1,6 +1,7 @@
 # 📌 Google Keep Imitation App
 
 A simple and intuitive note-taking application inspired by **Google Keep**, built with **React**, **Node.js**, and **Tailwind CSS**. This app allows users to create, edit, and organize notes.
+![Keep](https://github.com/user-attachments/assets/f910acc4-5ad0-4c88-9ff8-b6a35f3fdef1)
 
 ## 🚀 Tech Stack
 
